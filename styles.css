@@ -1,0 +1,109 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+    color: white;
+    background-color:#1F1016;
+    font-family: "Red Hat Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.breadcrumb {
+    color:#ffffff;
+    text-align:left;
+    vertical-align:text-top;
+    left:44px;
+    top:37px;
+    font-size:16px;
+    font-weight: 300;
+    font-style: italic;
+    align-self:flex-start;
+    position:fixed;
+    line-height:auto;
+    border-style:hidden;
+    outline:none;
+    display:flex;
+}
+#rectangle1 {
+    background-color:#2d1f24;
+    height:213px;
+    width:366px;
+    border-radius:23px;
+    top:345px;
+    left:78px;
+    position:relative;
+}
+#hi-im-kat {
+    color:#ffffff;
+    text-align:center;
+    vertical-align:text-top;
+    font-size:25px;
+    align-self:flex-start;
+    left:163px;
+    top:292px;
+    position:absolute;
+    line-height:auto;
+    border-style:hidden;
+    outline:none;
+    width:300px;
+    display:flex;
+}
+#projects {
+    left:321px;
+    top:518px;
+    width:72px;
+}
+#resume {
+    left:106px;
+    top:518px;
+    width:54px;
+}
+.links {
+    color:#ffffff;
+    text-align:left;
+    vertical-align:text-top;
+    font-size:15px;
+    font-weight: 300;
+    font-style: italic;
+    align-self:flex-start;
+    position:absolute;
+    line-height:auto;
+    text-decoration:underline;
+    border-style:hidden;
+    outline:none;
+    display:flex;
+}
+#major {
+    color:#ffffff;
+    text-align:center;
+    vertical-align:text-top;
+    font-size:17px;
+    font-weight: 500;
+    font-style: italic;
+    align-self:flex-start;
+    left:106px;
+    top:370px;
+    position:absolute;
+    line-height:auto;
+    border-style:hidden;
+    outline:none;
+    width:306px;
+    display:flex;
+}
+#about-blurb {
+    color:#ffffff;
+    text-align:left;
+    vertical-align:text-top;
+    font-size:14px;
+    font-weight: 300;
+    align-self:flex-start;
+    left:106px;
+    top:433px;
+    position:absolute;
+    line-height:auto;
+    border-style:hidden;
+    outline:none;
+    width:287px;
+    display:flex;
+}
