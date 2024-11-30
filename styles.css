@@ -1,6 +1,7 @@
 :root {
     --figma-width: 1512;
     --figma-height: 982;
+    --left-bound: 26;
 }
 
 body {
@@ -15,8 +16,8 @@ body {
 }
 
 #sitetitle {
-    left: calc(43 / var(--figma-height) * 100vw);
-    top: calc(26 / var(--figma-width) * 100vh);
+    padding-left: calc(var(--left-bound) / var(--figma-width) * 100vw);
+    padding-top: calc(var(--left-bound) / var(--figma-height) * 100vh);
     font-family: Roboto, sans-serif;
     font-size: clamp(24px, calc(40 / var(--figma-width) * 100vw), 60px);
     font-weight: 700;
