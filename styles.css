@@ -8,7 +8,8 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    position: fixed;
+    padding-left: calc(var(--left-bound) / var(--figma-width) * 100vw);
+    font-family: Red Hat Mono, monospace;
     color: black;
     background-color: #FFF7F2;
     -webkit-font-smoothing: antialiased;
@@ -16,9 +17,37 @@ body {
 }
 
 #sitetitle {
-    padding-left: calc(var(--left-bound) / var(--figma-width) * 100vw);
     padding-top: calc(var(--left-bound) / var(--figma-height) * 100vh);
     font-family: Roboto, sans-serif;
     font-size: clamp(24px, calc(40 / var(--figma-width) * 100vw), 60px);
     font-weight: 700;
+}
+
+#major {
+    position: fixed;
+    top: calc(308 / var(--figma-height) * 100vh);
+    font-size: clamp(11px, calc(18 / var(--figma-width) * 100vw), 27px);
+    font-weight: 500;
+}
+
+#resume-link {
+    position: fixed;
+    top: calc(357 / var(--figma-height) * 100vh);
+    font-style: italic;
+    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
+}
+
+#about-me {
+    position: fixed;
+    top: calc(455 / var(--figma-height) * 100vh);
+    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
+    font-weight: 300;
+}
+
+#temp {
+    position: absolute;
+    top: calc(294 / var(--figma-height) * 100vh);
+    left: calc(2000 / var(--figma-width) * 100vh);
+    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
+    font-weight: 300;
 }
