@@ -1,10 +1,23 @@
+:root {
+    --figma-width: 1512;
+    --figma-height: 982;
+}
+
 body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     position: fixed;
-    color: white;
+    color: black;
     background-color: #FFF7F2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+#sitetitle {
+    left: calc(43 / var(--figma-height) * 100vw);
+    top: calc(26 / var(--figma-width) * 100vh);
+    font-family: Roboto, sans-serif;
+    font-size: clamp(24px, calc(40 / var(--figma-width) * 100vw), 60px);
+    font-weight: 700;
 }
