@@ -9,7 +9,7 @@ body {
     width: 100vw;
     overflow: hidden;
     padding-left: calc(var(--left-bound) / var(--figma-width) * 100vw);
-    font-family: Red Hat Mono, monospace;
+    font-family: "Red Hat Mono", monospace;
     color: black;
     background-color: #FFF7F2;
     -webkit-font-smoothing: antialiased;
@@ -43,7 +43,7 @@ img {
 
 #sitetitle {
     padding-top: calc(var(--left-bound) / var(--figma-height) * 100vh);
-    font-family: Roboto, sans-serif;
+    font-family: "Red Hat Text", sans-serif;
     font-size: clamp(24px, calc(34 / var(--figma-width) * 100vw), 60px);
     font-weight: 700;
 }
@@ -53,11 +53,21 @@ img {
     color: black;
 }
 
+#me-img {
+    position: fixed;
+    top: calc(112 / var(--figma-height) * 100vh);
+}
+
 #major {
     position: fixed;
-    top: calc(388 / var(--figma-height) * 100vh);
+    left: calc(381 / var(--figma-height) * 100vh);
+    top: calc(112 / var(--figma-height) * 100vh);
     font-size: clamp(11px, calc(18 / var(--figma-width) * 100vw), 27px);
     font-weight: 500;
+}
+
+#university {
+    font-size: clamp(9px, calc(16 / var(--figma-width) * 100vw), 25px)
 }
 
 #resume-link {
@@ -74,7 +84,7 @@ img {
 #about-me {
     position: fixed;
     width: calc(452 / var(--figma-width) * 100vw);
-    top: calc(416 / var(--figma-height) * 100vh);
+    top: calc(470 / var(--figma-height) * 100vh);
 }
 
 #temp {
