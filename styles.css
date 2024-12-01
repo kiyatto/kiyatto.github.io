@@ -16,38 +16,75 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.regular-text {
+    font-size: clamp(11px, calc(12 / var(--figma-width) * 100vw), 27px);
+    font-weight: 300;
+}
+
+.bold-regular-text {
+    font-size: clamp(11px, calc(12 / var(--figma-width) * 100vw), 27px);
+    font-weight: 500;
+}
+
+.spaced-text {
+    display: block;
+    margin-top: calc(10 / var(--figma-height) * 100vh);
+}
+
 #sitetitle {
     padding-top: calc(var(--left-bound) / var(--figma-height) * 100vh);
     font-family: Roboto, sans-serif;
-    font-size: clamp(24px, calc(40 / var(--figma-width) * 100vw), 60px);
+    font-size: clamp(24px, calc(34 / var(--figma-width) * 100vw), 60px);
     font-weight: 700;
+}
+
+#sitetitle a{
+    text-decoration: none;
+    color: black;
 }
 
 #major {
     position: fixed;
-    top: calc(308 / var(--figma-height) * 100vh);
+    top: calc(388 / var(--figma-height) * 100vh);
     font-size: clamp(11px, calc(18 / var(--figma-width) * 100vw), 27px);
     font-weight: 500;
 }
 
 #resume-link {
     position: fixed;
-    top: calc(357 / var(--figma-height) * 100vh);
+    top: calc(433 / var(--figma-height) * 100vh);
     font-style: italic;
-    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
+}
+
+#resume-link a{
+    text-decoration: underline;
+    color: black;
 }
 
 #about-me {
     position: fixed;
-    top: calc(455 / var(--figma-height) * 100vh);
-    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
-    font-weight: 300;
+    width: calc(452 / var(--figma-width) * 100vw);
+    top: calc(416 / var(--figma-height) * 100vh);
 }
 
 #temp {
     position: absolute;
-    top: calc(294 / var(--figma-height) * 100vh);
+    top: calc(500 / var(--figma-height) * 100vh);
     left: calc(2000 / var(--figma-width) * 100vh);
-    font-size: clamp(11px, calc(16 / var(--figma-width) * 100vw), 27px);
     font-weight: 300;
+}
+
+#footer {
+    position: fixed;
+    top: calc(931 / var(--figma-height) * 100vh);
 }
