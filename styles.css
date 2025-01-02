@@ -38,10 +38,12 @@ a {
     background-color: #F0E5E2;
 }
 
-.currently {
+#currently {
     max-width: calc(736 / var(--figma-width) * 100vw);
     margin-bottom: calc(20 / var(--figma-height) * 100vh);
     text-align: center;
+    font-family: "Red Hat Display", sans-serif;
+    font-size: 1rem;
 }
 
 .emphasize {
@@ -54,10 +56,6 @@ a {
     text-decoration: underline;
     text-align: center;
     margin-bottom: calc(25 / var(--figma-height) * 100vh);
-}
-
-.backlink-home {
-    font
 }
 
 #site-title {
