@@ -59,6 +59,7 @@ a {
 }
 
 #site-title {
+    font-family: "Roboto";
     font-size: 2.5rem;
     font-weight: 700;
     margin-left: calc(56 / var(--figma-width) * 100vw);
