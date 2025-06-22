@@ -1,0 +1,29 @@
+h1 {
+    font-family: 'Silkscreen', monospace;
+    font-size: 2rem;
+    color:#353535;
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color:#4A4A4A;
+}
+
+#mothergrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#index-title-slab {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
