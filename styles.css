@@ -1,29 +1,99 @@
-h1 {
-    font-family: 'Silkscreen', monospace;
-    font-size: 2rem;
-    color:#353535;
-    font-weight: 400;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body {
-    font-family: 'Anonymous Pro', monospace;
-    font-size: 0.875rem;
-    color:#4A4A4A;
-}
-
-#mothergrid {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+html {
     height: 100vh;
     width: 100vw;
 }
 
-#index-title-slab {
+body {
+    font-family: 'Inter', sans-serif;
+    color: #000;
+    text-align: right;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    align-self: stretch;
+    overflow: hidden;
+}
+
+.mothergrid {
+    display: flex;
+    width: 93vw;
+    padding: 10px;
+    margin: 30px;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+img {
+    width: 75vw;
+    height: 90vh;
+    flex-shrink: 0;
+    aspect-ratio: 327/250;
+}
+
+.nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+    align-items: flex-end;
+    gap: 50px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.name {
+    display: flex;
+    padding-top: 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 30px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.foot {
+    display: flex;
+    padding: 4px 0px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.wlcm-msg {
+    width: 140px;
+}
+
+h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+a {
+    line-height: 20px; /* 142.857% */
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
 }
