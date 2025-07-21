@@ -31,7 +31,7 @@ body {
     flex-shrink: 0;
 }
 
-img {
+.home-pic {
     width: 75vw;
     height: 90vh;
     flex-shrink: 0;
@@ -71,7 +71,7 @@ img {
 .foot {
     display: flex;
     padding: 4px 0px;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
     gap: 10px;
@@ -79,8 +79,15 @@ img {
     align-self: stretch;
 }
 
+.cat-icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    margin-bottom: 3px;
+}
+
 .wlcm-msg {
-    width: 140px;
+    width: 82px;
 }
 
 h1 {
