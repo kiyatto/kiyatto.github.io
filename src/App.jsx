@@ -1,10 +1,13 @@
 import './App.css'
+import HomeView from './components/HomeView.jsx';
+import GraphView from './components/GraphView.jsx';
 
 function App() {
   return (
     <>
-      <div>
-        Kat's portfolio
+      <div className='px-104 py-136 flex flex-row gap-100'>
+        <HomeView />
+        <GraphView />
       </div>
     </>
   )
