@@ -12,8 +12,8 @@ function App() {
   }, [showEmail]);
 
   return (
-    <div className='w-full min-h-screen flex flex-row gap-[75px] px-24 py-32 font-gantari'>
-      <div className='w-1/2 flex flex-col gap-[50px] py-10'>
+    <div className='w-full min-h-screen flex flex-col sm:flex-row items-center gap-[75px] px-12 py-16 sm:px-24 sm:py-32 font-gantari'>
+      <div className='w-1/2 flex flex-col justify-center items-center sm:items-start text-center sm:text-left gap-[50px] py-10'>
         <img src={kat} alt="an illustration of kat" className='w-56' />
         <div className='flex flex-col gap-[25px] pb-6'>
           <h1 className='text-2xl'>kat ong</h1>
@@ -34,7 +34,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className='w-1/2 flex flex-col justify-center gap-10 text-sm font-light leading-relaxed'>
+      <div className='w-1/2 flex flex-col justify-center text-center sm:text-left gap-10 text-sm font-light leading-relaxed'>
         <p>
           Hi, I'm Kat! I was born and raised just outside of Seattle, WA, where I'm currently studying for my undergrad degree(s).
           Broadly, I'm interested in computer science theory, computational linguistics, and sociolinguistics, but like I've been doing for my entire life, I am still figuring out what I like to do.
