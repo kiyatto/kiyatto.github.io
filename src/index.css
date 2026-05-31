@@ -1,32 +1,100 @@
-@import url('https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@300;400&family=DM+Mono:ital,wght@0,300;0,400;1,300;1,400&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Gantari', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
   color: #000000;
-  background-color: #F3F3F3;
-
+  background-color: #f3f3f3;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
- a, .cursor-pointer {
+
+a {
   text-decoration: underline;
- }
+}
+
+a.no-underline {
+  text-decoration: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/*
+ * Notion iframes are cross-origin — crop chrome via overflow clip on the wrapper.
+ * Tune crop vars if Notion changes layout. theme=light is set on the embed URL.
+ */
+.notion-embed-crop {
+  --notion-crop-left: 88px;
+  --notion-crop-top: 78px;
+  --notion-crop-right: 64px;
+  --notion-crop-bottom: 200px;
+  position: relative;
+  overflow: hidden;
+  overscroll-behavior: none;
+  color-scheme: light;
+  background-color: #F3F3F3;
+  isolation: isolate;
+}
+
+.notion-embed-iframe {
+  position: absolute;
+  top: calc(-1 * var(--notion-crop-top));
+  left: 0;
+  width: calc(100% + var(--notion-crop-left) + var(--notion-crop-right));
+  height: calc(100% + var(--notion-crop-top) + var(--notion-crop-bottom));
+  margin-left: calc(-1 * var(--notion-crop-left));
+  border: 0;
+  color-scheme: light;
+  overflow: hidden;
+}
+
+/* Block wheel/touch from reaching the iframe at cropped edges (reduces header peek) */
+.notion-embed-shield {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.notion-embed-shield--top {
+  top: 0;
+  height: 20px;
+}
+
+.notion-embed-shield--bottom {
+  bottom: 0;
+  height: 28px;
+}
+
+/* Narrow column (~280px) — same crop technique, slightly tighter horizontal trim */
+@media (max-width: 767px) {
+  .notion-embed-crop--mobile {
+    --notion-crop-left: 72px;
+    --notion-crop-right: 48px;
+  }
+}
+
+.about-page-scale-host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+}

@@ -7,10 +7,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        gantari: ['Gantari', 'sans-serif']
-      }
+        gantari: ['Gantari', 'sans-serif'],
+        athiti: ['Athiti', 'sans-serif'],
+        'dm-mono': ['"DM Mono"', 'monospace'],
+      },
     },
   },
   plugins: [],
 }
-
