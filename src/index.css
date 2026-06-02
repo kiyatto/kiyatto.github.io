@@ -89,12 +89,3 @@ a.no-underline {
     --notion-crop-right: 48px;
   }
 }
-
-.about-page-scale-host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 0;
-  flex: 1;
-}

@@ -16,7 +16,7 @@ const COMPACT_LINE_HEIGHT =
 
 const NODE = {
   active: { fill: '#F98972', stroke: '#562016' },
-  muted: { fill: '#FFD5CC', stroke: '#A8B8E8' },
+  muted: { fill: '#FFD5CC', stroke: '#F98972' },
 };
 
 function ScaledCanvas({ width, height, children, className = '' }) {

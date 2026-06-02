@@ -19,7 +19,7 @@ function EmailLink() {
     <span className="relative">
       <button
         type="button"
-        className="bg-transparent border-none p-0 font-inherit text-inherit cursor-pointer underline"
+        className="bg-transparent border-none p-0 font-inherit text-inherit cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();
           setShowEmail((prev) => !prev);
@@ -28,7 +28,7 @@ function EmailLink() {
         email
       </button>
       {showEmail && (
-        <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 text-xs whitespace-nowrap bg-white px-3 py-2 rounded shadow-sm border border-gray-200">
+        <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-xs whitespace-nowrap bg-white px-3 py-2 rounded">
           katong [at] uw [dot] edu
         </span>
       )}
