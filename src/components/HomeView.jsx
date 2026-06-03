@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Graph from './Graph.jsx';
 import { PronunciationLine } from './HomeMenu.jsx';
 
@@ -51,13 +51,18 @@ function SocialLinks({ className = '' }) {
 }
 
 const HomeView = () => {
+  const infoBoxRef = useRef(null);
+
   return (
     <div className="min-h-screen bg-[#f3f3f3] max-md:bg-white font-gantari">
       {/* Desktop & tablet landscape */}
       <div className="hidden md:flex min-h-screen items-center justify-center px-6 lg:px-[65px] py-10">
         <div className="flex w-full max-w-[1150px] flex-col lg:flex-row items-center justify-between gap-10 lg:gap-8">
           <div className="flex flex-1 items-center justify-center lg:justify-center w-full">
-            <div className="flex flex-col gap-[75px] items-start w-full max-w-[400px]">
+            <div
+              ref={infoBoxRef}
+              className="flex flex-col gap-[75px] items-start w-full max-w-[400px]"
+            >
               <div className="flex flex-col gap-5">
                 <h1 className="text-[26px] font-semibold text-[#222]">katreeya ong</h1>
                 <PronunciationLine />
@@ -68,8 +73,8 @@ const HomeView = () => {
               <SocialLinks />
             </div>
           </div>
-          <div className="flex flex-1 items-center justify-center w-full max-w-[320px] lg:max-w-none">
-            <Graph variant="home" />
+          <div className="flex flex-1 items-center justify-center w-full max-w-[400px] lg:max-w-none">
+            <Graph variant="home" boundaryRef={infoBoxRef} />
           </div>
         </div>
       </div>

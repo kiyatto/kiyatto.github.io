@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import edgesSvg from '../assets/graph/edges.svg';
-import homeStarSvg from '../assets/graph/home-star.svg';
 import activeStarSvg from '../assets/graph/active-star.svg';
-
-const RADIAL_W = 295;
-const RADIAL_H = 344;
+import ForceHomeGraph from './ForceHomeGraph.jsx';
+import { NodeCircle } from './graphPrimitives.jsx';
 const COMPACT_W = 140;
 const COMPACT_H = 296;
 const COMPACT_ROW_TOPS = [10, 81, 152, 223];
@@ -13,11 +10,6 @@ const COMPACT_NODE_SIZE = 20;
 const COMPACT_LINE_TOP = COMPACT_ROW_TOPS[0] + COMPACT_NODE_SIZE / 2;
 const COMPACT_LINE_HEIGHT =
   COMPACT_ROW_TOPS[3] + COMPACT_NODE_SIZE / 2 - COMPACT_LINE_TOP;
-
-const NODE = {
-  active: { fill: '#F98972', stroke: '#562016' },
-  muted: { fill: '#FFD5CC', stroke: '#F98972' },
-};
 
 function ScaledCanvas({ width, height, children, className = '' }) {
   const outerRef = useRef(null);
@@ -65,104 +57,9 @@ function ScaledCanvas({ width, height, children, className = '' }) {
   );
 }
 
-function NodeCircle({ size = 20, muted = false }) {
-  const { fill, stroke } = muted ? NODE.muted : NODE.active;
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden="true">
-      <circle cx="10" cy="10" r="9.5" fill={fill} stroke={stroke} />
-    </svg>
-  );
-}
-
-function HomeStar({ size = 23 }) {
-  return (
-    <img src={homeStarSvg} alt="" width={size} height={size} className="block" draggable={false} />
-  );
-}
-
 function ActiveStar({ size = 23 }) {
   return (
     <img src={activeStarSvg} alt="" width={size} height={size} className="block" draggable={false} />
-  );
-}
-
-function RadialGraph({ isMobile = false }) {
-  return (
-    <ScaledCanvas width={RADIAL_W} height={RADIAL_H} className="shrink-0">
-      <img
-        src={edgesSvg}
-        alt=""
-        className="absolute pointer-events-none"
-        style={{ left: 17, top: 36, width: 195, height: 275 }}
-        draggable={false}
-      />
-
-      <RadialNodeLink
-        label="about"
-        to="/about"
-        style={{ left: 0, top: 56 }}
-        labelStyle={{ left: 0, top: 0 }}
-        nodeStyle={{ left: 7, top: 21 }}
-      />
-
-      <RadialNodeStatic
-        label={isMobile ? 'programming' : 'programming projects'}
-        style={{ left: isMobile ? 172 : 151, top: 0, width: isMobile ? 80 : 120 }}
-        labelStyle={isMobile ? { left: 0, top: 0, width: '100%', textAlign: 'center' } : { left: 0, top: 0 }}
-        nodeStyle={{ left: isMobile ? 30 : 51, top: 26 }}
-      />
-
-      <RadialNodeStatic
-        label="design work"
-        style={{ left: 19, top: 301, width: 90 }}
-        labelStyle={{ left: 0, top: 27 }}
-        nodeStyle={{ left: 24, top: 0 }}
-      />
-
-      <div className="absolute pointer-events-none" style={{ left: 130.5, top: 146 }}>
-        <HomeStar size={23} />
-      </div>
-    </ScaledCanvas>
-  );
-}
-
-function RadialNodeLink({ label, to, style, labelStyle, nodeStyle }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Link
-      to={to}
-      className="absolute no-underline group"
-      style={style}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <span
-        className="absolute font-dm-mono text-xs whitespace-nowrap transition-colors duration-150"
-        style={{ ...labelStyle, color: hovered ? '#000' : '#888' }}
-      >
-        {label}
-      </span>
-      <div className="absolute" style={nodeStyle}>
-        <NodeCircle muted={!hovered} />
-      </div>
-    </Link>
-  );
-}
-
-function RadialNodeStatic({ label, style, labelStyle, nodeStyle }) {
-  return (
-    <div className="absolute" style={style} aria-disabled="true">
-      <span
-        className="absolute font-dm-mono text-xs text-[#888] whitespace-nowrap"
-        style={labelStyle}
-      >
-        {label}
-      </span>
-      <div className="absolute" style={nodeStyle}>
-        <NodeCircle muted />
-      </div>
-    </div>
   );
 }
 
@@ -240,12 +137,12 @@ function CompactRow({ item, isActive, isDisabled, top }) {
   );
 }
 
-const Graph = ({ variant = 'home' }) => {
+const Graph = ({ variant = 'home', boundaryRef = null }) => {
   if (variant === 'comp-about') return <CompactGraph activePage="about" />;
   if (variant === 'comp-programming') return <CompactGraph activePage="programming" />;
   if (variant === 'comp-design') return <CompactGraph activePage="design" />;
-  if (variant === 'home-mobile') return <RadialGraph isMobile />;
-  return <RadialGraph />;
+  if (variant === 'home-mobile') return <ForceHomeGraph boundaryRef={boundaryRef} isMobile />;
+  return <ForceHomeGraph boundaryRef={boundaryRef} isMobile={false} />;
 };
 
 export default Graph;
