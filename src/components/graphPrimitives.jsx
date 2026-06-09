@@ -5,7 +5,7 @@ const NODE = {
   muted: { fill: '#FFD5CC', stroke: '#F98972' },
 };
 
-export function NodeCircle({ size = 20, muted = false }) {
+export function NodeCircle({ size = 18, muted = false }) {
   const { fill, stroke } = muted ? NODE.muted : NODE.active;
   return (
     <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden="true">

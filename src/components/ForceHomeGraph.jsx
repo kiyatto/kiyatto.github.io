@@ -287,7 +287,11 @@ export default function ForceHomeGraph({ boundaryRef, isMobile = false }) {
     if (target) {
       const { offsetWidth, offsetHeight } = target;
       if (offsetWidth > 0 && offsetHeight > 0) {
-        setDimensions({ width: offsetWidth, height: offsetHeight });
+        setDimensions((prev) =>
+          prev.width === offsetWidth && prev.height === offsetHeight
+            ? prev
+            : { width: offsetWidth, height: offsetHeight },
+        );
       }
       return;
     }
@@ -296,7 +300,10 @@ export default function ForceHomeGraph({ boundaryRef, isMobile = false }) {
     if (!parent) return;
     const width = parent.clientWidth;
     if (width > 0) {
-      setDimensions({ width, height: (width * FIGMA_WRAPPER_H) / FIGMA_WRAPPER_W });
+      const height = (width * FIGMA_WRAPPER_H) / FIGMA_WRAPPER_W;
+      setDimensions((prev) =>
+        prev.width === width && prev.height === height ? prev : { width, height },
+      );
     }
   }, [boundaryRef]);
 

@@ -22,12 +22,6 @@ body {
   min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .page-transition-root {
-    transition: none !important;
-  }
-}
-
 a {
   text-decoration: underline;
 }

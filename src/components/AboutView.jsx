@@ -62,34 +62,37 @@ function resolveAboutLayoutMode(containerWidth, isMdUp) {
     : 'medium';
 }
 
+/** Stable width for layout breakpoints — avoids Safari scrollbar feedback loops. */
+function getAboutContainerWidth() {
+  if (typeof window === 'undefined') return 0;
+  return Math.min(window.innerWidth, 1200);
+}
+
 function getInitialAboutLayoutMode() {
   if (typeof window === 'undefined') return 'small';
   const isMdUp = window.matchMedia('(min-width: 768px)').matches;
-  return resolveAboutLayoutMode(document.documentElement.clientWidth, isMdUp);
+  return resolveAboutLayoutMode(getAboutContainerWidth(), isMdUp);
 }
 
-function useAboutLayoutMode(containerRef) {
+function useAboutLayoutMode() {
   const [mode, setMode] = useState(getInitialAboutLayoutMode);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
     const mdMq = window.matchMedia('(min-width: 768px)');
 
     const update = () => {
-      setMode(resolveAboutLayoutMode(el.clientWidth, mdMq.matches));
+      const next = resolveAboutLayoutMode(getAboutContainerWidth(), mdMq.matches);
+      setMode((prev) => (prev === next ? prev : next));
     };
 
     update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
+    window.addEventListener('resize', update);
     mdMq.addEventListener('change', update);
     return () => {
-      ro.disconnect();
+      window.removeEventListener('resize', update);
       mdMq.removeEventListener('change', update);
     };
-  }, [containerRef]);
+  }, []);
 
   return mode;
 }
@@ -296,13 +299,14 @@ function RecentReads({ variant = 'stacked' }) {
       >
         <div className="notion-embed-shield notion-embed-shield--top" aria-hidden="true" />
         <div className="notion-embed-shield notion-embed-shield--bottom" aria-hidden="true" />
-        <iframe
+        <p>coming soon!</p>
+        {/* <iframe
           src={NOTION_EMBED_URL}
           title="Recent reads"
           className="notion-embed-iframe bg-transparent"
           loading="lazy"
           allowFullScreen
-        />
+        /> */}
       </div>
     </div>
   );
@@ -368,12 +372,11 @@ function AboutStackedLayout({ contentMaxWidth, galleryLayout, titleClassName }) 
 }
 
 const AboutView = () => {
-  const containerRef = useRef(null);
-  const layoutMode = useAboutLayoutMode(containerRef);
+  const layoutMode = useAboutLayoutMode();
 
   return (
     <div className="min-h-screen flex w-full bg-[#f3f3f3] max-md:bg-white font-gantari">
-      <div ref={containerRef} className="w-full max-w-[1200px] mx-auto">
+      <div className="w-full max-w-[1200px] mx-auto">
         {layoutMode === 'desktop' && (
           <div className="min-h-screen flex items-center justify-center px-6 lg:px-[50px] py-10">
             <AboutDesktopPanel />

@@ -1,16 +1,15 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import HomeView from './components/HomeView.jsx';
 import AboutView from './components/AboutView.jsx';
-import PageTransition from './components/PageTransition.jsx';
 
 function App() {
   return (
-    <BrowserRouter>
-      <PageTransition>
+    <HashRouter>
+      <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="/about" element={<AboutView />} />
-      </PageTransition>
-    </BrowserRouter>
+      </Routes>
+    </HashRouter>
   );
 }
 
