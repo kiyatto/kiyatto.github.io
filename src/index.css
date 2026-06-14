@@ -89,3 +89,69 @@ a.no-underline {
     --notion-crop-right: 48px;
   }
 }
+
+@keyframes soundwave-bar-1 {
+  0% { height: 4px; }
+  18% { height: 14px; }
+  35% { height: 6px; }
+  52% { height: 18px; }
+  68% { height: 8px; }
+  85% { height: 12px; }
+  100% { height: 5px; }
+}
+
+@keyframes soundwave-bar-2 {
+  0% { height: 10px; }
+  22% { height: 5px; }
+  40% { height: 16px; }
+  55% { height: 7px; }
+  72% { height: 18px; }
+  88% { height: 4px; }
+  100% { height: 11px; }
+}
+
+@keyframes soundwave-bar-3 {
+  0% { height: 7px; }
+  15% { height: 18px; }
+  30% { height: 9px; }
+  48% { height: 4px; }
+  62% { height: 15px; }
+  78% { height: 6px; }
+  100% { height: 13px; }
+}
+
+@keyframes soundwave-bar-4 {
+  0% { height: 6px; }
+  12% { height: 11px; }
+  28% { height: 17px; }
+  45% { height: 5px; }
+  60% { height: 14px; }
+  75% { height: 8px; }
+  92% { height: 16px; }
+  100% { height: 4px; }
+}
+
+.soundwave-bar {
+  height: 8px;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.soundwave-bar-1 {
+  animation: soundwave-bar-1 1.45s ease-in-out infinite;
+}
+
+.soundwave-bar-2 {
+  animation: soundwave-bar-2 1.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: 0.12s;
+}
+
+.soundwave-bar-3 {
+  animation: soundwave-bar-3 1.65s ease-in-out infinite;
+  animation-delay: 0.22s;
+}
+
+.soundwave-bar-4 {
+  animation: soundwave-bar-4 2.1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: 0.33s;
+}

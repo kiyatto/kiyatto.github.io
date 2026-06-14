@@ -50,29 +50,41 @@ function SocialLinks({ className = '' }) {
   );
 }
 
+function HomeTitleBlock({ titleClassName = 'text-[26px]' }) {
+  return (
+    <div className="flex flex-col gap-5 items-start w-full">
+      <h1 className={`font-semibold text-[#222] ${titleClassName}`}>katreeya ong</h1>
+      <PronunciationLine />
+    </div>
+  );
+}
+
+function HomeBio({ className = '' }) {
+  return (
+    <p className={`text-sm font-light text-black leading-normal ${className}`}>
+      avid explorer of rabbit holes, currently studying computer science, linguistics, and informatics @ university of washington
+    </p>
+  );
+}
+
 const HomeView = () => {
   const graphWrapperRef = useRef(null);
 
   return (
     <div className="min-h-screen bg-[#f3f3f3] max-md:bg-white font-gantari">
-      {/* Desktop & tablet landscape */}
-      <div className="hidden md:flex min-h-screen items-center justify-center px-6 lg:px-[65px] py-10">
-        <div className="flex w-full max-w-[1150px] flex-col lg:flex-row items-center lg:items-stretch justify-between gap-10 lg:gap-8 lg:min-h-[560px]">
-          <div className="flex flex-1 items-center justify-center lg:justify-center w-full min-h-0">
+      {/* Desktop — side-by-side at lg+ */}
+      <div className="hidden lg:flex min-h-screen items-center justify-center px-6 lg:px-[65px] py-10">
+        <div className="flex w-full max-w-[1150px] flex-row items-stretch justify-between gap-8 min-h-[560px]">
+          <div className="flex flex-1 items-center justify-center w-full min-h-0">
             <div className="flex flex-col gap-[75px] items-start w-full max-w-[400px]">
-              <div className="flex flex-col gap-5">
-                <h1 className="text-[26px] font-semibold text-[#222]">katreeya ong</h1>
-                <PronunciationLine />
-              </div>
-              <p className="text-sm font-light text-black leading-normal">
-                avid explorer of rabbit holes, currently studying computer science, linguistics, and informatics @ university of washington
-              </p>
+              <HomeTitleBlock />
+              <HomeBio />
               <SocialLinks />
             </div>
           </div>
           <div
             ref={graphWrapperRef}
-            className="flex flex-1 items-center justify-center w-full min-h-[400px] lg:min-h-[560px] lg:max-w-[575px]"
+            className="flex flex-1 items-center justify-center w-full min-h-[560px] max-w-[575px]"
             aria-label="graph outer wrapping"
           >
             <Graph variant="home" boundaryRef={graphWrapperRef} />
@@ -80,11 +92,24 @@ const HomeView = () => {
         </div>
       </div>
 
+      {/* Medium — stacked: title, graph, bio + socials */}
+      <div className="hidden md:flex lg:hidden min-h-screen flex-col items-center justify-center px-6 py-10 gap-8">
+        <div className="w-full max-w-[480px]">
+          <HomeTitleBlock />
+        </div>
+        <div className="w-full max-w-[480px] flex justify-center">
+          <Graph variant="home-mobile" />
+        </div>
+        <div className="w-full max-w-[480px] flex flex-col gap-[50px] items-start">
+          <HomeBio />
+          <SocialLinks />
+        </div>
+      </div>
+
       {/* Mobile */}
       <div className="md:hidden bg-[#f3f3f3] flex min-h-screen flex-col items-center justify-between px-[42px] py-[46px] gap-8">
-        <div className="w-full max-w-[310px] flex flex-col gap-[10px]">
-          <h1 className="text-lg font-semibold text-[#222]">katreeya ong</h1>
-          <PronunciationLine />
+        <div className="w-full max-w-[310px]">
+          <HomeTitleBlock titleClassName="text-lg" />
         </div>
 
         <div className="w-full max-w-[310px] flex justify-center">

@@ -315,10 +315,10 @@ function RecentReads({ variant = 'stacked' }) {
 function AboutDesktopPanel() {
   return (
     <div
-      className="flex w-full max-w-[1200px] items-center"
+      className="flex w-full items-center justify-between gap-6 xl:gap-8"
       style={{ minHeight: ABOUT_GALLERY_H }}
     >
-      <div className="flex items-start shrink-0">
+      <div className="flex min-w-0 items-start shrink gap-12">
         <div
           className="flex flex-col gap-[40px] shrink-0 min-h-0 overflow-hidden"
           style={{
@@ -334,9 +334,8 @@ function AboutDesktopPanel() {
         <div className="shrink w-[50px] min-w-[24px]" aria-hidden="true" />
         <ImageGallery layout="desktop" />
       </div>
-      <div className="min-w-[24px] flex-1 shrink" aria-hidden="true" />
       <div
-        className="shrink-0 flex justify-center self-center"
+        className="shrink-0 flex justify-end self-center"
         style={{ width: ABOUT_COL_GRAPH_W }}
       >
         <Graph variant="comp-about" />
@@ -348,7 +347,7 @@ function AboutDesktopPanel() {
 /** Stacked layout (Figma 670:542) — mobile narrow column or medium wider column */
 function AboutStackedLayout({ contentMaxWidth, galleryLayout, titleClassName }) {
   return (
-    <div className="flex min-h-screen w-full flex-col justify-center px-6 py-[46px] sm:px-10 md:px-12">
+    <div className="flex min-h-screen w-full flex-col justify-start px-6 py-[46px] sm:px-10 md:px-12">
       <div
         className={`w-full ${contentMaxWidth} mx-auto flex flex-col gap-[40px]`}
       >
@@ -376,29 +375,31 @@ const AboutView = () => {
 
   return (
     <div className="min-h-screen flex w-full bg-[#f3f3f3] max-md:bg-white font-gantari">
-      <div className="w-full max-w-[1200px] mx-auto">
-        {layoutMode === 'desktop' && (
-          <div className="min-h-screen flex items-center justify-center px-6 lg:px-[50px] py-10">
-            <AboutDesktopPanel />
-          </div>
-        )}
+      {layoutMode === 'desktop' && (
+        <div className="min-h-screen flex w-full items-center pl-6 lg:pl-[50px] pr-4 sm:pr-6 lg:pr-8 py-10">
+          <AboutDesktopPanel />
+        </div>
+      )}
 
-        {layoutMode === 'medium' && (
-          <AboutStackedLayout
-            contentMaxWidth="max-w-[480px]"
-            galleryLayout="medium"
-            titleClassName="text-[26px]"
-          />
-        )}
+      {layoutMode !== 'desktop' && (
+        <div className="w-full max-w-[1200px] mx-auto">
+          {layoutMode === 'medium' && (
+            <AboutStackedLayout
+              contentMaxWidth="max-w-[480px]"
+              galleryLayout="medium"
+              titleClassName="text-[26px]"
+            />
+          )}
 
-        {layoutMode === 'small' && (
-          <AboutStackedLayout
-            contentMaxWidth="max-w-[280px]"
-            galleryLayout="mobile"
-            titleClassName="text-lg"
-          />
-        )}
-      </div>
+          {layoutMode === 'small' && (
+            <AboutStackedLayout
+              contentMaxWidth="max-w-[280px]"
+              galleryLayout="mobile"
+              titleClassName="text-lg"
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
