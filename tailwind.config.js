@@ -8,8 +8,10 @@ export default {
     extend: {
       fontFamily: {
         gantari: ['Gantari', 'sans-serif'],
-        athiti: ['Athiti', 'sans-serif'],
         'dm-mono': ['"DM Mono"', 'monospace'],
+        diphylleia: ['Diphylleia', 'serif'],
+        fragment: ['"Fragment Mono SC"', 'monospace'],
+        athiti: ['Athiti', 'sans-serif'],
       },
     },
   },

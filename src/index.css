@@ -1,25 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@300;400&family=DM+Mono:ital,wght@0,300;0,400;1,300;1,400&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Diphylleia&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Fragment Mono SC";
+  src: url("/fonts/FragmentMonoSC-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   font-family: 'Gantari', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #000000;
+  color: #222222;
   background-color: #f3f3f3;
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html, body, #root {
+  height: 100%;
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 a {
@@ -30,64 +35,10 @@ a.no-underline {
   text-decoration: none;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
-/*
- * Notion iframes are cross-origin — crop chrome via overflow clip on the wrapper.
- * Tune crop vars if Notion changes layout. theme=light is set on the embed URL.
- */
-.notion-embed-crop {
-  --notion-crop-left: 88px;
-  --notion-crop-top: 78px;
-  --notion-crop-right: 64px;
-  --notion-crop-bottom: 200px;
-  position: relative;
-  overflow: hidden;
-  overscroll-behavior: none;
-  color-scheme: light;
-  background-color: #F3F3F3;
-  isolation: isolate;
-}
-
-.notion-embed-iframe {
-  position: absolute;
-  top: calc(-1 * var(--notion-crop-top));
-  left: 0;
-  width: calc(100% + var(--notion-crop-left) + var(--notion-crop-right));
-  height: calc(100% + var(--notion-crop-top) + var(--notion-crop-bottom));
-  margin-left: calc(-1 * var(--notion-crop-left));
-  border: 0;
-  color-scheme: light;
-  overflow: hidden;
-}
-
-/* Block wheel/touch from reaching the iframe at cropped edges (reduces header peek) */
-.notion-embed-shield {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.notion-embed-shield--top {
-  top: 0;
-  height: 20px;
-}
-
-.notion-embed-shield--bottom {
-  bottom: 0;
-  height: 28px;
-}
-
-/* Narrow column (~280px) — same crop technique, slightly tighter horizontal trim */
-@media (max-width: 767px) {
-  .notion-embed-crop--mobile {
-    --notion-crop-left: 72px;
-    --notion-crop-right: 48px;
-  }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 @keyframes soundwave-bar-1 {

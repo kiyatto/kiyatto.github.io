@@ -6,34 +6,40 @@ const LOCATIONS = [
   { label: 'manila', timeZone: 'Asia/Manila' },
 ];
 
-function formatClockTime(date, timeZone) {
-  return new Intl.DateTimeFormat('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone,
-  })
-    .format(date)
-    .toLowerCase();
-}
-
-function buildClockLabel(date) {
+function buildClocks(date) {
   return LOCATIONS.map(({ label, timeZone }) => {
-    const time = formatClockTime(date, timeZone);
-    return `${time} ${label}`;
-  }).join(' | ');
+    const formatted = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZone,
+    }).format(date).toLowerCase();
+
+    // get the hour in that timezone to determine sun/moon
+    const hour = parseInt(
+      new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone,
+      }).format(date),
+      10
+    );
+
+    const isNight = hour >= 18 || hour < 5;
+
+    return { label, time: formatted, isNight };
+  });
 }
 
 export function useWorldClocks() {
-  const [label, setLabel] = useState(() => buildClockLabel(new Date()));
+  const [clocks, setClocks] = useState(() => buildClocks(new Date()));
 
   useEffect(() => {
-    const update = () => setLabel(buildClockLabel(new Date()));
+    const update = () => setClocks(buildClocks(new Date()));
     update();
 
     const now = new Date();
-    const msUntilNextMinute =
-      (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+    const msUntilNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
     let intervalId;
 
     const timeoutId = window.setTimeout(() => {
@@ -47,5 +53,5 @@ export function useWorldClocks() {
     };
   }, []);
 
-  return label;
+  return clocks;
 }

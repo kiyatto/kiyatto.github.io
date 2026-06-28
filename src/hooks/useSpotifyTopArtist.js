@@ -21,7 +21,6 @@ async function fetchTopArtist(signal) {
   return {
     name: data.artistName,
     url: data.artistUrl,
-    updatedAt: data.updatedAt ?? null,
   };
 }
 
