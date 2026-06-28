@@ -20,7 +20,7 @@ const HomePage = () => {
                     <p className="font-gantari text-[#222222] text-[0.75em]">/ kat / キャット / แคทรียา</p>
                 </div>
                 <div className="w-full">
-                    {/* graph */}
+                    <Graph onNavigate={navigate} />
                 </div>
                 <div className="flex flex-col w-full gap-[1.25em] items-end">
                     <p className="text-[0.75em] text-[#5C5C5C] font-light">cs + linguistics / university of washington</p>

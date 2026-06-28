@@ -36,6 +36,21 @@ export default function Graph({ onNavigate }) {
         const nodes = graphObjects.nodes.map(n => ({ ...n }));
         const edges = graphObjects.edges.map(e => ({ ...e }));
 
+        const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+        const nodeRadius = d => (d.id === "home" ? 12 : 10);
+        // padding from a node's center to the edge of its visible extent (icon + label),
+        // populated once labels are measured; falls back to the node radius.
+        const clampX = (value, d) => clamp(
+            value,
+            -width / 2 + (d.padLeft ?? nodeRadius(d)),
+            width / 2 - (d.padRight ?? nodeRadius(d))
+        );
+        const clampY = (value, d) => clamp(
+            value,
+            -height / 2 + (d.padTop ?? nodeRadius(d)),
+            height / 2 - (d.padBottom ?? nodeRadius(d))
+        );
+
         const svg = d3
             .select(container)
             .append("svg")
@@ -46,13 +61,8 @@ export default function Graph({ onNavigate }) {
         const g = svg.append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-        svg.append("defs").append("symbol")
-            .attr("id", "home-icon")
-            .attr("viewBox", "0 0 24 24")  // match your SVG's viewBox
-            .html(`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.6691 0.798216C11.711 0.400596 12.289 0.400593 12.3309 0.798216L12.9337 6.52006C12.987 7.02564 13.6344 7.19969 13.9333 6.78876L17.3186 2.13527C17.5537 1.81206 18.054 2.102 17.8913 2.46719L15.552 7.7186C15.3451 8.18326 15.8191 8.65882 16.2834 8.45236L21.5384 6.11588C21.9034 5.95358 22.192 6.45537 21.8687 6.69013L17.2197 10.0658C16.8081 10.3647 16.9816 11.0145 17.4872 11.0676L23.2021 11.6686C23.5993 11.7104 23.5993 12.2896 23.2021 12.3314L17.4872 12.9324C16.9816 12.9855 16.8081 13.6353 17.2197 13.9342L21.8687 17.3099C22.192 17.5447 21.9034 18.0464 21.5384 17.8841L16.2834 15.5476C15.8191 15.3412 15.3451 15.8168 15.552 16.2814L17.8913 21.5328C18.054 21.898 17.5537 22.1879 17.3186 21.8647L13.9333 17.2112C13.6344 16.8003 12.987 16.9743 12.9337 17.48L12.3309 23.2018C12.289 23.5994 11.711 23.5994 11.6691 23.2018L11.0663 17.48C11.013 16.9743 10.3656 16.8003 10.0667 17.2112L6.68141 21.8647C6.4463 22.1879 5.94602 21.898 6.10871 21.5328L8.44797 16.2814C8.65493 15.8168 8.18091 15.3412 7.71659 15.5476L2.46162 17.8841C2.09659 18.0464 1.80799 17.5447 2.13134 17.3099L6.78033 13.9342C7.19193 13.6353 7.01838 12.9855 6.51277 12.9324L0.797945 12.3314C0.400687 12.2896 0.400683 11.7104 0.797945 11.6686L6.51277 11.0676C7.01838 11.0145 7.19193 10.3647 6.78033 10.0658L2.13133 6.69013C1.80799 6.45537 2.09659 5.95358 2.46162 6.11588L7.71659 8.45236C8.18091 8.65882 8.65493 8.18326 8.44797 7.7186L6.10871 2.46719C5.94602 2.10201 6.4463 1.81206 6.68144 2.13527L10.0667 6.78876C10.3656 7.19969 11.013 7.02564 11.0663 6.52006L11.6691 0.798216Z" fill="#222222" stroke="#222222"/>
-</svg>
-  `);
+        // star icon path, drawn in a 24x24 viewBox (center at 12, 12)
+        const homeIconPath = "M11.6691 0.798216C11.711 0.400596 12.289 0.400593 12.3309 0.798216L12.9337 6.52006C12.987 7.02564 13.6344 7.19969 13.9333 6.78876L17.3186 2.13527C17.5537 1.81206 18.054 2.102 17.8913 2.46719L15.552 7.7186C15.3451 8.18326 15.8191 8.65882 16.2834 8.45236L21.5384 6.11588C21.9034 5.95358 22.192 6.45537 21.8687 6.69013L17.2197 10.0658C16.8081 10.3647 16.9816 11.0145 17.4872 11.0676L23.2021 11.6686C23.5993 11.7104 23.5993 12.2896 23.2021 12.3314L17.4872 12.9324C16.9816 12.9855 16.8081 13.6353 17.2197 13.9342L21.8687 17.3099C22.192 17.5447 21.9034 18.0464 21.5384 17.8841L16.2834 15.5476C15.8191 15.3412 15.3451 15.8168 15.552 16.2814L17.8913 21.5328C18.054 21.898 17.5537 22.1879 17.3186 21.8647L13.9333 17.2112C13.6344 16.8003 12.987 16.9743 12.9337 17.48L12.3309 23.2018C12.289 23.5994 11.711 23.5994 11.6691 23.2018L11.0663 17.48C11.013 16.9743 10.3656 16.8003 10.0667 17.2112L6.68141 21.8647C6.4463 22.1879 5.94602 21.898 6.10871 21.5328L8.44797 16.2814C8.65493 15.8168 8.18091 15.3412 7.71659 15.5476L2.46162 17.8841C2.09659 18.0464 1.80799 17.5447 2.13134 17.3099L6.78033 13.9342C7.19193 13.6353 7.01838 12.9855 6.51277 12.9324L0.797945 12.3314C0.400687 12.2896 0.400683 11.7104 0.797945 11.6686L6.51277 11.0676C7.01838 11.0145 7.19193 10.3647 6.78033 10.0658L2.13133 6.69013C1.80799 6.45537 2.09659 5.95358 2.46162 6.11588L7.71659 8.45236C8.18091 8.65882 8.65493 8.18326 8.44797 7.7186L6.10871 2.46719C5.94602 2.10201 6.4463 1.81206 6.68144 2.13527L10.0667 6.78876C10.3656 7.19969 11.013 7.02564 11.0663 6.52006L11.6691 0.798216Z";
 
         const edge = g
             .selectAll("line")
@@ -68,17 +78,15 @@ export default function Graph({ onNavigate }) {
             .attr("fill", "#3765FD")
             .style("cursor", "pointer");
 
-        const size = 24;
         const homeNode = g
             .selectAll(".home-node")
             .data(nodes.filter(d => d.id === "home"))
-            .join("use")
+            .join("path")
             .attr("class", "home-node")
-            .attr("href", "#home-icon")
-            .attr("width", size)
-            .attr("height", size)
-            .attr("x", -size / 2)
-            .attr("y", -size / 2)
+            .attr("d", homeIconPath)
+            .attr("fill", "#222222")
+            .attr("stroke", "#222222")
+            .attr("transform", "translate(-12, -12)")
             .style("cursor", "pointer");
 
         // labels
@@ -93,6 +101,20 @@ export default function Graph({ onNavigate }) {
             .attr("fill", "#222222")
             .style("font-family", "Fragment Mono SC")
             .style("pointer-events", "none");
+
+        // measure each label (relative to its node center) so the clamp bounds
+        // account for both the node icon and its text extent
+        const measureLabels = () => {
+            label.each(function (d) {
+                const box = this.getBBox();
+                const r = nodeRadius(d);
+                d.padLeft = Math.max(r, -box.x);
+                d.padRight = Math.max(r, box.x + box.width);
+                d.padTop = Math.max(r, -box.y);
+                d.padBottom = Math.max(r, box.y + box.height);
+            });
+        };
+        measureLabels();
 
         // click to navigate
         node.on("click", (event, d) => {
@@ -146,21 +168,38 @@ export default function Graph({ onNavigate }) {
             if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
         });
 
-        simulation.on("tick", () => {
+        function ticked() {
+            nodes.forEach(d => {
+                d.x = clampX(d.x, d);
+                d.y = clampY(d.y, d);
+            });
+
             edge
                 .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
                 .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
 
             node.attr("cx", d => d.x).attr("cy", d => d.y);
 
-            homeNode
-                .attr("x", d => d.x - size / 2)
-                .attr("y", d => d.y - size / 2);
+            homeNode.attr("transform", d => `translate(${d.x - 12}, ${d.y - 12})`);
 
             label.attr("x", d => d.x).attr("y", d => d.y);
-        });
+        }
+
+        simulation.on("tick", ticked);
+
+        // the custom web font may finish loading after the first measurement,
+        // which widens the labels; re-measure and re-clamp once it's ready
+        let cancelled = false;
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(() => {
+                if (cancelled) return;
+                measureLabels();
+                ticked();
+            });
+        }
 
         return () => {
+            cancelled = true;
             simulation.stop();
             svg.remove();
         };
