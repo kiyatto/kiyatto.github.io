@@ -69,7 +69,7 @@ const WorldClocks = () => {
   // }, []);
 
   return (
-    <div ref={ref} className="relative hidden md:block">
+    <div ref={ref} className="relative hidden min-[1048px]:block">
       {/* trigger */}
       <div
         // onClick={() => setOpen(o => !o)}
@@ -104,7 +104,7 @@ const NavBar = () => {
 
   return (
 
-    <nav className="w-[300px] md:w-[360px] flex-shrink-0 bg-[#E9E9E9] rounded-[10px] px-[12px] py-[6px]">
+    <nav className="w-[300px] sm:w-[360px] flex-shrink-0 bg-[#E9E9E9] rounded-[10px] px-[12px] py-[6px]">
       <ul className="flex flex-row justify-between items-center">
         {[
           { to: '/', label: 'home' },
@@ -127,9 +127,9 @@ const NavBar = () => {
 
 const Header = () => {
   return (
-    <header className="relative z-10 flex justify-center md:grid md:grid-cols-3 items-center px-10 py-8">
+    <header className="relative z-10 flex justify-center min-[1048px]:grid min-[1048px]:grid-cols-3 items-center px-10 py-8">
       {/* spotify */}
-      <div className="hidden md:flex">
+      <div className="hidden min-[1048px]:flex">
         <CurrentlyListening />
       </div>
 
@@ -138,7 +138,7 @@ const Header = () => {
       </div>
 
       {/* time */}
-      <div className="hidden md:flex justify-end">
+      <div className="hidden min-[1048px]:flex justify-end">
         <WorldClocks />
       </div>
     </header>

@@ -1,5 +1,5 @@
 // Graph.jsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
 const graphObjects = {
@@ -25,11 +25,30 @@ const routes = {
 
 export default function Graph({ onNavigate }) {
     const ref = useRef(null);
+    const [size, setSize] = useState({ width: 0, height: 0 });
+
+    // keep the drawing in sync with the container size so the graph
+    // re-lays out responsively when the window is resized
+    useEffect(() => {
+        const container = ref.current;
+        if (!container) return;
+
+        const observer = new ResizeObserver(entries => {
+            const { width, height } = entries[0].contentRect;
+            setSize(prev =>
+                prev.width === width && prev.height === height ? prev : { width, height }
+            );
+        });
+        observer.observe(container);
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const container = ref.current;
-        const width = container.clientWidth || 575;
-        const height = container.clientHeight || 560;
+        const width = size.width || container.clientWidth || 575;
+        const height = size.height || container.clientHeight || 560;
+        if (!width || !height) return;
         const scale = Math.min(width, height) / 7;
         const edgeLength = 1.5;
 
@@ -203,7 +222,7 @@ export default function Graph({ onNavigate }) {
             simulation.stop();
             svg.remove();
         };
-    }, [onNavigate]);
+    }, [onNavigate, size.width, size.height]);
 
     return <div ref={ref} className="w-full h-full" />;
 }

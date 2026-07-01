@@ -1,5 +1,48 @@
+import { useEffect, useRef, useState } from "react";
 import Graph from "./Graph.jsx";
 import { useNavigate } from "react-router";
+
+const EMAIL = "hello@example.com";
+
+const EmailLink = ({ className }) => {
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (!open) return;
+
+        const handleClickOutside = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [open]);
+
+    return (
+        <div ref={ref} className="relative inline-flex">
+            <button
+                type="button"
+                onClick={() => setOpen((prev) => !prev)}
+                className={`${className} cursor-pointer border-none bg-transparent p-0`}
+            >
+                email
+            </button>
+            {open && (
+                <div className="absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[#E9E9E9] bg-white px-3 py-2 shadow-md">
+                    <a
+                        href={`mailto:${EMAIL}`}
+                        className="font-fragment text-[0.6em] text-[#222222] no-underline"
+                    >
+                        {EMAIL}
+                    </a>
+                </div>
+            )}
+        </div>
+    );
+};
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -8,18 +51,17 @@ const HomePage = () => {
         <div className="min-h-full w-full flex justify-center items-center">
 
             {/* mobile */}
-            <div className="flex flex-col md:hidden"
+            <div className="flex flex-col md:hidden h-full py-[2vh]"
                 style={{
                     width: '82vw',
                     maxWidth: '310px',
-                    aspectRatio: '310 / 760',
                     fontSize: 'clamp(0.85rem, 0.6rem + 1.2vw, 1rem)',
                 }}>
                 <div className="w-full">
                     <h1 className="font-diphylleia text-[#222222] text-[1.625rem]">katreeya ong</h1>
                     <p className="font-gantari text-[#222222] text-[0.75em]">/ kat / キャット / แคทรียา</p>
                 </div>
-                <div className="w-full">
+                <div className="w-full flex-1 min-h-0">
                     <Graph onNavigate={navigate} />
                 </div>
                 <div className="flex flex-col w-full gap-[1.25em] items-end">
@@ -27,7 +69,7 @@ const HomePage = () => {
                     <div className="flex flex-row w-full gap-[1.5625em] justify-end">
                         <a href="https://www.linkedin.com/in/katreeya-ong" target="_blank" rel="noreferrer"
                             className="font-fragment text-[0.6em] text-[#222222] no-underline">linkedin</a>
-                        <a className="font-fragment text-[0.6em] text-[#222222] no-underline">email</a>
+                        <EmailLink className="font-fragment text-[0.6em] text-[#222222] no-underline" />
                         <a href="https://github.com/kiyatto" target="_blank" rel="noreferrer"
                             className="font-fragment text-[0.6em] text-[#222222] no-underline">github</a>
                     </div>
@@ -36,14 +78,15 @@ const HomePage = () => {
 
 
             {/* desktop */}
-            <div className="hidden md:flex flex justify-center items-center"
+            <div className="hidden md:flex justify-center items-center mx-auto"
                 style={{
                     width: '80vw',
-                    aspectRatio: '1150 / 560',
+                    maxWidth: '1150px',
+                    height: 'min(560px, 70vh)',
                     fontSize: 'clamp(1rem, 0.7rem + 0.6vw, 1.15rem)',
                 }}>
                 {/* left */}
-                <div className="flex w-full h-full justify-center items-center">
+                <div className="flex w-1/2 min-w-0 h-full justify-center items-center">
                     <div className="flex flex-col gap-[3.5em]">
                         <div>
                             <h1 className="font-diphylleia text-[#222222] text-[1.625em]">katreeya ong</h1>
@@ -57,7 +100,7 @@ const HomePage = () => {
                         <div className="flex flex-row w-full gap-[1.6em]">
                             <a href="https://www.linkedin.com/in/katreeya-ong" target="_blank" rel="noreferrer"
                                 className="font-fragment text-[0.6em] text-[#222222] no-underline">linkedin</a>
-                            <a className="font-fragment text-[0.6em] text-[#222222] no-underline">email</a>
+                            <EmailLink className="font-fragment text-[0.6em] text-[#222222] no-underline" />
                             <a href="https://github.com/kiyatto" target="_blank" rel="noreferrer"
                                 className="font-fragment text-[0.6em] text-[#222222] no-underline">github</a>
                         </div>
@@ -65,7 +108,7 @@ const HomePage = () => {
                 </div>
 
                 {/* right */}
-                <div className="flex w-full h-full justify-center items-center">
+                <div className="flex w-1/2 min-w-0 h-full justify-center items-center">
                     <div className="w-full h-full">
                         <Graph onNavigate={navigate} />
                     </div>
