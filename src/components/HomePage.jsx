@@ -48,23 +48,25 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-full w-full flex justify-center items-center">
+        <div className="h-full w-full overflow-hidden md:overflow-visible flex justify-center md:items-center">
 
-            {/* mobile */}
-            <div className="flex flex-col md:hidden h-full py-[2vh]"
+            {/* mobile — fills viewport content area, no page scroll */}
+            <div
+                className="flex h-full min-h-0 flex-col md:hidden"
                 style={{
                     width: '82vw',
                     maxWidth: '310px',
                     fontSize: 'clamp(0.85rem, 0.6rem + 1.2vw, 1rem)',
-                }}>
-                <div className="w-full">
+                }}
+            >
+                <div className="w-full shrink-0">
                     <h1 className="font-diphylleia text-[#222222] text-[1.625rem]">katreeya ong</h1>
                     <p className="font-gantari text-[#222222] text-[0.75em]">/ kat / キャット / แคทรียา</p>
                 </div>
-                <div className="w-full flex-1 min-h-0">
+                <div className="w-full min-h-0 flex-1">
                     <Graph onNavigate={navigate} />
                 </div>
-                <div className="flex flex-col w-full gap-[1.25em] items-end">
+                <div className="flex shrink-0 flex-col w-full gap-[1.25em] items-end">
                     <p className="text-[0.75em] text-[#5C5C5C] font-light">cs + linguistics / university of washington</p>
                     <div className="flex flex-row w-full gap-[1.5625em] justify-end">
                         <a href="https://www.linkedin.com/in/katreeya-ong" target="_blank" rel="noreferrer"
