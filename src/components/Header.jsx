@@ -28,7 +28,7 @@ const CurrentlyListening = () => {
   return (
     <div className="flex min-w-0 items-center gap-3">
       <SoundwaveIcon />
-      <p className="m-0 min-w-0 truncate font-dm-mono text-xs leading-[18px] text-[#9f9f9f]">
+      <p className="m-0 min-w-0 truncate font-dm-mono text-[10px] leading-[18px] text-[#9f9f9f]">
         <span>kat is listening to: </span>
         {artist ? (
           <a
@@ -73,7 +73,7 @@ const WorldClocks = () => {
       {/* trigger */}
       <div
         // onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-4 font-dm-mono text-xs text-[#9f9f9f] whitespace-nowrap bg-transparent border-none"
+        className="flex items-center gap-4 font-dm-mono text-[10px] text-[#9f9f9f] whitespace-nowrap bg-transparent border-none"
       >
         {selected.isNight ? <img src={moonIcon} alt="Moon" /> : <img src={sunIcon} alt="Sun" />}
         {selected.time} | {selected.label}
