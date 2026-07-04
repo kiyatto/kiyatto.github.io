@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Graph from "./Graph.jsx";
 import { useNavigate } from "react-router";
 
-const EMAIL = "hello@example.com";
+const EMAIL = "katong@uw.edu";
 
 const EmailLink = ({ className }) => {
     const [open, setOpen] = useState(false);
