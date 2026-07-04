@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import Graph from "./Graph.jsx";
 import { useNavigate } from "react-router";
 
-const EMAIL = "katong@uw.edu";
-
 const EmailLink = ({ className }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
@@ -31,13 +29,8 @@ const EmailLink = ({ className }) => {
                 email
             </button>
             {open && (
-                <div className="absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[#E9E9E9] bg-white px-3 py-2 shadow-md">
-                    <a
-                        href={`mailto:${EMAIL}`}
-                        className="font-fragment text-[0.6em] text-[#222222] no-underline"
-                    >
-                        {EMAIL}
-                    </a>
+                <div className="absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-[#E9E9E9] bg-[#F9F9F9] px-2 py-1">
+                        <span className="font-gantari text-[0.6em] text-[#222222]">katong [at] uw [dot] edu</span>
                 </div>
             )}
         </div>
