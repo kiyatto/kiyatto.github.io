@@ -1,0 +1,207 @@
+import { useState } from "react";
+
+import designFlower from "../assets/work/design-flower.png";
+import designBird from "../assets/work/design-bird.png";
+import plateMag from "../assets/work/plate-mag.png";
+
+const FILTERS = {
+    design: "design",
+    programming: "programming",
+};
+
+const DESIGN_PROJECTS = [
+    {
+        id: "design-1",
+        title: "Introducing tags for Spotify",
+        description: "Reinventing how we record memories and feelings through music.",
+        image: designFlower,
+        imagePosition: "top",
+    },
+    {
+        id: "design-2",
+        title: "plate. magazine",
+        description: "Web and system design for a playful publication centered around food.",
+        image: plateMag,
+        imagePosition: "center",
+    },
+    {
+        id: "design-3",
+        title: "Autonomous SD",
+        description:
+            "Coming soon!",
+        image: designBird,
+        imagePosition: "center",
+    },
+];
+
+const PROGRAMMING_PROJECTS = [];
+
+const WorkFilter = ({ active, onChange }) => (
+    <div className="flex items-center gap-5 p-1.5">
+        {Object.values(FILTERS).map((filter) => {
+            const isActive = active === filter;
+            return (
+                <button
+                    key={filter}
+                    type="button"
+                    onClick={() => onChange(filter)}
+                    aria-pressed={isActive}
+                    className={`font-fragment text-[13px] leading-none text-[#545454] cursor-pointer border-none p-[5px] rounded-[10px] ${
+                        isActive
+                            ? "bg-[#cacaca] min-w-[63px] text-center"
+                            : "bg-transparent"
+                    }`}
+                >
+                    {filter}
+                </button>
+            );
+        })}
+    </div>
+);
+
+const ProjectDescription = ({ title, description, titleClassName = "text-[14px]", className = "" }) => (
+    <div className={`flex flex-col gap-2.5 ${className}`}>
+        <p className={`font-diphylleia text-black ${titleClassName}`}>{title}</p>
+        <p className="font-gantari font-light text-[12px] leading-5 text-[#606060]">{description}</p>
+    </div>
+);
+
+const MobileProjectCard = ({ project }) => (
+    <article className="flex w-full flex-col gap-2.5 overflow-hidden rounded-[4px] border border-[#e2e2e2]">
+        <div className="relative h-[200px] w-full overflow-hidden">
+            <img
+                src={project.image}
+                alt=""
+                className={`h-full w-full object-cover ${
+                    project.imagePosition === "top" ? "object-[center_20%]" : ""
+                }`}
+            />
+        </div>
+        <ProjectDescription
+            title={project.title}
+            description={project.description}
+            className="px-2.5 pb-[5px]"
+        />
+    </article>
+);
+
+const DesktopFeaturedCard = ({ project }) => (
+    <article className="flex h-full min-w-0 flex-[725] flex-col overflow-hidden rounded-[4px] border border-[#e2e2e2]">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+            <img
+                src={project.image}
+                alt=""
+                className="h-full w-full object-cover object-[center_20%]"
+            />
+        </div>
+        <ProjectDescription
+            title={project.title}
+            description={project.description}
+            titleClassName="text-[18px]"
+            className="p-[15px]"
+        />
+    </article>
+);
+
+const DesktopSideCard = ({ project }) => (
+    <article className="flex min-h-0 flex-1 overflow-hidden border border-[#e2e2e2]">
+        <div className="relative min-w-0 flex-1 overflow-hidden">
+            <img src={project.image} alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="flex min-w-[100px] max-w-[167px] shrink basis-[35%] flex-col justify-between px-[15px] py-2.5">
+            <p className="font-diphylleia text-[16px] text-black">{project.title}</p>
+            <p className="font-gantari font-light text-[12px] leading-5 text-[#606060]">
+                {project.description}
+            </p>
+        </div>
+    </article>
+);
+
+const DesignDesktopLayout = ({ projects }) => {
+    const [featured, ...sideProjects] = projects;
+
+    return (
+        <div className="flex h-full min-h-0 w-full gap-[25px]">
+            <DesktopFeaturedCard project={featured} />
+            <div className="flex min-w-0 flex-[400] flex-col gap-[25px]">
+                {sideProjects.map((project) => (
+                    <DesktopSideCard key={project.id} project={project} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const ProgrammingDesktopLayout = ({ projects }) => (
+    <div className="grid h-full min-h-0 w-full grid-cols-3 grid-rows-2 gap-2.5">
+        {projects.length === 0 ? (
+            <div className="border border-[#e2e2e2]" />
+        ) : (
+            projects.map((project) => (
+                <article
+                    key={project.id}
+                    className="flex min-h-0 flex-col overflow-hidden border border-[#e2e2e2]"
+                >
+                    <div className="relative min-h-0 flex-1 overflow-hidden">
+                        <img src={project.image} alt="" className="h-full w-full object-cover" />
+                    </div>
+                    <ProjectDescription
+                        title={project.title}
+                        description={project.description}
+                        className="p-2.5"
+                    />
+                </article>
+            ))
+        )}
+    </div>
+);
+
+const Work = () => {
+    const [activeFilter, setActiveFilter] = useState(FILTERS.design);
+    const projects = activeFilter === FILTERS.design ? DESIGN_PROJECTS : PROGRAMMING_PROJECTS;
+
+    return (
+        <div className="h-full w-full md:overflow-hidden pt-6">
+            {/* mobile */}
+            <div className="md:hidden flex min-h-full w-full justify-center overflow-y-auto py-12">
+                <div
+                    className="flex flex-col gap-5"
+                    style={{ width: "82vw", maxWidth: "336px" }}
+                >
+                    <h1 className="font-diphylleia text-2xl text-[#222222]">work</h1>
+                    <WorkFilter active={activeFilter} onChange={setActiveFilter} />
+                    <hr className="m-0 w-full border-0 border-t border-[#e2e2e2]" />
+                    {projects.length > 0 && (
+                        <div className="flex flex-col gap-[30px]">
+                            {projects.map((project) => (
+                                <MobileProjectCard key={project.id} project={project} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* desktop — fills the viewport content area, no page scroll */}
+            <div className="hidden md:flex h-full w-full justify-center">
+                <div
+                    className="flex h-full min-h-0 flex-col gap-[30px]"
+                    style={{ width: "80vw", maxWidth: "1150px" }}
+                >
+                    <div className="flex w-full shrink-0 items-center justify-between">
+                        <h1 className="font-diphylleia text-[26px] text-black">work</h1>
+                        <WorkFilter active={activeFilter} onChange={setActiveFilter} />
+                    </div>
+                    <div className="min-h-0 flex-1">
+                        {activeFilter === FILTERS.design ? (
+                            <DesignDesktopLayout projects={projects} />
+                        ) : (
+                            <ProgrammingDesktopLayout projects={projects} />
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Work;
