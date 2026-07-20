@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import animation from "../assets/work/spotify-media/tag_animation.mp4";
 
 const SectionLabel = ({ children }) => (
     <p className="m-0 w-full font-fragment text-[16px] leading-normal text-[#007228]">
@@ -220,7 +221,7 @@ const SpotifyTagsPage = () => {
                         <div className="hidden w-px shrink-0 self-stretch bg-[#d0d0d0] md:block" />
                         <InsightColumn
                             title="2. Moods and genres don’t map cleanly to playlist structures"
-                            body="Moving between different genres/moods of music should feel freeform, fluid, and customizable."
+                            body="Moving between different genres/moods of music should feel freeform and fluid."
                             quote="“I’ve always wanted to categorize music by “vibe”, since most of my playlists are based off of moods.”"
                             quoteBg="#f79d37"
                         />
@@ -264,10 +265,10 @@ const SpotifyTagsPage = () => {
                     </div>
 
                     <div className="w-full overflow-hidden border border-solid border-[#b3b3b3] bg-[#fbfbfb]">
-                        <MediaPlaceholder
-                            className="h-[280px] w-full md:h-[400px]"
-                            label="Tag assignment animation"
-                        />
+                        <video autoPlay loop muted playsInline width="100%">
+                            <source src={animation} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
 
                     <div className="flex w-full flex-col gap-10 pt-5">
