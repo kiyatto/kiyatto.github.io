@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 import designFlower from "../assets/work/design-flower.png";
 import designBird from "../assets/work/design-bird.png";
@@ -16,6 +17,7 @@ const DESIGN_PROJECTS = [
         description: "Reinventing how we record memories and feelings through music.",
         image: designFlower,
         imagePosition: "top",
+        href: "/work/spotify-tags",
     },
     {
         id: "design-2",
@@ -66,42 +68,72 @@ const ProjectDescription = ({ title, description, titleClassName = "text-[14px]"
     </div>
 );
 
-const MobileProjectCard = ({ project }) => (
-    <article className="flex w-full flex-col gap-2.5 overflow-hidden rounded-[4px] border border-[#e2e2e2]">
-        <div className="relative h-[200px] w-full overflow-hidden">
-            <img
-                src={project.image}
-                alt=""
-                className={`h-full w-full object-cover ${
-                    project.imagePosition === "top" ? "object-[center_20%]" : ""
-                }`}
+const MobileProjectCard = ({ project }) => {
+    const content = (
+        <>
+            <div className="relative h-[200px] w-full overflow-hidden">
+                <img
+                    src={project.image}
+                    alt=""
+                    className={`h-full w-full object-cover ${
+                        project.imagePosition === "top" ? "object-[center_20%]" : ""
+                    }`}
+                />
+            </div>
+            <ProjectDescription
+                title={project.title}
+                description={project.description}
+                className="px-2.5 pb-[5px]"
             />
-        </div>
-        <ProjectDescription
-            title={project.title}
-            description={project.description}
-            className="px-2.5 pb-[5px]"
-        />
-    </article>
-);
+        </>
+    );
 
-const DesktopFeaturedCard = ({ project }) => (
-    <article className="flex h-full min-w-0 flex-[725] flex-col overflow-hidden rounded-[4px] border border-[#e2e2e2]">
-        <div className="relative min-h-0 flex-1 overflow-hidden">
-            <img
-                src={project.image}
-                alt=""
-                className="h-full w-full object-cover object-[center_20%]"
+    const className =
+        "flex w-full flex-col gap-2.5 overflow-hidden rounded-[4px] border border-[#e2e2e2] text-inherit no-underline";
+
+    if (project.href) {
+        return (
+            <Link to={project.href} className={className}>
+                {content}
+            </Link>
+        );
+    }
+
+    return <article className={className}>{content}</article>;
+};
+
+const DesktopFeaturedCard = ({ project }) => {
+    const content = (
+        <>
+            <div className="relative min-h-0 flex-1 overflow-hidden">
+                <img
+                    src={project.image}
+                    alt=""
+                    className="h-full w-full object-cover object-[center_20%]"
+                />
+            </div>
+            <ProjectDescription
+                title={project.title}
+                description={project.description}
+                titleClassName="text-[18px]"
+                className="p-[15px]"
             />
-        </div>
-        <ProjectDescription
-            title={project.title}
-            description={project.description}
-            titleClassName="text-[18px]"
-            className="p-[15px]"
-        />
-    </article>
-);
+        </>
+    );
+
+    const className =
+        "flex h-full min-w-0 flex-[725] flex-col overflow-hidden rounded-[4px] border border-[#e2e2e2] text-inherit no-underline";
+
+    if (project.href) {
+        return (
+            <Link to={project.href} className={className}>
+                {content}
+            </Link>
+        );
+    }
+
+    return <article className={className}>{content}</article>;
+};
 
 const DesktopSideCard = ({ project }) => (
     <article className="flex min-h-0 flex-1 overflow-hidden border border-[#e2e2e2]">

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Diphylleia&family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Diphylleia&family=Gantari:ital,wght@0,100..900;1,100..900&family=Reenie+Beanie&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +10,15 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+/*
+  Vite/LightningCSS may emit unquoted multi-word font families from Tailwind,
+  which some browsers drop — then the span inherits Diphylleia from the h1.
+  Keep this as a quoted string so the declaration always sticks.
+*/
+.font-reenie-beanie {
+  font-family: "Reenie Beanie", cursive !important;
 }
 
 :root {

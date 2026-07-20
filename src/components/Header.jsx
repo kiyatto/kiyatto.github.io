@@ -107,14 +107,14 @@ const NavBar = () => {
     <nav className="w-[300px] sm:w-[360px] flex-shrink-0 bg-[#E9E9E9] rounded-[10px] px-[12px] py-[6px]">
       <ul className="flex flex-row justify-between items-center">
         {[
-          { to: '/', label: 'home' },
-          { to: '/about', label: 'about' },
-          { to: '/work', label: 'work' },
-          { to: '/reading-list', label: 'library' },
-        ].map(({ to, label }) => (
+          { to: '/', label: 'home', end: true },
+          { to: '/about', label: 'about', end: true },
+          { to: '/work', label: 'work', end: false },
+          { to: '/reading-list', label: 'library', end: true },
+        ].map(({ to, label, end }) => (
           <li key={ to }>
             <NavLink to={ to } 
-            end 
+            end={end}
             className={({ isActive }) => `text-xs no-underline ${ isActive ? 'font-medium text-[#545454]' : 'font-normal text-[#868686]'}`}>
               { label }
             </NavLink>

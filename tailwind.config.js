@@ -12,6 +12,7 @@ export default {
         diphylleia: ['Diphylleia', 'serif'],
         fragment: ['"Fragment Mono SC"', 'monospace'],
         athiti: ['Athiti', 'sans-serif'],
+        'reenie-beanie': ['"Reenie Beanie"', 'cursive'],
       },
     },
   },
