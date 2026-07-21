@@ -36,7 +36,31 @@ const DESIGN_PROJECTS = [
     },
 ];
 
-const PROGRAMMING_PROJECTS = [];
+const PROGRAMMING_PROJECTS = [
+    {
+        id: "programming-1",
+        title: "muff",
+        description: "Bytecode interpreter for a mini programming language.",
+        image: designFlower,
+        imagePosition: "top",
+        // href: "/work/spotify-tags",
+    },
+    {
+        id: "programming-2",
+        title: "Kanji Air Writer",
+        description: "Coming soon!",
+        image: plateMag,
+        imagePosition: "center",
+    },
+    {
+        id: "programming-3",
+        title: "stash",
+        description:
+            "Coming soon!",
+        image: designBird,
+        imagePosition: "center",
+    },
+];
 
 const WorkFilter = ({ active, onChange }) => (
     <div className="flex items-center gap-5 p-1.5">

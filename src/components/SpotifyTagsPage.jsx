@@ -1,5 +1,8 @@
 import { Link } from "react-router";
 import animation from "../assets/work/spotify-media/tag_animation.mp4";
+import playlist_options from "../assets/work/spotify-media/playlist_options.mov";
+import tag_system_mockup from "../assets/work/spotify-media/tag_system_mockup.png";
+import hero from "../assets/work/spotify-media/hero.png";
 
 const SectionLabel = ({ children }) => (
     <p className="m-0 w-full font-fragment text-[16px] leading-normal text-[#007228]">
@@ -92,10 +95,6 @@ const RichText = ({ children }) => (
 const SpotifyTagsPage = () => {
     return (
         <div className="w-full bg-[#f3f3f3] pb-16 pt-6">
-            {/*
-              3-column grid keeps the 880px content truly centered.
-              Back lives in the left 1fr gutter, flush toward the content.
-            */}
             <div className="grid w-full grid-cols-1 px-6 md:grid-cols-[1fr_minmax(0,880px)_1fr] md:px-0">
                 <div className="hidden justify-end pr-10 pt-1 md:flex">
                     <Link
@@ -116,10 +115,7 @@ const SpotifyTagsPage = () => {
 
                     {/* Hero + title share the same width */}
                     <div className="flex w-full flex-col gap-[30px]">
-                        <MediaPlaceholder
-                            className="h-[180px] w-full sm:h-[220px] md:h-[272px]"
-                            label="Project hero"
-                        />
+                        <img src={hero} alt="Project hero image displaying Spotify interface with tags" className="w-full h-auto" />
 
                         <div className="flex w-full flex-col gap-8 md:flex-row md:items-center md:justify-between">
                             <h1 className="m-0 max-w-[460px] font-diphylleia text-[26px] font-normal leading-normal text-[#222222]">
@@ -192,14 +188,16 @@ const SpotifyTagsPage = () => {
                                 </BodyText>
                             </div>
                         </div>
-                        <div className="flex w-full max-w-[425px] flex-col items-center gap-2">
-                            <MediaPlaceholder
-                                className="h-[264px] w-[242px] rounded-[4px]"
-                                label="Spotify organizing options"
-                            />
+                        <div className="flex w-full max-w-[425px] flex-col items-center">
+                            <div className="flex flex-col items-center justify-center max-w-[250px] gap-2">
+                            <video autoPlay loop muted playsInline width="100%">
+                                <source src={playlist_options} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                             <p className="m-0 w-full text-center font-gantari text-[11px] leading-[18px] text-[#b3b3b3]">
                                 Variations of music organizing options in Spotify
                             </p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -285,11 +283,8 @@ const SpotifyTagsPage = () => {
                         </div>
                     </div>
 
-                    <div className="relative h-[280px] w-full overflow-hidden border border-solid border-[#b3b3b3] bg-white md:h-[400px]">
-                        <MediaPlaceholder
-                            className="absolute inset-0 size-full"
-                            label="Tag filtering UI"
-                        />
+                    <div className="relative h-[280px] flex items-center justify-center w-full overflow-hidden border border-solid border-[#b3b3b3] bg-white md:h-[400px]">
+                        <img src={tag_system_mockup} alt="Tag system mockup" />
                     </div>
                 </section>
 
