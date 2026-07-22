@@ -1,12 +1,21 @@
 import { Children, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import Lottie from 'lottie-react';
 
 import tag_system_mockup from "../assets/work/spotify-media/tag_system_mockup.png";
 import hero from "../assets/work/spotify-media/hero.png";
 import filtered_songlist from "../assets/work/spotify-media/filtered_songlist.svg";
 import tag_filter_2 from "../assets/work/spotify-media/tag_filter_2.svg";
+import spotify_playlist_ui from "../assets/work/spotify-media/spotify_playlist_ui.png";
+import tag_overlay_v1 from "../assets/work/spotify-media/tag_overlay_v1.png";
+import tag_overlay_v1_filled from "../assets/work/spotify-media/tag_overlay_v1_filled.svg";
+import tag_overlay_v2 from "../assets/work/spotify-media/tag_overlay_v2.svg";
+import filter_v1 from "../assets/work/spotify-media/filter_v1.svg";
 
 import animation from "../assets/work/spotify-media/tag_animation.mp4";
+import mergedAnimation from '../assets/work/spotify-media/merged.json';
+
+
 import playlist_options from "../assets/work/spotify-media/playlist_options.mov";
 import add_delete_tags from "../assets/work/spotify-media/add_delete_tags.mov";
 import filter_playlist from "../assets/work/spotify-media/filter_playlist.mov";
@@ -60,6 +69,17 @@ const InsightColumn = ({ title, body, quote }) => (
         <QuoteCard quote={quote} />
     </div>
 );
+
+const ChainedAnimation =() => {
+    return (
+      <Lottie
+        animationData={mergedAnimation}
+        loop={true}
+        autoplay={true}
+        style={{ width: 880, height: 400 }}
+      />
+    );
+  }
 
 const ProcessCard = ({ title, children, tone = "white", size = "carousel", className = "" }) => {
     const tones = {
@@ -424,11 +444,12 @@ const SpotifyTagsPage = () => {
                             </BodyText>
                         </div>
 
-                        <div className="w-full overflow-hidden border border-solid border-[#b3b3b3] bg-[#fbfbfb]">
-                            <video autoPlay loop muted playsInline width="100%">
+                        <div className="flex justify-center items-center w-full overflow-hidden border border-solid border-[#b3b3b3] bg-white">
+                            <ChainedAnimation />
+                            {/* <video autoPlay loop muted playsInline width="100%">
                                 <source src={animation} type="video/mp4" />
                                 Your browser does not support the video tag.
-                            </video>
+                            </video> */}
                         </div>
 
                         <div className="flex w-full flex-col gap-10 pt-5">
@@ -471,19 +492,13 @@ const SpotifyTagsPage = () => {
                                     </RichText>
                                     <div className="flex min-w-0 flex-1 items-end justify-between gap-4">
                                         <div className="flex w-[128px] flex-col gap-2.5">
-                                            <MediaPlaceholder
-                                                className="aspect-[414/837] w-full rounded-[6px]"
-                                                label="Spotify UI"
-                                            />
+                                            <img src={spotify_playlist_ui} alt="Spotify playlist UI" className="w-full h-auto max-h-[1024px] rounded-[6px]" />
                                             <p className="m-0 text-center font-gantari text-[12px] leading-[22px] text-[#626262]">
                                                 Spotify UI
                                             </p>
                                         </div>
                                         <div className="flex w-[123px] flex-col gap-2.5">
-                                            <MediaPlaceholder
-                                                className="aspect-[804/1024] w-full rounded-[6px]"
-                                                label="Tag System V1"
-                                            />
+                                            <img src={tag_overlay_v1} alt="Tag overlay V1" className="w-full h-auto max-h-[1024px] rounded-[6px]" />
                                             <p className="m-0 text-center font-gantari text-[12px] leading-[22px] text-[#606060]">
                                                 Tag System V1
                                             </p>
@@ -503,10 +518,7 @@ const SpotifyTagsPage = () => {
                                             meaningful.
                                         </p>
                                     </RichText>
-                                    <MediaPlaceholder
-                                        className="h-[214px] w-[168px] shrink-0 rounded-[6px]"
-                                        label="Tag system iteration"
-                                    />
+                                    <img src={tag_overlay_v1_filled} alt="Tag overlay V1 filled" className="w-full h-auto max-h-[214px] rounded-[6px]" />
                                 </div>
                             </ProcessCard>
 
@@ -522,10 +534,7 @@ const SpotifyTagsPage = () => {
                                             through.
                                         </p>
                                     </RichText>
-                                    <MediaPlaceholder
-                                        className="h-[214px] w-[168px] shrink-0 rounded-[6px]"
-                                        label="Pill tag iteration"
-                                    />
+                                    <img src={tag_overlay_v2} alt="Tag overlay V2" className="w-full h-auto max-h-[214px] rounded-[6px]" />
                                 </div>
                             </ProcessCard>
                         </ProcessCarousel>
@@ -620,10 +629,9 @@ const SpotifyTagsPage = () => {
                                             instead becoming confused.
                                         </p>
                                     </RichText>
-                                    <MediaPlaceholder
-                                        className="h-full w-[153px] shrink-0 rounded-[6px]"
-                                        label="Secondary filter button"
-                                    />
+                                    <div className="flex">
+                                        <img src={filter_v1} alt="Filter V1" className="w-full h-auto max-h-[153px] rounded-[6px]" />
+                                    </div>
                                 </div>
                             </ProcessCard>
 
