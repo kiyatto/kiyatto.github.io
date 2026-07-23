@@ -5,9 +5,11 @@ import designFlower from "../assets/work/design-flower.png";
 import designBird from "../assets/work/design-bird.png";
 import plateMag from "../assets/work/plate-mag.png";
 
+import spotify_hero from "../assets/work/spotify-media/hero.png";
+
 const FILTERS = {
     design: "design",
-    programming: "programming",
+    programming: "software",
 };
 
 const DESIGN_PROJECTS = [
@@ -15,7 +17,7 @@ const DESIGN_PROJECTS = [
         id: "design-1",
         title: "Introducing tags for Spotify",
         description: "Reinventing how we record memories and feelings through music.",
-        image: designFlower,
+        image: spotify_hero,
         imagePosition: "top",
         href: "/work/spotify-tags",
     },
@@ -30,7 +32,7 @@ const DESIGN_PROJECTS = [
         id: "design-3",
         title: "Autonomous SD",
         description:
-            "Coming soon!",
+            "Designing interfaces for autonomous vehicles.",
         image: designBird,
         imagePosition: "center",
     },
@@ -40,24 +42,23 @@ const PROGRAMMING_PROJECTS = [
     {
         id: "programming-1",
         title: "muff",
-        description: "Bytecode interpreter for a mini programming language.",
+        description: "Byte-code interpreter for a simple, general-purpose PL.",
         image: designFlower,
         imagePosition: "top",
-        // href: "/work/spotify-tags",
     },
     {
         id: "programming-2",
-        title: "Kanji Air Writer",
-        description: "Coming soon!",
-        image: plateMag,
+        title: "stash",
+        description: "A modern, minimalist app for creating and organizing ideas and objects.",
+        note: "Built with Cursor.",
+        image: designBird,
         imagePosition: "center",
     },
     {
         id: "programming-3",
-        title: "stash",
-        description:
-            "Coming soon!",
-        image: designBird,
+        title: "kanji reader",
+        description: "Recognition system for 2,965 kanji and 71 hiragana characters.",
+        image: plateMag,
         imagePosition: "center",
     },
 ];
@@ -85,10 +86,20 @@ const WorkFilter = ({ active, onChange }) => (
     </div>
 );
 
-const ProjectDescription = ({ title, description, titleClassName = "text-[14px]", className = "" }) => (
-    <div className={`flex flex-col gap-2.5 ${className}`}>
+const ProjectDescription = ({
+    title,
+    description,
+    note,
+    titleClassName = "text-[14px]",
+    gapClassName = "gap-2.5",
+    className = "",
+}) => (
+    <div className={`flex flex-col ${gapClassName} ${className}`}>
         <p className={`font-diphylleia text-black ${titleClassName}`}>{title}</p>
-        <p className="font-gantari font-light text-[12px] leading-5 text-[#606060]">{description}</p>
+        <div className="font-gantari font-light text-[12px] leading-5 text-[#606060]">
+            <p className="m-0">{description}</p>
+            {note ? <p className="m-0 mt-5">{note}</p> : null}
+        </div>
     </div>
 );
 
@@ -107,6 +118,7 @@ const MobileProjectCard = ({ project }) => {
             <ProjectDescription
                 title={project.title}
                 description={project.description}
+                note={project.note}
                 className="px-2.5 pb-[5px]"
             />
         </>
@@ -188,27 +200,48 @@ const DesignDesktopLayout = ({ projects }) => {
     );
 };
 
+const ProgrammingCard = ({ project }) => {
+    const content = (
+        <>
+            <div className="relative h-[200px] w-full shrink-0 overflow-hidden md:h-[250px]">
+                <img
+                    src={project.image}
+                    alt=""
+                    className={`h-full w-full object-cover ${
+                        project.imagePosition === "top" ? "object-[center_20%]" : ""
+                    }`}
+                />
+            </div>
+            <ProjectDescription
+                title={project.title}
+                description={project.description}
+                note={project.note}
+                titleClassName="text-[16px]"
+                gapClassName="gap-[15px]"
+                className="flex-1 px-[15px] py-2.5"
+            />
+        </>
+    );
+
+    const className =
+        "flex min-h-0 w-full flex-col overflow-hidden border border-[#e2e2e2] text-inherit no-underline md:h-[388px]";
+
+    if (project.href) {
+        return (
+            <Link to={project.href} className={className}>
+                {content}
+            </Link>
+        );
+    }
+
+    return <article className={className}>{content}</article>;
+};
+
 const ProgrammingDesktopLayout = ({ projects }) => (
-    <div className="grid h-full min-h-0 w-full grid-cols-3 grid-rows-2 gap-2.5">
-        {projects.length === 0 ? (
-            <div className="border border-[#e2e2e2]" />
-        ) : (
-            projects.map((project) => (
-                <article
-                    key={project.id}
-                    className="flex min-h-0 flex-col overflow-hidden border border-[#e2e2e2]"
-                >
-                    <div className="relative min-h-0 flex-1 overflow-hidden">
-                        <img src={project.image} alt="" className="h-full w-full object-cover" />
-                    </div>
-                    <ProjectDescription
-                        title={project.title}
-                        description={project.description}
-                        className="p-2.5"
-                    />
-                </article>
-            ))
-        )}
+    <div className="grid w-full grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+            <ProgrammingCard key={project.id} project={project} />
+        ))}
     </div>
 );
 
@@ -229,9 +262,13 @@ const Work = () => {
                     <hr className="m-0 w-full border-0 border-t border-[#e2e2e2]" />
                     {projects.length > 0 && (
                         <div className="flex flex-col gap-[30px]">
-                            {projects.map((project) => (
-                                <MobileProjectCard key={project.id} project={project} />
-                            ))}
+                            {activeFilter === FILTERS.design
+                                ? projects.map((project) => (
+                                      <MobileProjectCard key={project.id} project={project} />
+                                  ))
+                                : projects.map((project) => (
+                                      <ProgrammingCard key={project.id} project={project} />
+                                  ))}
                         </div>
                     )}
                 </div>
@@ -247,7 +284,11 @@ const Work = () => {
                         <h1 className="font-diphylleia text-[26px] text-black">work</h1>
                         <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                     </div>
-                    <div className="min-h-0 flex-1">
+                    <div
+                        className={`min-h-0 flex-1 ${
+                            activeFilter === FILTERS.design ? "" : "overflow-y-auto"
+                        }`}
+                    >
                         {activeFilter === FILTERS.design ? (
                             <DesignDesktopLayout projects={projects} />
                         ) : (

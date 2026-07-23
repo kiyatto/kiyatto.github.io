@@ -27,7 +27,7 @@ const SectionLabel = ({ children }) => (
 );
 
 const BodyText = ({ children, className = "" }) => (
-    <p className={`m-0 font-gantari font-normal text-base leading-relaxed text-[#606060] ${className}`}>
+    <p className={`m-0 font-gantari font-normal text-sm leading-relaxed text-[#606060] ${className}`}>
         {children}
     </p>
 );
@@ -48,25 +48,33 @@ const MediaPlaceholder = ({ className = "", label }) => (
     />
 );
 
-const QuoteCard = ({ quote }) => (
+const QuoteCard = ({ quote, accent = "#b3b3b3" }) => (
     <div
-        className="flex h-[180px] w-full shrink-0 flex-col items-center justify-between rounded-[2px] p-4 border border-[#b3b3b3] bg-white"
+        className="flex h-[200px] w-full shrink-0 flex-col items-center justify-between overflow-hidden rounded-xl border border-solid bg-white p-4 md:w-[300px]"
+        style={{ borderColor: accent }}
     >
-        <p className="m-0 w-full font-fragment text-[24px] leading-none text-[#484848]">“</p>
-        <p className="m-0 w-full font-gantari text-[12px] leading-normal text-[#3d3d3d]">{quote}</p>
-        <p className="m-0 w-full text-right font-fragment text-[24px] leading-none text-[#484848]">”</p>
+        <p className="m-0 w-full font-fragment text-[24px] leading-normal text-[#484848]">“</p>
+        <p className="m-0 w-full font-gantari text-[13px] font-semibold leading-[20px] text-[#484848]">
+            {quote}
+        </p>
+        <p className="m-0 w-full text-right font-fragment text-[24px] leading-normal text-[#484848]">”</p>
     </div>
 );
 
-const InsightColumn = ({ title, body, quote }) => (
-    <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-between gap-6 overflow-hidden md:min-h-[300px] md:gap-10">
-        <div className="flex w-full flex-col gap-4">
-            <p className="m-0 w-full font-gantari font-medium text-[16px] leading-normal text-[#222222]">
+const InsightRow = ({ title, body, quote, bg, border, accent }) => (
+    <div className="flex w-full flex-col gap-[30px] md:h-[200px] md:flex-row">
+        <div
+            className="flex w-full flex-1 flex-col justify-between gap-6 rounded-xl border border-solid px-5 py-[30px] md:h-full"
+            style={{ backgroundColor: bg, borderColor: border }}
+        >
+            <p className="m-0 w-full font-diphylleia text-[22px] leading-normal text-white">
                 {title}
             </p>
-            <BodyText>{body}</BodyText>
+            <p className="m-0 w-full font-gantari text-[13px] leading-[18px] text-[#cecece]">
+                {body}
+            </p>
         </div>
-        <QuoteCard quote={quote} />
+        <QuoteCard quote={quote} accent={accent} />
     </div>
 );
 
@@ -389,28 +397,32 @@ const SpotifyTagsPage = () => {
                         <SectionLabel>user research</SectionLabel>
                         <BodyText>
                             Consulting with several longtime Spotify users about how they used the app to
-                            interact with music revealed three main pain points:
+                            interact with music revealed three main points:
                         </BodyText>
-                        <div className="flex w-full flex-col gap-10 md:flex-row md:gap-[40px]">
-                            <InsightColumn
-                                title="1. Playlists are too rigid, forcing premature commitment"
+                        <div className="flex w-full flex-col gap-10">
+                            <InsightRow
+                                title="1. Moods drive listening sessions"
+                                body="What one user thinks is ‘relaxing’ might be ‘sad’ for another. Moving between genres should be fluidly personalizable for everyone."
+                                quote="I’ve always wanted to categorize music by “vibe”, since most of my playlists are based off of moods."
+                                bg="#3e3e3e"
+                                border="#924307"
+                                accent="#ec7418"
+                            />
+                            <InsightRow
+                                title="2. Playlists can be too rigid, forcing premature commitment"
                                 body="Users don’t want to create new playlists for each time their moods shift."
-                                quote="“As someone who likes to listen to certain music depending on my mood... [song] labels would be really nice for being able to organize music without necessarily needing to put said music into a playlist.”"
-                                quoteBg="#a5b910"
+                                quote="As someone who likes to listen to certain music depending on my mood... labels would be really nice for being able to organize music without necessarily needing to put said music into a playlist."
+                                bg="#2f2e2e"
+                                border="#13269f"
+                                accent="#62aadd"
                             />
-                            <div className="hidden w-px shrink-0 self-stretch bg-[#d0d0d0] md:block" />
-                            <InsightColumn
-                                title="2. Moods and genres don’t map cleanly to playlist structures"
-                                body="Moving between different genres/moods of music should feel freeform and fluid."
-                                quote="“I’ve always wanted to categorize music by “vibe”, since most of my playlists are based off of moods.”"
-                                quoteBg="#f79d37"
-                            />
-                            <div className="hidden w-px shrink-0 self-stretch bg-[#d0d0d0] md:block" />
-                            <InsightColumn
-                                title="3. Songs carry meaning independent of playlists"
-                                body="Users want to record connections to songs that are unique to the song itself."
-                                quote="“…then I could add associations to songs without having to associate songs with other songs.”"
-                                quoteBg="#f67d7d"
+                            <InsightRow
+                                title="3. Songs carry meaning to users that isn’t defined by their placement in a playlist or collection"
+                                body="Users want to record unique connections to individual songs."
+                                quote="…then I could add associations to songs without having to associate songs with other songs."
+                                bg="#1c1c1c"
+                                border="#0a845b"
+                                accent="#73c5b7"
                             />
                         </div>
                     </section>
