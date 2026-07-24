@@ -3,10 +3,13 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router";
 
 import designFlower from "../assets/work/design-flower.png";
-import designBird from "../assets/work/design-bird.png";
+import auto_sd from "../assets/work/auto_sd.svg";
 import plateMag from "../assets/work/plate-mag.png";
 
-import spotify_hero from "../assets/work/spotify-media/hero.png";
+import black_placeholder from "../assets/work/black_placeholder.svg";
+
+import spotify_hero from "../assets/work/spotify_static.svg";
+import spotify_animation from "../assets/work/spotify_animation.svg?raw";
 
 const FILTERS = {
     design: "design",
@@ -16,11 +19,23 @@ const FILTERS = {
 const DESIGN_PROJECTS = [
     {
         id: "design-1",
-        title: "Introducing tags for Spotify",
+        title: (
+            <>
+                Introducing{" "}
+                <span className="font-reenie-beanie text-[20px] leading-5 md:text-[22px]">
+                    tags
+                </span>{" "}
+                for Spotify
+            </>
+        ),
         description: "Reinventing how we record memories and feelings through music.",
         image: spotify_hero,
         imagePosition: "top",
         href: "/work/spotify-tags",
+        hoverAnimation: spotify_animation.replace(
+            /<svg\b/,
+            '<svg preserveAspectRatio="xMidYMid slice"'
+        ),
         comingSoon: false,
     },
     {
@@ -36,7 +51,7 @@ const DESIGN_PROJECTS = [
         title: "Autonomous SD",
         description:
             "Designing interfaces for autonomous vehicles.",
-        image: designBird,
+        image: auto_sd,
         imagePosition: "center",
         comingSoon: true,
     },
@@ -47,16 +62,15 @@ const PROGRAMMING_PROJECTS = [
         id: "programming-1",
         title: "muff",
         description: "Byte-code interpreter for a simple, general-purpose PL.",
-        image: designFlower,
+        image: black_placeholder,
         imagePosition: "top",
         comingSoon: true,
     },
     {
         id: "programming-2",
         title: "stash",
-        description: "A modern, minimalist app for creating and organizing ideas and objects.",
-        note: "Built with Cursor.",
-        image: designBird,
+        description: "A modern, minimalist app for creating and organizing ideas and objects. Built with Cursor.",
+        image: black_placeholder,
         imagePosition: "center",
         comingSoon: true,
     },
@@ -64,7 +78,7 @@ const PROGRAMMING_PROJECTS = [
         id: "programming-3",
         title: "kanji reader",
         description: "Recognition system for 2,965 kanji and 71 hiragana characters.",
-        image: plateMag,
+        image: black_placeholder,
         imagePosition: "center",
         comingSoon: true,
     },
@@ -99,6 +113,39 @@ const useComingSoonCursor = (enabled) => {
     return { handlers, cursorClassName: "cursor-none", pill };
 };
 
+const ProjectMedia = ({
+    image,
+    imagePosition,
+    hoverAnimation,
+    className = "",
+    imageClassName = "",
+}) => {
+    const [playing, setPlaying] = useState(false);
+
+    return (
+        <div
+            className={`relative overflow-hidden ${className}`}
+            onMouseEnter={hoverAnimation ? () => setPlaying(true) : undefined}
+            onMouseLeave={hoverAnimation ? () => setPlaying(false) : undefined}
+        >
+            <img
+                src={image}
+                alt=""
+                className={`h-full w-full object-cover transition-opacity duration-200 ${
+                    playing ? "opacity-0" : "opacity-100"
+                } ${imagePosition === "top" ? "object-[center_20%]" : ""} ${imageClassName}`}
+            />
+            {hoverAnimation && playing ? (
+                <div
+                    className="pointer-events-none absolute inset-0 [&_svg]:block [&_svg]:h-full [&_svg]:w-full"
+                    aria-hidden
+                    dangerouslySetInnerHTML={{ __html: hoverAnimation }}
+                />
+            ) : null}
+        </div>
+    );
+};
+
 const WorkFilter = ({ active, onChange }) => (
     <div className="flex items-center gap-5 p-1.5">
         {Object.values(FILTERS).map((filter) => {
@@ -125,7 +172,6 @@ const WorkFilter = ({ active, onChange }) => (
 const ProjectDescription = ({
     title,
     description,
-    note,
     titleClassName = "text-[14px]",
     gapClassName = "gap-2.5",
     className = "",
@@ -134,7 +180,6 @@ const ProjectDescription = ({
         <p className={`font-diphylleia text-black ${titleClassName}`}>{title}</p>
         <div className="font-gantari font-light text-[12px] leading-5 text-[#606060]">
             <p className="m-0">{description}</p>
-            {note ? <p className="m-0 mt-5">{note}</p> : null}
         </div>
     </div>
 );
@@ -144,19 +189,15 @@ const MobileProjectCard = ({ project }) => {
 
     const content = (
         <>
-            <div className="relative h-[200px] w-full overflow-hidden">
-                <img
-                    src={project.image}
-                    alt=""
-                    className={`h-full w-full object-cover ${
-                        project.imagePosition === "top" ? "object-[center_20%]" : ""
-                    }`}
-                />
-            </div>
+            <ProjectMedia
+                image={project.image}
+                imagePosition={project.imagePosition}
+                hoverAnimation={project.hoverAnimation}
+                className="h-[200px] w-full"
+            />
             <ProjectDescription
                 title={project.title}
                 description={project.description}
-                note={project.note}
                 className="px-2.5 pb-[5px]"
             />
             {pill}
@@ -186,17 +227,18 @@ const DesktopFeaturedCard = ({ project }) => {
 
     const content = (
         <>
-            <div className="relative min-h-0 flex-1 overflow-hidden">
-                <img
-                    src={project.image}
-                    alt=""
-                    className="h-full w-full object-cover object-[center_20%]"
-                />
-            </div>
+            <ProjectMedia
+                image={project.image}
+                imagePosition={project.imagePosition}
+                hoverAnimation={project.hoverAnimation}
+                className="min-h-0 flex-1"
+                imageClassName="object-[center_20%]"
+            />
             <ProjectDescription
                 title={project.title}
                 description={project.description}
-                titleClassName="text-[18px]"
+                titleClassName="text-[16px] leading-5"
+                gapClassName="gap-2.5"
                 className="p-[15px]"
             />
             {pill}
@@ -275,7 +317,6 @@ const ProgrammingCard = ({ project }) => {
             <ProjectDescription
                 title={project.title}
                 description={project.description}
-                note={project.note}
                 titleClassName="text-[16px]"
                 gapClassName="gap-[15px]"
                 className="flex-1 px-[15px] py-2.5"
