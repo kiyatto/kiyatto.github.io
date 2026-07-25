@@ -387,7 +387,6 @@ const Work = () => {
                     style={{ width: "80vw", maxWidth: "1150px" }}
                 >
                     <div className="flex w-full shrink-0 items-center justify-between">
-                        <h1 className="font-diphylleia text-[26px] text-black">work</h1>
                         <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                     </div>
                     <div
