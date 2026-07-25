@@ -5,6 +5,7 @@ const COLOR = "#3765FD";
 const DURATION_MS = 1500;
 const STORAGE_KEY = "pixel-trail-enabled";
 const TIME_ZONE = "America/Los_Angeles";
+const DESKTOP_MQ = "(min-width: 768px)";
 
 const formatSeattleTime = (date = new Date()) =>
   new Intl.DateTimeFormat("en-GB", {
@@ -15,10 +16,14 @@ const formatSeattleTime = (date = new Date()) =>
     hourCycle: "h23",
   }).format(date);
 
+const getIsDesktop = () =>
+  typeof window !== "undefined" && window.matchMedia(DESKTOP_MQ).matches;
+
 /**
  * Lights 5×5 CSS-pixel cells under the cursor to #3765FD, then clears
  * them after 1.5s. Includes footer toggle, coords, and Seattle time.
  * Canvas is DPR-scaled so CELL always maps to CSS pixels (not stretched).
+ * Desktop only — not rendered below the `md` breakpoint.
  */
 const PixelTrail = () => {
   const canvasRef = useRef(null);
@@ -26,6 +31,7 @@ const PixelTrail = () => {
   const timeRef = useRef(null);
   const enabledRef = useRef(true);
   const apiRef = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(getIsDesktop);
 
   const [enabled, setEnabled] = useState(() => {
     try {
@@ -37,6 +43,14 @@ const PixelTrail = () => {
   });
 
   enabledRef.current = enabled;
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const toggle = useCallback(() => {
     setEnabled((prev) => {
@@ -52,6 +66,8 @@ const PixelTrail = () => {
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     const canvas = canvasRef.current;
     const coordsEl = coordsRef.current;
     const timeEl = timeRef.current;
@@ -196,7 +212,9 @@ const PixelTrail = () => {
       lit.clear();
       apiRef.current = null;
     };
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) return null;
 
   return (
     <>
