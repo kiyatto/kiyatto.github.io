@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Graph from "./Graph.jsx";
+import PixelTrail from "./PixelTrail.jsx";
 import { useNavigate } from "react-router";
 
 const EmailLink = ({ className }) => {
@@ -41,7 +42,9 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="h-full w-full overflow-hidden md:overflow-visible flex justify-center md:items-center">
+        <>
+            <PixelTrail />
+            <div className="relative z-[1] flex h-full w-full justify-center overflow-hidden md:items-center md:overflow-visible">
 
             {/* mobile — fills viewport content area, no page scroll */}
             <div
@@ -109,7 +112,8 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </>
     );
 }
 
