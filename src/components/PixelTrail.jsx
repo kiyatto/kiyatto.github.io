@@ -21,7 +21,7 @@ const getIsDesktop = () =>
 
 /**
  * Lights 5×5 CSS-pixel cells under the cursor to #3765FD, then clears
- * them after 1.5s. Includes footer toggle, coords, and Seattle time.
+ * them after 1.5s. Includes top Seattle time, bottom cursor toggle + coords.
  * Canvas is DPR-scaled so CELL always maps to CSS pixels (not stretched).
  * Desktop only — not rendered below the `md` breakpoint.
  */
@@ -223,14 +223,16 @@ const PixelTrail = () => {
         className="pointer-events-none fixed inset-0 z-0"
         aria-hidden="true"
       />
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[5] flex items-center justify-between bg-transparent px-10 py-5">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-[5] flex items-center justify-start bg-transparent px-10 py-5">
         <p
           ref={timeRef}
           className="m-0 font-dm-mono text-xs font-normal leading-normal text-black whitespace-pre"
         >
           {`${formatSeattleTime()}    SEATTLE, WA`}
         </p>
-        <div className="flex items-center gap-5">
+      </div>
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[5] flex items-center justify-end bg-transparent px-10 py-5">
+        <div className="flex items-center gap-8">
           <button
             type="button"
             onClick={toggle}
@@ -243,7 +245,7 @@ const PixelTrail = () => {
           </button>
           <p
             ref={coordsRef}
-            className="m-0 min-w-[5.5em] text-right font-gantari text-xs font-normal leading-normal text-black tabular-nums"
+            className="m-0 min-w-[5.5em] font-gantari text-xs font-normal leading-normal text-black tabular-nums"
           >
             0, 0
           </p>

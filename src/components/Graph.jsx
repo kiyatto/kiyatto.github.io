@@ -50,7 +50,7 @@ export default function Graph({ onNavigate }) {
         const height = size.height || container.clientHeight || 560;
         if (!width || !height) return;
         const scale = Math.min(width, height) / 7;
-        const edgeLength = 1.5;
+        const edgeLength = 2.25;
 
         const nodes = graphObjects.nodes.map(n => ({ ...n }));
         const edges = graphObjects.edges.map(e => ({ ...e }));

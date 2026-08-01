@@ -1,9 +1,6 @@
 import { NavLink, useLocation } from 'react-router';
 
 const NavBar = () => {
-  const { pathname } = useLocation();
-  if (pathname === '/') return null;
-
   return (
     <nav className="w-[300px] flex-shrink-0 rounded-[10px] bg-[#E9E9E9] px-[12px] py-[6px] sm:w-[360px]">
       <ul className="flex flex-row items-center justify-between">
@@ -33,6 +30,17 @@ const NavBar = () => {
 };
 
 const Header = () => {
+  const { pathname } = useLocation();
+  // Graph pages use PixelTrail chrome + graph nav instead of the pill bar.
+  if (
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/work' ||
+    pathname === '/reading-list'
+  ) {
+    return null;
+  }
+
   return (
     <header className="relative z-10 flex items-center justify-center px-10 py-8">
       <NavBar />
