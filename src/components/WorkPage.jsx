@@ -32,7 +32,7 @@ const DESIGN_PROJECTS = [
             /<svg\b/,
             '<svg preserveAspectRatio="xMidYMid slice"'
         ),
-        comingSoon: false,
+        hoverPill: "view case study",
     },
     {
         id: "design-2",
@@ -80,10 +80,10 @@ const PROGRAMMING_PROJECTS = [
     },
 ];
 
-const useComingSoonCursor = (enabled) => {
+const useHoverPill = (label) => {
     const [cursor, setCursor] = useState(null);
 
-    if (!enabled) {
+    if (!label) {
         return { handlers: {}, cursorClassName: "", pill: null };
     }
 
@@ -101,7 +101,7 @@ const useComingSoonCursor = (enabled) => {
                 className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#222222] px-3.5 py-2 font-fragment text-[11px] leading-none tracking-[0.04em] text-white whitespace-nowrap"
                 style={{ left: cursor.x, top: cursor.y }}
             >
-                COMING SOON!
+                {label}
             </div>,
             document.body
         );
@@ -160,7 +160,8 @@ const WorkFilter = ({ active, onChange }) => (
 );
 
 const ProjectCard = ({ project }) => {
-    const { handlers, cursorClassName, pill } = useComingSoonCursor(project.comingSoon);
+    const pillLabel = project.hoverPill ?? (project.comingSoon ? "COMING SOON!" : null);
+    const { handlers, cursorClassName, pill } = useHoverPill(pillLabel);
 
     const content = (
         <>
@@ -212,16 +213,18 @@ const Work = () => {
         <>
             <PixelTrail />
             <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-                <div className="flex w-full flex-col gap-10 py-14 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
+                <div className="flex w-full flex-col gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
                     {/* projects — page scrolls on mobile; column scrolls on desktop */}
-                    <div className="flex w-full min-w-0 flex-col gap-2.5 md:min-h-0 md:flex-1 md:overflow-hidden">
-                        <div className="sticky top-0 z-[1] shrink-0 bg-white md:static">
-                            <WorkFilter active={activeFilter} onChange={setActiveFilter} />
-                        </div>
-                        <div className="flex flex-col gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
-                            {projects.map((project) => (
-                                <ProjectCard key={project.id} project={project} />
-                            ))}
+                    <div className="flex w-full min-w-0 md:min-h-0 md:flex-1 md:overflow-hidden">
+                        <div className="flex w-[75%] min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
+                            <div className="sticky top-0 z-[1] shrink-0 bg-white md:static">
+                                <WorkFilter active={activeFilter} onChange={setActiveFilter} />
+                            </div>
+                            <div className="flex flex-col gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
+                                {projects.map((project) => (
+                                    <ProjectCard key={project.id} project={project} />
+                                ))}
+                            </div>
                         </div>
                     </div>
 

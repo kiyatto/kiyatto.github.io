@@ -73,7 +73,7 @@ const FinalDesignDemo = () => {
     const activeVideo = FINAL_DESIGN_VIDEOS.find((video) => video.id === activeId);
 
     return (
-        <div className="relative flex h-[320px] w-full flex-col overflow-hidden border border-solid border-[#b3b3b3] bg-black md:h-[460px] pt-2 pb-6">
+        <div className="relative flex h-[480px] w-full flex-col overflow-hidden border border-solid border-[#b3b3b3] bg-black md:h-[690px] pt-2 pb-6">
             <div
                 className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-[8px] bg-black/70 p-1 backdrop-blur-sm"
                 role="tablist"
@@ -410,28 +410,32 @@ const SpotifyTagsPage = () => {
                                                 </p>
                                             </div>
                                         </ProcessBody>
-                                        <video
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                            className="h-auto w-full max-w-[430px] flex-1 object-contain"
-                                        >
-                                            <source src={filterv1} type="video/mp4" />
-                                        </video>
+                                        <div className="relative h-[560px] w-full max-w-[430px] flex-1 overflow-hidden bg-black pb-4">
+                                            <video
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className="absolute left-1/2 top-0 h-full w-auto max-w-none -translate-x-1/2 pb-4"
+                                            >
+                                                <source src={filterv1} type="video/mp4" />
+                                            </video>
+                                        </div>
                                     </div>
 
                                     {/* Filtering iteration 2 */}
                                     <div className="flex w-full flex-col gap-10 md:flex-row md:items-center md:gap-[120px]">
-                                        <video
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                            className="h-auto w-full max-w-[440px] flex-1 object-contain"
-                                        >
-                                            <source src={filterv2} type="video/mp4" />
-                                        </video>
+                                        <div className="relative h-[560px] w-full max-w-[430px] flex-1 overflow-hidden bg-black">
+                                            <video
+                                                autoPlay
+                                                loop
+                                                muted
+                                                playsInline
+                                                className="absolute left-1/2 top-0 h-full w-auto max-w-none -translate-x-1/2 pb-4"
+                                            >
+                                                <source src={filterv2} type="video/mp4" />
+                                            </video>
+                                        </div>
                                         <ProcessBody className="w-full max-w-[440px] flex-1">
                                             <p className="m-0">
                                                 In revising this design, the secondary button for filtering was

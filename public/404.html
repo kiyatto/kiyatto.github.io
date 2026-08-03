@@ -4,9 +4,14 @@
     <meta charset="utf-8" />
     <title>katreeya ong</title>
     <script>
-      // GitHub Pages has no server rewrite — map /about → /#/about so reloads always hit index.html.
-      var path = location.pathname + location.search + location.hash;
-      location.replace(path === '/' ? '/' : '/#' + path);
+      // GitHub Pages has no server rewrite for SPAs. On a missing path like /work,
+      // this 404.html runs, stashes the path, and sends the browser to / so index.html
+      // can load. main.jsx then restores the path via history.replaceState.
+      sessionStorage.setItem(
+        'redirect',
+        location.pathname + location.search + location.hash
+      );
+      location.replace('/');
     </script>
   </head>
   <body></body>

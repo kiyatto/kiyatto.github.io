@@ -54,7 +54,7 @@ const LibraryView = () => {
     <>
       <PixelTrail />
       <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-        <div className="flex w-full flex-col gap-10 py-14 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
+        <div className="flex w-full flex-col gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
           {/* lists — page scrolls on mobile; column scrolls on desktop */}
           <div className="flex w-full min-w-0 flex-col justify-between gap-10 text-black md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
             <ListSection

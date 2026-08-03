@@ -21,7 +21,7 @@ const getIsDesktop = () =>
 
 /**
  * Lights 5×5 CSS-pixel cells under the cursor to #3765FD, then clears
- * them after 1.5s. Includes top Seattle time, bottom cursor toggle + coords.
+ * them after 1.5s. Includes top nametag + Seattle time, bottom cursor toggle + coords.
  * Canvas is DPR-scaled so CELL always maps to CSS pixels (not stretched).
  * Desktop only — not rendered below the `md` breakpoint.
  */
@@ -223,12 +223,15 @@ const PixelTrail = () => {
         className="pointer-events-none fixed inset-0 z-0"
         aria-hidden="true"
       />
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[5] flex items-center justify-start bg-transparent px-10 py-5">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-[5] flex items-center justify-between bg-transparent px-10 py-5 text-xs leading-normal text-black">
         <p
           ref={timeRef}
-          className="m-0 font-dm-mono text-xs font-normal leading-normal text-black whitespace-pre"
+          className="m-0 shrink-0 font-dm-mono font-normal whitespace-pre"
         >
           {`${formatSeattleTime()}    SEATTLE, WA`}
+        </p>
+        <p className="m-0 shrink-0 font-gantari font-normal whitespace-nowrap">
+          katreeya ong / キャット / แคทรียา
         </p>
       </div>
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[5] flex items-center justify-end bg-transparent px-10 py-5">

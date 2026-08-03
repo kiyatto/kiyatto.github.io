@@ -14,7 +14,7 @@ const AboutView = () => {
     <>
       <PixelTrail />
       <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-        <div className="flex w-full flex-col items-center gap-10 py-14 md:min-h-0 md:flex-1 md:flex-row md:gap-10 md:py-0">
+        <div className="flex w-full flex-col items-center gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:gap-10 md:py-16">
           {/* bio */}
           <div className="flex w-full min-w-0 flex-col items-start justify-center md:min-h-0 md:flex-1 md:overflow-y-auto">
             <div className="flex w-full max-w-[388px] flex-col gap-5">
