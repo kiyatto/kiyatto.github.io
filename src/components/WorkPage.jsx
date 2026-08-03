@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router";
 import Graph from "./Graph.jsx";
@@ -81,25 +81,45 @@ const PROGRAMMING_PROJECTS = [
 ];
 
 const useHoverPill = (label) => {
-    const [cursor, setCursor] = useState(null);
+    const [active, setActive] = useState(false);
+    const pillRef = useRef(null);
+    const posRef = useRef({ x: 0, y: 0 });
+
+    const movePill = (x, y) => {
+        posRef.current = { x, y };
+        const el = pillRef.current;
+        if (!el) return;
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+    };
+
+    useEffect(() => {
+        if (!active) return;
+        const { x, y } = posRef.current;
+        movePill(x, y);
+    }, [active]);
 
     if (!label) {
         return { handlers: {}, cursorClassName: "", pill: null };
     }
 
     const handlers = {
-        onMouseEnter: (event) => setCursor({ x: event.clientX, y: event.clientY }),
-        onMouseMove: (event) => setCursor({ x: event.clientX, y: event.clientY }),
-        onMouseLeave: () => setCursor(null),
+        onMouseEnter: (event) => {
+            movePill(event.clientX, event.clientY);
+            setActive(true);
+        },
+        onMouseMove: (event) => movePill(event.clientX, event.clientY),
+        onMouseLeave: () => setActive(false),
     };
 
     const pill =
-        cursor &&
+        active &&
         createPortal(
             <div
+                ref={pillRef}
                 aria-hidden
                 className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#222222] px-3.5 py-2 font-fragment text-[11px] leading-none tracking-[0.04em] text-white whitespace-nowrap"
-                style={{ left: cursor.x, top: cursor.y }}
+                style={{ left: posRef.current.x, top: posRef.current.y }}
             >
                 {label}
             </div>,
