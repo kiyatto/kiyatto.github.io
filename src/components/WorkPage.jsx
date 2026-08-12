@@ -33,6 +33,7 @@ const DESIGN_PROJECTS = [
             '<svg preserveAspectRatio="xMidYMid slice"'
         ),
         hoverPill: "view case study",
+        hoverPillColor: "#007228",
     },
     {
         id: "design-2",
@@ -55,6 +56,17 @@ const DESIGN_PROJECTS = [
 const PROGRAMMING_PROJECTS = [
     {
         id: "programming-1",
+        title: "kanji reader",
+        description: "Recognition system for 2,965 kanji and 71 hiragana characters.",
+        image: black_placeholder,
+        imagePosition: "center",
+        comingSoon: false,
+        href: "https://github.com/kiyatto/kanji-reader",
+        hoverPill: "view on github",
+        hoverPillColor: "#8B1A1A",
+    },
+    {
+        id: "programming-2",
         title: "muff",
         description: "Byte-code interpreter for a simple, general-purpose PL.",
         image: black_placeholder,
@@ -62,7 +74,7 @@ const PROGRAMMING_PROJECTS = [
         comingSoon: true,
     },
     {
-        id: "programming-2",
+        id: "programming-3",
         title: "stash",
         description:
             "A modern, minimalist app for creating and organizing ideas and objects. Built with Cursor.",
@@ -70,17 +82,9 @@ const PROGRAMMING_PROJECTS = [
         imagePosition: "center",
         comingSoon: true,
     },
-    {
-        id: "programming-3",
-        title: "kanji reader",
-        description: "Recognition system for 2,965 kanji and 71 hiragana characters.",
-        image: black_placeholder,
-        imagePosition: "center",
-        comingSoon: true,
-    },
 ];
 
-const useHoverPill = (label) => {
+const useHoverPill = (label, color = "#222222") => {
     const [active, setActive] = useState(false);
     const pillRef = useRef(null);
     const posRef = useRef({ x: 0, y: 0 });
@@ -118,8 +122,8 @@ const useHoverPill = (label) => {
             <div
                 ref={pillRef}
                 aria-hidden
-                className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#222222] px-3.5 py-2 font-fragment text-[11px] leading-none tracking-[0.04em] text-white whitespace-nowrap"
-                style={{ left: posRef.current.x, top: posRef.current.y }}
+                className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full px-3.5 py-2 font-fragment text-[11px] leading-none tracking-[0.04em] text-white whitespace-nowrap"
+                style={{ left: posRef.current.x, top: posRef.current.y, backgroundColor: color }}
             >
                 {label}
             </div>,
@@ -181,7 +185,10 @@ const WorkFilter = ({ active, onChange }) => (
 
 const ProjectCard = ({ project }) => {
     const pillLabel = project.hoverPill ?? (project.comingSoon ? "COMING SOON!" : null);
-    const { handlers, cursorClassName, pill } = useHoverPill(pillLabel);
+    const { handlers, cursorClassName, pill } = useHoverPill(
+        pillLabel,
+        project.hoverPillColor
+    );
 
     const content = (
         <>
@@ -203,6 +210,22 @@ const ProjectCard = ({ project }) => {
     );
 
     const className = `flex w-full flex-col items-start overflow-clip text-inherit no-underline ${cursorClassName}`;
+    const isExternal =
+        typeof project.href === "string" && /^https?:\/\//i.test(project.href);
+
+    if (isExternal) {
+        return (
+            <a
+                href={project.href}
+                className={className}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...handlers}
+            >
+                {content}
+            </a>
+        );
+    }
 
     if (project.href) {
         return (
@@ -226,8 +249,8 @@ const ProjectCard = ({ project }) => {
 const Work = () => {
     const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState(FILTERS.design);
-    const projects =
-        activeFilter === FILTERS.design ? DESIGN_PROJECTS : PROGRAMMING_PROJECTS;
+    const isSoftware = activeFilter === FILTERS.programming;
+    const projects = isSoftware ? PROGRAMMING_PROJECTS : DESIGN_PROJECTS;
 
     return (
         <>
@@ -236,11 +259,21 @@ const Work = () => {
                 <div className="flex w-full flex-col gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
                     {/* projects — page scrolls on mobile; column scrolls on desktop */}
                     <div className="flex w-full min-w-0 md:min-h-0 md:flex-1 md:overflow-hidden">
-                        <div className="flex w-[75%] min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
+                        <div
+                            className={`flex min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden ${
+                                isSoftware ? "w-full" : "w-[75%]"
+                            }`}
+                        >
                             <div className="sticky top-0 z-[1] shrink-0 bg-white md:static">
                                 <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                             </div>
-                            <div className="flex flex-col gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
+                            <div
+                                className={`md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto ${
+                                    isSoftware
+                                        ? "grid grid-cols-1 gap-2.5 sm:grid-cols-2"
+                                        : "flex flex-col gap-2.5"
+                                }`}
+                            >
                                 {projects.map((project) => (
                                     <ProjectCard key={project.id} project={project} />
                                 ))}
