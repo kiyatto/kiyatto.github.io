@@ -29,20 +29,20 @@ const NavBar = () => {
   );
 };
 
+const GRAPH_PATHS = new Set(['/', '/about', '/work', '/reading-list']);
+
 const Header = () => {
   const { pathname } = useLocation();
-  // Graph pages use PixelTrail chrome + graph nav instead of the pill bar.
-  if (
-    pathname === '/' ||
-    pathname === '/about' ||
-    pathname === '/work' ||
-    pathname === '/reading-list'
-  ) {
-    return null;
-  }
+  // Graph pages use the force-directed graph for nav on desktop; the pill
+  // bar is the mobile nav instead.
+  const isGraphPage = GRAPH_PATHS.has(pathname);
 
   return (
-    <header className="relative z-10 flex items-center justify-center px-10 py-8">
+    <header
+      className={`relative z-10 flex items-center justify-center px-10 py-8 ${
+        isGraphPage ? 'md:hidden' : ''
+      }`}
+    >
       <NavBar />
     </header>
   );

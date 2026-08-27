@@ -14,6 +14,7 @@ const BOOKS = [
   "Tomorrow and Tomorrow and Tomorrow - Gabrielle Zevin",
   "Atonement - Ian McEwan",
   "The Age of Innocence - Edith Wharton",
+  "Lost Lambs - Madeline Cash",
 ];
 
 const FILMS = [
@@ -67,11 +68,9 @@ const LibraryView = () => {
             />
           </div>
 
-          {/* graph */}
-          <div className="hidden h-full w-[min(400px,38vw)] shrink-0 items-center justify-center md:flex">
-            <div className="h-full w-full max-h-[342px]">
-              <Graph onNavigate={navigate} />
-            </div>
+          {/* graph — desktop nav; mobile uses Header */}
+          <div className="hidden h-full min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center md:flex">
+            <Graph onNavigate={navigate} />
           </div>
         </div>
       </div>

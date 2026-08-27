@@ -1,13 +1,16 @@
 // Graph.jsx
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-const graphObjects = {
+// Figma node 1151:166 — graph frame is 226.5 × 342 px.
+const DESIGN = {
+    width: 226.5,
+    height: 342,
     nodes: [
-        { id: "home", x0: 0, y0: 0 },
-        { id: "about", x0: -3, y0: -2 },
-        { id: "work", x0: 2, y0: -3 },
-        { id: "library", x0: -2, y0: 3 },
+        { id: "home", cx: 142, cy: 157.5, r: 11.5 },
+        { id: "about", cx: 17, cy: 87, r: 10, labelAbove: true },
+        { id: "work", cx: 212, cy: 34, r: 10, labelAbove: true },
+        { id: "library", cx: 52.25, cy: 311, r: 10, labelAbove: false },
     ],
     edges: [
         { source: "home", target: "about" },
@@ -23,22 +26,28 @@ const routes = {
     library: "/reading-list",
 };
 
+const LABEL_FONT = '12px "Fragment Mono SC"';
+const labelDy = (above, r) => (above ? -(r + 17) : r + 17);
+
 export default function Graph({ onNavigate }) {
     const ref = useRef(null);
     const [size, setSize] = useState({ width: 0, height: 0 });
 
-    // keep the drawing in sync with the container size so the graph
-    // re-lays out responsively when the window is resized
-    useEffect(() => {
+    useLayoutEffect(() => {
         const container = ref.current;
         if (!container) return;
 
-        const observer = new ResizeObserver(entries => {
-            const { width, height } = entries[0].contentRect;
+        const updateSize = () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            if (!width || !height) return;
             setSize(prev =>
                 prev.width === width && prev.height === height ? prev : { width, height }
             );
-        });
+        };
+
+        updateSize();
+        const observer = new ResizeObserver(updateSize);
         observer.observe(container);
 
         return () => observer.disconnect();
@@ -46,29 +55,43 @@ export default function Graph({ onNavigate }) {
 
     useEffect(() => {
         const container = ref.current;
-        const width = size.width || container.clientWidth || 575;
-        const height = size.height || container.clientHeight || 560;
-        if (!width || !height) return;
-        const scale = Math.min(width, height) / 7;
-        const edgeLength = 2.25;
+        const { width, height } = size;
+        if (!container || !width || !height) return;
 
-        const nodes = graphObjects.nodes.map(n => ({ ...n }));
-        const edges = graphObjects.edges.map(e => ({ ...e }));
+        const scale = Math.min(width / DESIGN.width, height / DESIGN.height);
+        const offsetX = (width - DESIGN.width * scale) / 2;
+        const offsetY = (height - DESIGN.height * scale) / 2;
+        const toScreen = (x, y) => ({
+            x: offsetX + x * scale,
+            y: offsetY + y * scale,
+        });
+
+        const nodes = DESIGN.nodes.map(def => {
+            const { x, y } = toScreen(def.cx, def.cy);
+            const r = def.r * scale;
+            return { ...def, r, x, y, x0: x, y0: y };
+        });
+
+        const nodeById = Object.fromEntries(nodes.map(n => [n.id, n]));
+        const edges = DESIGN.edges.map(e => ({
+            source: nodeById[e.source],
+            target: nodeById[e.target],
+            distance: Math.hypot(
+                nodeById[e.source].x0 - nodeById[e.target].x0,
+                nodeById[e.source].y0 - nodeById[e.target].y0
+            ),
+        }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-        const nodeRadius = d => (d.id === "home" ? 12 : 10);
-        // padding from a node's center to the edge of its visible extent (icon + label),
-        // populated once labels are measured; falls back to the node radius.
-        const clampX = (value, d) => clamp(
-            value,
-            -width / 2 + (d.padLeft ?? nodeRadius(d)),
-            width / 2 - (d.padRight ?? nodeRadius(d))
-        );
-        const clampY = (value, d) => clamp(
-            value,
-            -height / 2 + (d.padTop ?? nodeRadius(d)),
-            height / 2 - (d.padBottom ?? nodeRadius(d))
-        );
+
+        const clampNode = d => {
+            const padL = d.padLeft ?? d.r;
+            const padR = d.padRight ?? d.r;
+            const padT = d.padTop ?? d.r;
+            const padB = d.padBottom ?? d.r;
+            d.x = clamp(d.x, padL, width - padR);
+            d.y = clamp(d.y, padT, height - padB);
+        };
 
         const svg = d3
             .select(container)
@@ -76,145 +99,163 @@ export default function Graph({ onNavigate }) {
             .attr("width", width)
             .attr("height", height);
 
-        // shift origin to center
-        const g = svg.append("g")
-            .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-        // star icon path, drawn in a 24x24 viewBox (center at 12, 12)
         const homeIconPath = "M11.6691 0.798216C11.711 0.400596 12.289 0.400593 12.3309 0.798216L12.9337 6.52006C12.987 7.02564 13.6344 7.19969 13.9333 6.78876L17.3186 2.13527C17.5537 1.81206 18.054 2.102 17.8913 2.46719L15.552 7.7186C15.3451 8.18326 15.8191 8.65882 16.2834 8.45236L21.5384 6.11588C21.9034 5.95358 22.192 6.45537 21.8687 6.69013L17.2197 10.0658C16.8081 10.3647 16.9816 11.0145 17.4872 11.0676L23.2021 11.6686C23.5993 11.7104 23.5993 12.2896 23.2021 12.3314L17.4872 12.9324C16.9816 12.9855 16.8081 13.6353 17.2197 13.9342L21.8687 17.3099C22.192 17.5447 21.9034 18.0464 21.5384 17.8841L16.2834 15.5476C15.8191 15.3412 15.3451 15.8168 15.552 16.2814L17.8913 21.5328C18.054 21.898 17.5537 22.1879 17.3186 21.8647L13.9333 17.2112C13.6344 16.8003 12.987 16.9743 12.9337 17.48L12.3309 23.2018C12.289 23.5994 11.711 23.5994 11.6691 23.2018L11.0663 17.48C11.013 16.9743 10.3656 16.8003 10.0667 17.2112L6.68141 21.8647C6.4463 22.1879 5.94602 21.898 6.10871 21.5328L8.44797 16.2814C8.65493 15.8168 8.18091 15.3412 7.71659 15.5476L2.46162 17.8841C2.09659 18.0464 1.80799 17.5447 2.13134 17.3099L6.78033 13.9342C7.19193 13.6353 7.01838 12.9855 6.51277 12.9324L0.797945 12.3314C0.400687 12.2896 0.400683 11.7104 0.797945 11.6686L6.51277 11.0676C7.01838 11.0145 7.19193 10.3647 6.78033 10.0658L2.13133 6.69013C1.80799 6.45537 2.09659 5.95358 2.46162 6.11588L7.71659 8.45236C8.18091 8.65882 8.65493 8.18326 8.44797 7.7186L6.10871 2.46719C5.94602 2.10201 6.4463 1.81206 6.68144 2.13527L10.0667 6.78876C10.3656 7.19969 11.013 7.02564 11.0663 6.52006L11.6691 0.798216Z";
 
-        const edge = g
+        const edge = svg
             .selectAll("line")
             .data(edges)
             .join("line")
             .attr("stroke", "#545454");
 
-        const node = g
+        const node = svg
             .selectAll("circle")
             .data(nodes.filter(d => d.id !== "home"))
             .join("circle")
-            .attr("r", 10)
+            .attr("r", d => d.r)
             .attr("fill", "#3765FD")
             .style("cursor", "pointer");
 
-        const homeNode = g
+        const homeNode = svg
             .selectAll(".home-node")
             .data(nodes.filter(d => d.id === "home"))
             .join("path")
             .attr("class", "home-node")
             .attr("d", homeIconPath)
             .attr("fill", "#222222")
-            .attr("stroke", "#222222")
-            .attr("transform", "translate(-12, -12)")
             .style("cursor", "pointer");
 
-        // labels
-        const label = g
+        const label = svg
             .selectAll("text")
             .data(nodes.filter(d => d.id !== "home"))
             .join("text")
             .text(d => d.id)
             .attr("text-anchor", "middle")
-            .attr("dy", d => d.id === "library" ? 26 : -16)
-            .attr("font-size", 12)
+            .attr("dominant-baseline", d => (d.labelAbove ? "auto" : "hanging"))
+            .attr("font-size", 12 * scale)
             .attr("fill", "#222222")
             .style("font-family", "Fragment Mono SC")
             .style("pointer-events", "none");
 
-        // measure each label (relative to its node center) so the clamp bounds
-        // account for both the node icon and its text extent
+        const render = () => {
+            edge
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+
+            homeNode.attr("transform", d => {
+                const iconScale = (d.r * 2) / 24;
+                return `translate(${d.x}, ${d.y}) scale(${iconScale}) translate(-12, -12)`;
+            });
+
+            label
+                .attr("x", d => d.x)
+                .attr("y", d => d.y + labelDy(d.labelAbove, d.r));
+        };
+
         const measureLabels = () => {
+            render();
             label.each(function (d) {
                 const box = this.getBBox();
-                const r = nodeRadius(d);
-                d.padLeft = Math.max(r, -box.x);
-                d.padRight = Math.max(r, box.x + box.width);
-                d.padTop = Math.max(r, -box.y);
-                d.padBottom = Math.max(r, box.y + box.height);
+                d.padLeft = Math.max(d.r, d.x - box.x);
+                d.padRight = Math.max(d.r, box.x + box.width - d.x);
+                d.padTop = Math.max(d.r, d.y - box.y);
+                d.padBottom = Math.max(d.r, box.y + box.height - d.y);
             });
+            const home = nodeById.home;
+            home.padLeft = home.r;
+            home.padRight = home.r;
+            home.padTop = home.r;
+            home.padBottom = home.r;
         };
-        measureLabels();
-
-        // click to navigate
-        node.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) {
-                onNavigate(routes[d.id]);
-            }
-        });
 
         const simulation = d3
             .forceSimulation(nodes)
-            .force("x", d3.forceX(d => d.x0 * scale).strength(0.1))
-            .force("y", d3.forceY(d => d.y0 * scale).strength(0.1))
+            .force("x", d3.forceX(d => d.x0).strength(0.12))
+            .force("y", d3.forceY(d => d.y0).strength(0.12))
             .force(
                 "link",
-                d3.forceLink(edges).id(d => d.id).distance(edgeLength * scale).strength(0.5)
+                d3
+                    .forceLink(edges)
+                    .distance(d => d.distance)
+                    .strength(0.55)
             )
-            .force("charge", d3.forceManyBody().strength(-30))
-            .velocityDecay(0.3);
+            .force("charge", d3.forceManyBody().strength(-28))
+            .force(
+                "collide",
+                d3
+                    .forceCollide()
+                    .radius(d => d.r + 6)
+                    .strength(0.9)
+            )
+            .velocityDecay(0.35)
+            .alphaDecay(0.04);
+
+        function ticked() {
+            nodes.forEach(clampNode);
+            render();
+        }
+
+        simulation.on("tick", ticked);
+
+        let didDrag = false;
 
         function dragstarted(event, d) {
-            simulation.alphaTarget(0.3).restart();
+            didDrag = false;
+            if (!event.active) simulation.alphaTarget(0.35).restart();
             d.fx = d.x;
             d.fy = d.y;
         }
-        function dragged(event, d) {
+        function onDrag(event, d) {
+            didDrag = true;
             d.fx = event.x;
             d.fy = event.y;
+            clampNode(d);
+            d.fx = d.x;
+            d.fy = d.y;
         }
         function dragended(event, d) {
-            simulation.alphaTarget(0.1).restart();
-            setTimeout(() => simulation.alphaTarget(0), 500);
+            if (!event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
         }
 
-        const dragBehavior = d3.drag()
+        const dragBehavior = d3
+            .drag()
             .on("start", dragstarted)
-            .on("drag", dragged)
+            .on("drag", onDrag)
             .on("end", dragended);
 
         node.call(dragBehavior);
         homeNode.call(dragBehavior);
 
-        node.on("click", (event, d) => {
+        const navigate = (_event, d) => {
+            if (didDrag) return;
             if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
-        });
-        homeNode.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
-        });
-        label.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
-        });
+        };
 
-        function ticked() {
-            nodes.forEach(d => {
-                d.x = clampX(d.x, d);
-                d.y = clampY(d.y, d);
-            });
+        node.on("click", navigate);
+        homeNode.on("click", navigate);
 
-            edge
-                .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+        measureLabels();
+        ticked();
+        simulation.alpha(0);
 
-            node.attr("cx", d => d.x).attr("cy", d => d.y);
-
-            homeNode.attr("transform", d => `translate(${d.x - 12}, ${d.y - 12})`);
-
-            label.attr("x", d => d.x).attr("y", d => d.y);
-        }
-
-        simulation.on("tick", ticked);
-
-        // the custom web font may finish loading after the first measurement,
-        // which widens the labels; re-measure and re-clamp once it's ready
         let cancelled = false;
-        if (document.fonts?.ready) {
-            document.fonts.ready.then(() => {
-                if (cancelled) return;
-                measureLabels();
-                ticked();
-            });
+        const refreshAfterFonts = () => {
+            if (cancelled) return;
+            measureLabels();
+            ticked();
+        };
+
+        if (document.fonts?.load) {
+            document.fonts.load(LABEL_FONT).then(refreshAfterFonts).catch(() => {});
+        } else if (document.fonts?.ready) {
+            document.fonts.ready.then(refreshAfterFonts);
         }
 
         return () => {
@@ -224,5 +265,5 @@ export default function Graph({ onNavigate }) {
         };
     }, [onNavigate, size.width, size.height]);
 
-    return <div ref={ref} className="w-full h-full" />;
+    return <div ref={ref} className="h-full w-full min-h-[240px]" />;
 }

@@ -28,8 +28,7 @@ const AboutView = () => {
                   computer systems.
                 </p>
                 <p className="m-0">
-                  Some things I’ve recently been tinkering with include interpreters for programming
-                  languages and design for autonomous vehicle safety systems.
+                  Some things I’ve recently been tinkering with include an interpreter for my very own programming language and design for autonomous vehicle safety systems.
                 </p>
                 <p className="m-0">
                   In my free time, you can find me clambering up mountains in the PNW, reading
@@ -39,11 +38,9 @@ const AboutView = () => {
             </div>
           </div>
 
-          {/* graph */}
-          <div className="flex h-[min(360px,45vh)] w-full shrink-0 items-center justify-center md:h-full md:w-[min(400px,38vw)]">
-            <div className="h-full w-full max-h-[342px]">
-              <Graph onNavigate={navigate} />
-            </div>
+          {/* graph — desktop nav; mobile uses Header */}
+          <div className="hidden h-full min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center md:flex">
+            <Graph onNavigate={navigate} />
           </div>
         </div>
       </div>

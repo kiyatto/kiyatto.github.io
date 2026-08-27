@@ -18,25 +18,24 @@ const HomePage = () => {
                 <div className="flex w-full flex-col items-center gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:gap-10 md:py-16">
                     {/* tagline */}
                     <div className="flex w-full min-w-0 flex-col items-start justify-center md:min-h-0 md:flex-1 md:overflow-hidden">
-                        <div className="w-full max-w-[680px]">
+                        <div className="w-full max-w-[680px] flex flex-col gap-8">
                             <p className="m-0 w-full font-gantari text-[clamp(1.25rem,0.85rem+1.4vw,2rem)] font-medium leading-normal text-black">
                                 <span>kat is a design engineer telling stories through </span>
                                 <span className="font-fragment font-normal">code</span>
                                 <span>, </span>
-                                <span className="font-diphylleia font-normal">visual craft</span>
+                                <span className="font-diphylleia font-normal">creative identity</span>
                                 <span>, and </span>
                                 <span className="font-reenie-beanie text-[clamp(1.5rem,1rem+1.8vw,2.5rem)] font-normal">
                                     language
                                 </span>
                             </p>
+                            <p className="m-0 w-full font-gantari text-sm leading-normal text-[#222222]">she's currently crafting interfaces for plate. magazine, teaching data structures & algorithms, and exploring linguistic systems at uw</p>
                         </div>
                     </div>
 
-                    {/* graph */}
-                    <div className="flex h-[min(360px,45vh)] w-full shrink-0 items-center justify-center md:h-full md:w-[min(400px,38vw)]">
-                        <div className="h-full w-full max-h-[342px]">
-                            <Graph onNavigate={navigate} />
-                        </div>
+                    {/* graph — desktop nav; mobile uses Header */}
+                    <div className="hidden h-full min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center md:flex">
+                        <Graph onNavigate={navigate} />
                     </div>
                 </div>
             </div>

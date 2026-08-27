@@ -230,7 +230,7 @@ const PixelTrail = () => {
         >
           {`${formatSeattleTime()}    SEATTLE, WA`}
         </p>
-        <p className="m-0 shrink-0 font-gantari font-normal whitespace-nowrap">
+        <p className="m-0 shrink-0 font-dm-mono font-normal whitespace-nowrap">
           katreeya ong / キャット / แคทรียา
         </p>
       </div>

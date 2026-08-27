@@ -258,22 +258,12 @@ const Work = () => {
             <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
                 <div className="flex w-full flex-col gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
                     {/* projects — page scrolls on mobile; column scrolls on desktop */}
-                    <div className="flex w-full min-w-0 md:min-h-0 md:flex-1 md:overflow-hidden">
-                        <div
-                            className={`flex min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden ${
-                                isSoftware ? "w-full" : "w-[75%]"
-                            }`}
-                        >
-                            <div className="sticky top-0 z-[1] shrink-0 bg-white md:static">
+                    <div className="flex w-full min-w-0 md:min-h-0 md:flex-1 md:overflow-hidden justify-center md:justify-start">
+                        <div className="flex w-full min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
+                            <div className="shrink-0">
                                 <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                             </div>
-                            <div
-                                className={`md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto ${
-                                    isSoftware
-                                        ? "grid grid-cols-1 gap-2.5 sm:grid-cols-2"
-                                        : "flex flex-col gap-2.5"
-                                }`}
-                            >
+                            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
                                 {projects.map((project) => (
                                     <ProjectCard key={project.id} project={project} />
                                 ))}
@@ -281,11 +271,9 @@ const Work = () => {
                         </div>
                     </div>
 
-                    {/* graph */}
-                    <div className="hidden h-full w-[min(400px,38vw)] shrink-0 items-center justify-center md:flex">
-                        <div className="h-full w-full max-h-[342px]">
-                            <Graph onNavigate={navigate} />
-                        </div>
+                    {/* graph — desktop nav; mobile uses Header */}
+                    <div className="hidden h-full min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center md:flex">
+                        <Graph onNavigate={navigate} />
                     </div>
                 </div>
             </div>
