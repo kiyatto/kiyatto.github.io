@@ -28,7 +28,7 @@ const AboutView = () => {
                   computer systems.
                 </p>
                 <p className="m-0">
-                  Some things I’ve recently been tinkering with include an interpreter for my very own programming language and design for autonomous vehicle safety systems.
+                  Some things I’ve recently been tinkering with include basic motion design and building an interpreter for my very own programming language.
                 </p>
                 <p className="m-0">
                   In my free time, you can find me clambering up mountains in the PNW, reading

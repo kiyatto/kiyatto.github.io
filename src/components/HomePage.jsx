@@ -29,7 +29,7 @@ const HomePage = () => {
                                     language
                                 </span>
                             </p>
-                            <p className="m-0 w-full font-gantari text-sm leading-normal text-[#222222]">she's currently crafting interfaces for plate. magazine, teaching data structures & algorithms, and exploring linguistic systems at uw</p>
+                            <p className="m-0 w-full font-gantari text-sm leading-normal text-[#222222]"></p>
                         </div>
                     </div>
 
