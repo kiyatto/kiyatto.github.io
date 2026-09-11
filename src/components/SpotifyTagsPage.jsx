@@ -63,6 +63,20 @@ const ProcessBody = ({ children, className = "" }) => (
     </div>
 );
 
+const FilterDemoVideo = ({ src }) => (
+    <div className="w-full min-w-0 max-w-[430px] overflow-hidden bg-black lg:flex-1">
+        <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="block h-auto w-full max-w-full object-contain"
+        >
+            <source src={src} type="video/mp4" />
+        </video>
+    </div>
+);
+
 const FINAL_DESIGN_VIDEOS = [
     { id: "tagging", label: "adding tags", src: add_delete_tags },
     { id: "filtering", label: "filtering", src: filter_playlist },
@@ -385,8 +399,8 @@ const SpotifyTagsPage = () => {
                                     </div>
 
                                     {/* Filtering iteration 1 */}
-                                    <div className="flex w-full flex-col gap-10 md:flex-row md:items-center md:gap-[120px]">
-                                        <ProcessBody className="flex w-full max-w-[450px] flex-col gap-5 md:shrink-0">
+                                    <div className="flex w-full min-w-0 flex-col gap-10 lg:flex-row lg:items-center lg:gap-10 xl:gap-[120px]">
+                                        <ProcessBody className="flex w-full min-w-0 max-w-[450px] flex-1 flex-col gap-5">
                                             <p className="m-0">
                                                 In the first iteration of designing a flow for filtering tagged songs
                                                 in user playlists, a{" "}
@@ -410,33 +424,13 @@ const SpotifyTagsPage = () => {
                                                 </p>
                                             </div>
                                         </ProcessBody>
-                                        <div className="relative h-[560px] w-full max-w-[430px] flex-1 overflow-hidden bg-black pb-4">
-                                            <video
-                                                autoPlay
-                                                loop
-                                                muted
-                                                playsInline
-                                                className="absolute left-1/2 top-0 h-full w-auto max-w-none -translate-x-1/2 pb-4"
-                                            >
-                                                <source src={filterv1} type="video/mp4" />
-                                            </video>
-                                        </div>
+                                        <FilterDemoVideo src={filterv1} />
                                     </div>
 
                                     {/* Filtering iteration 2 */}
-                                    <div className="flex w-full flex-col gap-10 md:flex-row md:items-center md:gap-[120px]">
-                                        <div className="relative h-[560px] w-full max-w-[430px] flex-1 overflow-hidden bg-black">
-                                            <video
-                                                autoPlay
-                                                loop
-                                                muted
-                                                playsInline
-                                                className="absolute left-1/2 top-0 h-full w-auto max-w-none -translate-x-1/2 pb-4"
-                                            >
-                                                <source src={filterv2} type="video/mp4" />
-                                            </video>
-                                        </div>
-                                        <ProcessBody className="w-full max-w-[440px] flex-1">
+                                    <div className="flex w-full min-w-0 flex-col gap-10 lg:flex-row lg:items-center lg:gap-10 xl:gap-[120px]">
+                                        <FilterDemoVideo src={filterv2} />
+                                        <ProcessBody className="w-full min-w-0 max-w-[440px] flex-1">
                                             <p className="m-0">
                                                 In revising this design, the secondary button for filtering was
                                                 removed in order to simplify the interface.

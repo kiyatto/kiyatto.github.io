@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:wght@400;500&family=Diphylleia&family=Gantari:ital,wght@0,100..900;1,100..900&family=Reenie+Beanie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Diphylleia&family=Doto:wght@900&family=Gantari:ital,wght@0,100..900;1,100..900&family=Kode+Mono:wght@400;700&family=Reenie+Beanie&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "PP Museum";
+  src: url("/fonts/PPMuseum-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Stellar";
+  src: url("/fonts/PPStellar-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
   Vite/LightningCSS may emit unquoted multi-word font families from Tailwind,
   which some browsers drop — then the span inherits Diphylleia from the h1.
@@ -19,6 +35,24 @@
 */
 .font-reenie-beanie {
   font-family: "Reenie Beanie", cursive !important;
+}
+
+.font-kode {
+  font-family: "Kode Mono", monospace !important;
+}
+
+.font-doto {
+  font-family: Doto, sans-serif !important;
+  font-variation-settings: "ROND" 0;
+}
+
+.font-museum {
+  font-family: "PP Museum", serif !important;
+}
+
+.font-stellar {
+  font-family: "PP Stellar", sans-serif !important;
+  font-weight: 300;
 }
 
 :root {

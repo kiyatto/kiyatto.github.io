@@ -39,8 +39,8 @@ const Header = () => {
 
   return (
     <header className="relative z-10">
-      <p className="pointer-events-none absolute left-10 top-5 m-0 hidden font-dm-mono text-xs font-normal leading-normal text-black whitespace-nowrap md:block">
-        katreeya ong ・ キャット ・ แคทรียา
+      <p className="pointer-events-none absolute left-10 top-5 m-0 hidden font-dm-mono text-xs font-light leading-normal text-black whitespace-nowrap md:block">
+        KATREEYA ONG ・ キャット ・ แคทรียา
       </p>
       <div
         className={`flex items-center justify-center px-10 py-8 ${
