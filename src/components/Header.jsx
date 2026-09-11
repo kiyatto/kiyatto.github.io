@@ -34,16 +34,21 @@ const GRAPH_PATHS = new Set(['/', '/about', '/work', '/reading-list']);
 const Header = () => {
   const { pathname } = useLocation();
   // Graph pages use the force-directed graph for nav on desktop; the pill
-  // bar is the mobile nav instead.
+  // bar is the mobile nav instead. The nameplate stays visible on desktop.
   const isGraphPage = GRAPH_PATHS.has(pathname);
 
   return (
-    <header
-      className={`relative z-10 flex items-center justify-center px-10 py-8 ${
-        isGraphPage ? 'md:hidden' : ''
-      }`}
-    >
-      <NavBar />
+    <header className="relative z-10">
+      <p className="pointer-events-none absolute left-10 top-5 m-0 hidden font-dm-mono text-xs font-normal leading-normal text-black whitespace-nowrap md:block">
+        katreeya ong ・ キャット ・ แคทรียา
+      </p>
+      <div
+        className={`flex items-center justify-center px-10 py-8 ${
+          isGraphPage ? 'md:hidden' : ''
+        }`}
+      >
+        <NavBar />
+      </div>
     </header>
   );
 };

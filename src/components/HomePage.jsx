@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 /**
  * Home layout mirrors Figma node 1497:2502 —
- * top time / bottom cursor chrome come from PixelTrail;
+ * nameplate comes from Header; top time / bottom cursor chrome from PixelTrail;
  * this fills the middle: tagline (flex) + graph (400px).
  * Mobile: page scrolls. Desktop: locked to viewport.
  */

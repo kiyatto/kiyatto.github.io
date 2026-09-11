@@ -43,14 +43,6 @@ const DESIGN_PROJECTS = [
         imagePosition: "center",
         comingSoon: true,
     },
-    {
-        id: "design-3",
-        title: "Autonomous SD",
-        description: "Designing interfaces for autonomous vehicles.",
-        image: auto_sd,
-        imagePosition: "center",
-        comingSoon: true,
-    },
 ];
 
 const PROGRAMMING_PROJECTS = [
@@ -73,15 +65,15 @@ const PROGRAMMING_PROJECTS = [
         imagePosition: "top",
         comingSoon: true,
     },
-    {
-        id: "programming-3",
-        title: "stash",
-        description:
-            "A modern, minimalist app for creating and organizing ideas and objects. Built with Cursor.",
-        image: black_placeholder,
-        imagePosition: "center",
-        comingSoon: true,
-    },
+    // {
+    //     id: "programming-3",
+    //     title: "stash",
+    //     description:
+    //         "A modern, minimalist app for creating and organizing ideas and objects. Built with Cursor.",
+    //     image: black_placeholder,
+    //     imagePosition: "center",
+    //     comingSoon: true,
+    // },
 ];
 
 const useHoverPill = (label, color = "#222222") => {
@@ -256,14 +248,18 @@ const Work = () => {
         <>
             <PixelTrail />
             <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-                <div className="flex w-full flex-col gap-10 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[clamp(2.5rem,6vw,5rem)]">
+                <div className="flex w-full flex-col items-center gap-10 pt-20 pb-0 md:min-h-0 md:flex-1 md:flex-row md:gap-[clamp(2.5rem,6vw,5rem)] md:pt-16">
                     {/* projects — page scrolls on mobile; column scrolls on desktop */}
-                    <div className="flex w-full min-w-0 md:min-h-0 md:flex-1 md:overflow-hidden justify-center md:justify-start">
+                    <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start">
                         <div className="flex w-full min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
                             <div className="shrink-0">
                                 <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                             </div>
-                            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
+                            <div
+                                className={`grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto ${
+                                    isSoftware ? "md:grid-cols-2" : ""
+                                }`}
+                            >
                                 {projects.map((project) => (
                                     <ProjectCard key={project.id} project={project} />
                                 ))}

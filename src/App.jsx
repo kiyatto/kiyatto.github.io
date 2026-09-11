@@ -75,7 +75,11 @@ function AppShell() {
       <main
         ref={mainRef}
         className="h-full overflow-auto"
-        style={{ paddingTop: headerHeight, paddingBottom: headerHeight }}
+        style={{
+          paddingTop: headerHeight,
+          paddingBottom:
+            pathname === '/reading-list' || pathname === '/work' ? 0 : headerHeight,
+        }}
       >
         <Routes>
           <Route path="/" element={<HomePage />} />
