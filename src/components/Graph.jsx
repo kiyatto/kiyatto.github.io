@@ -224,5 +224,5 @@ export default function Graph({ onNavigate }) {
         };
     }, [onNavigate, size.width, size.height]);
 
-    return <div ref={ref} className="w-full h-full" />;
+    return <div ref={ref} className="w-full h-full justify-center items-center" />;
 }

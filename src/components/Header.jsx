@@ -1,4 +1,5 @@
-import { NavLink, useLocation } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
+import homeMark from '../assets/home_node.svg';
 
 const NavBar = () => {
   return (
@@ -39,9 +40,16 @@ const Header = () => {
 
   return (
     <header className="relative z-10">
-      <p className="pointer-events-none absolute left-10 top-5 m-0 hidden font-dm-mono text-xs font-light leading-normal text-black whitespace-nowrap md:block">
-        KATREEYA ONG ・ キャット ・ แคทรียา
-      </p>
+      <Link
+        to="/"
+        aria-label="Home"
+        className={`absolute left-10 top-0 m-0 hidden items-center gap-2 font-dm-mono text-xs font-light leading-normal text-black no-underline whitespace-nowrap md:flex ${
+          isGraphPage ? 'h-14' : 'h-full'
+        }`}
+      >
+        <img src={homeMark} alt="" className="h-full w-auto object-contain" />
+        {/* <span>kat ong / キャット / แคทรียา</span> */}
+      </Link>
       <div
         className={`flex items-center justify-center px-10 py-8 ${
           isGraphPage ? 'md:hidden' : ''

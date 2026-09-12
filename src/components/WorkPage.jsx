@@ -9,6 +9,8 @@ import plateMag from "../assets/work/plate-mag.png";
 import black_placeholder from "../assets/work/black_placeholder.svg";
 import spotify_hero from "../assets/work/spotify_static.svg";
 import spotify_animation from "../assets/work/spotify_animation.svg?raw";
+import kanji_static from "../assets/work/kanji_static.svg";
+import kanji_animation from "../assets/work/kanji_anim.svg?raw";
 
 const FILTERS = {
     design: "design",
@@ -50,10 +52,15 @@ const PROGRAMMING_PROJECTS = [
         id: "programming-1",
         title: "kanji reader",
         description: "Recognition system for 2,965 kanji and 71 hiragana characters.",
-        image: black_placeholder,
+        image: kanji_static,
         imagePosition: "center",
+        mediaClassName: "border-[4px] border-solid border-black",
         comingSoon: false,
         href: "https://github.com/kiyatto/kanji-reader",
+        hoverAnimation: kanji_animation.replace(
+            /<svg\b/,
+            '<svg preserveAspectRatio="xMidYMid slice"'
+        ),
         hoverPill: "view on github",
         hoverPillColor: "#8B1A1A",
     },
@@ -125,12 +132,12 @@ const useHoverPill = (label, color = "#222222") => {
     return { handlers, cursorClassName: "cursor-none", pill };
 };
 
-const ProjectMedia = ({ image, imagePosition, hoverAnimation }) => {
+const ProjectMedia = ({ image, imagePosition, hoverAnimation, className = "" }) => {
     const [playing, setPlaying] = useState(false);
 
     return (
         <div
-            className="relative aspect-[360/200] w-full overflow-hidden"
+            className={`relative aspect-[360/200] w-full overflow-hidden ${className}`}
             onMouseEnter={hoverAnimation ? () => setPlaying(true) : undefined}
             onMouseLeave={hoverAnimation ? () => setPlaying(false) : undefined}
         >
@@ -188,6 +195,7 @@ const ProjectCard = ({ project }) => {
                 image={project.image}
                 imagePosition={project.imagePosition}
                 hoverAnimation={project.hoverAnimation}
+                className={project.mediaClassName}
             />
             <div className="flex w-full flex-col gap-2.5 overflow-clip p-[15px]">
                 <p className="m-0 font-diphylleia text-[16px] leading-5 text-black">
@@ -248,16 +256,16 @@ const Work = () => {
         <>
             <PixelTrail />
             <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-                <div className="flex w-full flex-col items-center gap-10 pt-20 pb-0 md:min-h-0 md:flex-1 md:flex-row md:gap-[clamp(2.5rem,6vw,5rem)] md:pt-16">
+                <div className="flex w-full flex-col items-center gap-10 pt-20 pb-0 md:min-h-0 md:h-full md:flex-1 md:flex-row md:items-center md:gap-[clamp(2.5rem,6vw,5rem)] md:pt-0">
                     {/* projects — page scrolls on mobile; column scrolls on desktop */}
-                    <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start">
-                        <div className="flex w-full min-w-0 flex-col gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
+                    <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start md:pt-16">
+                        <div className="flex w-full min-w-0 flex-col py-10 gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
                             <div className="shrink-0">
                                 <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                             </div>
                             <div
                                 className={`grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto ${
-                                    isSoftware ? "md:grid-cols-2" : ""
+                                    isSoftware ? "md:grid-cols-2 md:items-start" : ""
                                 }`}
                             >
                                 {projects.map((project) => (
@@ -268,7 +276,7 @@ const Work = () => {
                     </div>
 
                     {/* graph — desktop nav; mobile uses Header */}
-                    <div className="hidden h-full min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center md:flex">
+                    <div className="hidden h-[342px] min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center self-center md:flex">
                         <Graph onNavigate={navigate} />
                     </div>
                 </div>
