@@ -19,11 +19,11 @@ const AboutView = () => {
           <div className="flex w-full min-w-0 flex-col items-start justify-between gap-16 md:min-h-0 md:flex-1 md:gap-0 md:overflow-hidden">
             <div className="flex w-full flex-1 flex-col items-start justify-center gap-10">
               <h1 className="m-0 w-full font-museum text-[clamp(1.5rem,1.1rem+1.2vw,2rem)] font-normal leading-normal text-black">
-                about kat
+                A brief characterization:
               </h1>
               <div className="flex w-full flex-col gap-5 font-stellar text-[16px] font-light leading-[22px] text-[#222]">
                 <p className="m-0">
-                  I’m currently a junior studying computer science and linguistics at the University
+                  I'm studying computer science and linguistics at the University
                   of Washington, where I play around with computer systems and sketch out new ways to
                   interface with AI.
                 </p>

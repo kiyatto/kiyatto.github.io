@@ -2,7 +2,7 @@ import Graph from "./Graph.jsx";
 import PixelTrail from "./PixelTrail.jsx";
 import { useNavigate } from "react-router";
 
-import me_img from "../assets/me.png";
+import me_img from "../assets/home/me.png";
 
 /**
  * Home layout mirrors Figma node 1733:2285 —
@@ -23,7 +23,7 @@ const HomePage = () => {
                         <div className="flex w-full max-w-[720px] gap-8 flex-col">
                             <div className="flex w-full flex-col items-start text-black">
                                 <p className="m-0 w-full font-museum text-[clamp(1.75rem,1.1rem+2.2vw,2.5rem)] font-normal leading-normal">
-                                    <span>Hey! I'm Kat. </span>
+                                    <span>Hey there! I'm Kat. </span>
                                     <span><img src={me_img} className="h-[1.1em] w-auto inline align-top"></img></span>
                                     <span> Welcome to my tiny corner of the internet.</span>
                                 </p>

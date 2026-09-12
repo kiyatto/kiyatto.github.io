@@ -1,6 +1,9 @@
-// Graph.jsx
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+
+import coffee from "../assets/graph/coffee.png";
+import pasokon from "../assets/graph/pasokon.png";
+import mugface from "../assets/graph/mugface.png";
 
 const graphObjects = {
     nodes: [
@@ -56,7 +59,10 @@ export default function Graph({ onNavigate }) {
         const edges = graphObjects.edges.map(e => ({ ...e }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-        const nodeRadius = d => (d.id === "home" ? 12 : 10);
+        // photo nodes sit in a shared box, a little larger than the old 20px circles
+        const photoIcon = { width: 36, height: 36 };
+        const photoSrc = { about: coffee, work: pasokon, library: mugface };
+        const nodeRadius = d => (d.id === "home" ? 12 : photoIcon.width / 2);
         // padding from a node's center to the edge of its visible extent (icon + label),
         // populated once labels are measured; falls back to the node radius.
         const clampX = (value, d) => clamp(
@@ -89,14 +95,6 @@ export default function Graph({ onNavigate }) {
             .join("line")
             .attr("stroke", "#545454");
 
-        const node = g
-            .selectAll("circle")
-            .data(nodes.filter(d => d.id !== "home"))
-            .join("circle")
-            .attr("r", 10)
-            .attr("fill", "#3765FD")
-            .style("cursor", "pointer");
-
         const homeNode = g
             .selectAll(".home-node")
             .data(nodes.filter(d => d.id === "home"))
@@ -108,6 +106,17 @@ export default function Graph({ onNavigate }) {
             .attr("transform", "translate(-12, -12)")
             .style("cursor", "pointer");
 
+        const photoNode = g
+            .selectAll(".photo-node")
+            .data(nodes.filter(d => d.id !== "home"))
+            .join("image")
+            .attr("class", "photo-node")
+            .attr("href", d => photoSrc[d.id])
+            .attr("width", photoIcon.width)
+            .attr("height", photoIcon.height)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .style("cursor", "pointer");
+
         // labels
         const label = g
             .selectAll("text")
@@ -115,7 +124,7 @@ export default function Graph({ onNavigate }) {
             .join("text")
             .text(d => d.id)
             .attr("text-anchor", "middle")
-            .attr("dy", d => d.id === "library" ? 26 : -16)
+            .attr("dy", d => (d.id === "library" ? photoIcon.height / 2 + 12 : -photoIcon.height / 2 - 4))
             .attr("font-size", 12)
             .attr("fill", "#222222")
             .style("font-family", "Fragment Mono SC")
@@ -134,13 +143,6 @@ export default function Graph({ onNavigate }) {
             });
         };
         measureLabels();
-
-        // click to navigate
-        node.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) {
-                onNavigate(routes[d.id]);
-            }
-        });
 
         const simulation = d3
             .forceSimulation(nodes)
@@ -174,13 +176,13 @@ export default function Graph({ onNavigate }) {
             .on("drag", dragged)
             .on("end", dragended);
 
-        node.call(dragBehavior);
         homeNode.call(dragBehavior);
+        photoNode.call(dragBehavior);
 
-        node.on("click", (event, d) => {
+        homeNode.on("click", (event, d) => {
             if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
         });
-        homeNode.on("click", (event, d) => {
+        photoNode.on("click", (event, d) => {
             if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
         });
         label.on("click", (event, d) => {
@@ -197,9 +199,11 @@ export default function Graph({ onNavigate }) {
                 .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
                 .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
 
-            node.attr("cx", d => d.x).attr("cy", d => d.y);
-
             homeNode.attr("transform", d => `translate(${d.x - 12}, ${d.y - 12})`);
+            photoNode.attr(
+                "transform",
+                d => `translate(${d.x - photoIcon.width / 2}, ${d.y - photoIcon.height / 2})`
+            );
 
             label.attr("x", d => d.x).attr("y", d => d.y);
         }
