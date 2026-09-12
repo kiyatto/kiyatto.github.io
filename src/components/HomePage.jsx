@@ -23,9 +23,9 @@ const HomePage = () => {
                         <div className="flex w-full max-w-[720px] gap-8 flex-col">
                             <div className="flex w-full flex-col items-start text-black">
                                 <p className="m-0 w-full font-museum text-[clamp(1.75rem,1.1rem+2.2vw,2.5rem)] font-normal leading-normal">
-                                    <span>hey there! i'm kat. </span>
+                                    <span>Hey! I'm Kat. </span>
                                     <span><img src={me_img} className="h-[1.1em] w-auto inline align-top"></img></span>
-                                    <span> welcome to my tiny corner of the internet.</span>
+                                    <span> Welcome to my tiny corner of the internet.</span>
                                 </p>
                                     {/* <p className="m-0 w-full font-museum text-[clamp(1.25rem,0.95rem+1.1vw,1.625rem)] font-normal leading-normal">
                                         welcome to my tiny corner of the internet.

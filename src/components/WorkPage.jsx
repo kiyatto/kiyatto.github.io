@@ -263,11 +263,7 @@ const Work = () => {
                             <div className="shrink-0">
                                 <WorkFilter active={activeFilter} onChange={setActiveFilter} />
                             </div>
-                            <div
-                                className={`grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto ${
-                                    isSoftware ? "md:grid-cols-2 md:items-start" : ""
-                                }`}
-                            >
+                            <div className="grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto md:grid-cols-2 md:items-start">
                                 {projects.map((project) => (
                                     <ProjectCard key={project.id} project={project} />
                                 ))}
