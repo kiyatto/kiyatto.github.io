@@ -5,7 +5,7 @@ import Graph from "./Graph.jsx";
 import PixelTrail from "./PixelTrail.jsx";
 
 import auto_sd from "../assets/work/auto_sd.svg";
-import plateMag from "../assets/work/plate-mag.png";
+import plateMag from "../assets/work/plate-static.svg";
 import black_placeholder from "../assets/work/black_placeholder.svg";
 import spotify_hero from "../assets/work/spotify_static.svg";
 import spotify_animation from "../assets/work/spotify_animation.svg?raw";
@@ -34,8 +34,6 @@ const DESIGN_PROJECTS = [
             /<svg\b/,
             '<svg preserveAspectRatio="xMidYMid slice"'
         ),
-        hoverPill: "view case study",
-        hoverPillColor: "#007228",
     },
     {
         id: "design-2",
@@ -44,8 +42,6 @@ const DESIGN_PROJECTS = [
         image: plateMag,
         imagePosition: "center",
         href: "/work/plate-magazine",
-        hoverPill: "view case study",
-        hoverPillColor: "#9f280e",
     },
 ];
 

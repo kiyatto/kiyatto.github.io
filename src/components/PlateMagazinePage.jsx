@@ -7,7 +7,9 @@ import design_system from "../assets/work/plate-media/design-system.svg";
 import nav from "../assets/work/plate-media/nav.svg";
 import events from "../assets/work/plate-media/events.svg";
 
-import plate from "../assets/work/plate-media/videos/plate.mov";
+import plate from "../assets/work/plate-media/videos/plate.mp4";
+
+const MEDIA_BORDER = "border border-solid border-[#B3B3B3]";
 
 const SectionLabel = ({ children }) => (
     <h2 className="m-0 w-full font-fragment text-[16px] leading-normal text-[#9f280e]">
@@ -21,14 +23,6 @@ const BodyText = ({ children, className = "" }) => (
     >
         {children}
     </p>
-);
-
-const MediaPlaceholder = ({ className = "", label }) => (
-    <div
-        role="img"
-        aria-label={label}
-        className={`border border-solid border-[#b3b3b3] bg-[#e8e8e8] ${className}`}
-    />
 );
 
 /**
@@ -57,7 +51,11 @@ const PlateMagazinePage = () => {
                     </Link>
 
                     <div className="flex w-full flex-col gap-[30px]">
-                    <img src={hero} alt="Project hero image displaying plate. magazine branding" className="w-full h-auto border-solid border-[#B3B3B3]" />
+                        <img
+                            src={hero}
+                            alt="Project hero image displaying plate. magazine branding"
+                            className={`h-auto w-full ${MEDIA_BORDER}`}
+                        />
                         <div className="flex w-full flex-col gap-8 md:flex-row md:items-center md:justify-between">
                             <h1 className="m-0 max-w-[460px] font-diphylleia text-[26px] font-normal leading-normal text-[#222222]">
                                 Building a design system for{" "}
@@ -115,7 +113,11 @@ const PlateMagazinePage = () => {
 
                         <section className="flex w-full flex-col items-center gap-10 md:flex-row md:justify-between">
                             <div className="flex flex-1 items-center justify-center">
-                                <img src={localeats} className="w-full h-auto border-solid border-[#B3B3B3]" />
+                                <img
+                                    src={localeats}
+                                    alt="Local Eats magazine cover"
+                                    className={`h-auto w-1/2 ${MEDIA_BORDER}`}
+                                />
                             </div>
                             <div className="flex w-full flex-1 flex-col gap-5">
                                 <SectionLabel>why design system?</SectionLabel>
@@ -128,7 +130,7 @@ const PlateMagazinePage = () => {
                                     <BodyText className="text-[13px]">
                                         plate. had just released their first issue and was working on
                                         their second, so there wasn’t a large archive of past design
-                                        material to work off of.
+                                        material to form a cohesive identity around.
                                     </BodyText>
                                 </div>
                             </div>
@@ -151,18 +153,26 @@ const PlateMagazinePage = () => {
                                 </BodyText>
                                 <BodyText className="text-[13px]">
                                     A small system, even limited, would help define what made this
-                                    brand memorable, and ensure that it could scale well in the future.
+                                    brand memorable and ensure that it could scale well in the future.
                                 </BodyText>
                             </div>
                             <div className="flex flex-1 items-center justify-center">
-                            <img src={papercake} className="w-full h-auto border-solid border-[#B3B3B3]" />
+                                <img
+                                    src={papercake}
+                                    alt="Paper cake magazine spread"
+                                    className={`h-auto w-1/2 ${MEDIA_BORDER}`}
+                                />
                             </div>
                         </section>
 
                         <section className="flex w-full flex-col gap-10 py-5">
                             <SectionLabel>defining standards</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
-                                <img src={design_system} className="w-full h-auto border-solid border-[#B3B3B3]" />
+                                <img
+                                    src={design_system}
+                                    alt="Typography, color, and layout system"
+                                    className={`h-auto w-full ${MEDIA_BORDER}`}
+                                />
                                 <BodyText className="text-[16px] leading-normal">
                                     I defined typography hierarchies and color systems, documenting
                                     occasions on which to use specific text styles or colors.
@@ -173,13 +183,31 @@ const PlateMagazinePage = () => {
                         <section className="flex w-full flex-col gap-10 py-5">
                             <SectionLabel>creating style</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
-                            <img src={nav} className="w-full h-auto border-solid border-[#B3B3B3]" />
-                                <div className="flex w-full flex-col gap-6 md:flex-row">
-                                    <img src={events} className="w-full h-auto border-solid border-[#B3B3B3]" />
-                                    <video autoPlay loop muted playsInline width="100%">
-                                        <source src={plate} type="video/mov" />
-                                        Your browser does not support the video tag.
-                                    </video>
+                                <img
+                                    src={nav}
+                                    alt="Website navigation screenshot"
+                                    className={`h-auto w-full ${MEDIA_BORDER}`}
+                                />
+                                <div className="flex w-full flex-col gap-6 md:flex-row md:items-stretch">
+                                    <img
+                                        src={events}
+                                        alt="Upcoming events section screenshot"
+                                        className={`h-auto w-full min-w-0 md:w-[63.8%] md:flex-none ${MEDIA_BORDER} bg-[#FA5FB4]`}
+                                    />
+                                    <div
+                                        className={`overflow-hidden md:flex-1 ${MEDIA_BORDER}`}
+                                    >
+                                        <video
+                                            autoPlay
+                                            loop
+                                            muted
+                                            playsInline
+                                            className="block h-auto w-full object-cover md:h-full md:w-full"
+                                        >
+                                            <source src={plate} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
                                 </div>
                             </div>
                         </section>
