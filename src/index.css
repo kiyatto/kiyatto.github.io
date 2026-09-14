@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Diphylleia&family=Doto:wght@900&family=Gantari:ital,wght@0,100..900;1,100..900&family=Kode+Mono:wght@400;700&family=Reenie+Beanie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Diphylleia&family=Doto:wght@900&family=Gantari:ital,wght@0,100..900;1,100..900&family=Kode+Mono:wght@400;700&family=Reenie+Beanie&family=Source+Serif+4:opsz,wght@8..60,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -35,6 +35,10 @@
 */
 .font-reenie-beanie {
   font-family: "Reenie Beanie", cursive !important;
+}
+
+.font-source-serif {
+  font-family: "Source Serif 4", serif !important;
 }
 
 .font-kode {

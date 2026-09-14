@@ -43,7 +43,9 @@ const DESIGN_PROJECTS = [
         description: "Web and system design for a playful publication centered around food.",
         image: plateMag,
         imagePosition: "center",
-        comingSoon: true,
+        href: "/work/plate-magazine",
+        hoverPill: "view case study",
+        hoverPillColor: "#9f280e",
     },
 ];
 

@@ -13,6 +13,7 @@ export default {
         fragment: ['"Fragment Mono SC"', 'monospace'],
         athiti: ['Athiti', 'sans-serif'],
         'reenie-beanie': ['"Reenie Beanie"', 'cursive'],
+        'source-serif': ['"Source Serif 4"', 'serif'],
         museum: ['"PP Museum"', 'serif'],
         stellar: ['"PP Stellar"', 'sans-serif'],
         kode: ['"Kode Mono"', 'monospace'],

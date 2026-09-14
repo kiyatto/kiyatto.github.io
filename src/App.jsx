@@ -5,6 +5,7 @@ import HomePage from './components/HomePage.jsx';
 import AboutView from './components/AboutView.jsx';
 import WorkPage from './components/WorkPage.jsx';
 import SpotifyTagsPage from './components/SpotifyTagsPage.jsx';
+import PlateMagazinePage from './components/PlateMagazinePage.jsx';
 import LibraryView from './components/LibraryView.jsx';
 
 function AppShell() {
@@ -86,6 +87,7 @@ function AppShell() {
           <Route path="/about" element={<AboutView />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/work/spotify-tags" element={<SpotifyTagsPage />} />
+          <Route path="/work/plate-magazine" element={<PlateMagazinePage />} />
           <Route path="/reading-list" element={<LibraryView />} />
         </Routes>
       </main>
