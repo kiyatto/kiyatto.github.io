@@ -1,5 +1,14 @@
 import { Link } from "react-router";
 
+import hero from "../assets/work/plate-media/hero.svg";
+import localeats from "../assets/work/plate-media/local-eats.png";
+import papercake from "../assets/work/plate-media/paper-cake.png";
+import design_system from "../assets/work/plate-media/design-system.svg";
+import nav from "../assets/work/plate-media/nav.svg";
+import events from "../assets/work/plate-media/events.svg";
+
+import plate from "../assets/work/plate-media/videos/plate.mov";
+
 const SectionLabel = ({ children }) => (
     <h2 className="m-0 w-full font-fragment text-[16px] leading-normal text-[#9f280e]">
         {children}
@@ -48,10 +57,7 @@ const PlateMagazinePage = () => {
                     </Link>
 
                     <div className="flex w-full flex-col gap-[30px]">
-                        <MediaPlaceholder
-                            className="aspect-[1160/360] w-full"
-                            label="Project hero placeholder"
-                        />
+                    <img src={hero} alt="Project hero image displaying plate. magazine branding" className="w-full h-auto border-solid border-[#B3B3B3]" />
                         <div className="flex w-full flex-col gap-8 md:flex-row md:items-center md:justify-between">
                             <h1 className="m-0 max-w-[460px] font-diphylleia text-[26px] font-normal leading-normal text-[#222222]">
                                 Building a design system for{" "}
@@ -109,10 +115,7 @@ const PlateMagazinePage = () => {
 
                         <section className="flex w-full flex-col items-center gap-10 md:flex-row md:justify-between">
                             <div className="flex flex-1 items-center justify-center">
-                                <MediaPlaceholder
-                                    className="h-[284px] w-[203px]"
-                                    label="Magazine cover placeholder"
-                                />
+                                <img src={localeats} className="w-full h-auto border-solid border-[#B3B3B3]" />
                             </div>
                             <div className="flex w-full flex-1 flex-col gap-5">
                                 <SectionLabel>why design system?</SectionLabel>
@@ -152,20 +155,14 @@ const PlateMagazinePage = () => {
                                 </BodyText>
                             </div>
                             <div className="flex flex-1 items-center justify-center">
-                                <MediaPlaceholder
-                                    className="h-[284px] w-[203px]"
-                                    label="Magazine spread placeholder"
-                                />
+                            <img src={papercake} className="w-full h-auto border-solid border-[#B3B3B3]" />
                             </div>
                         </section>
 
                         <section className="flex w-full flex-col gap-10 py-5">
                             <SectionLabel>defining standards</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
-                                <MediaPlaceholder
-                                    className="aspect-[4096/2525] w-full"
-                                    label="Typography, color, and layout system placeholder"
-                                />
+                                <img src={design_system} className="w-full h-auto border-solid border-[#B3B3B3]" />
                                 <BodyText className="text-[16px] leading-normal">
                                     I defined typography hierarchies and color systems, documenting
                                     occasions on which to use specific text styles or colors.
@@ -176,19 +173,13 @@ const PlateMagazinePage = () => {
                         <section className="flex w-full flex-col gap-10 py-5">
                             <SectionLabel>creating style</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
-                                <MediaPlaceholder
-                                    className="aspect-[2560/1664] w-full"
-                                    label="Website screenshot placeholder"
-                                />
+                            <img src={nav} className="w-full h-auto border-solid border-[#B3B3B3]" />
                                 <div className="flex w-full flex-col gap-6 md:flex-row">
-                                    <MediaPlaceholder
-                                        className="h-[202px] w-full md:w-[63.8%]"
-                                        label="Events section screenshot placeholder"
-                                    />
-                                    <MediaPlaceholder
-                                        className="h-[202px] w-full md:flex-1"
-                                        label="Plate object placeholder"
-                                    />
+                                    <img src={events} className="w-full h-auto border-solid border-[#B3B3B3]" />
+                                    <video autoPlay loop muted playsInline width="100%">
+                                        <source src={plate} type="video/mov" />
+                                        Your browser does not support the video tag.
+                                    </video>
                                 </div>
                             </div>
                         </section>
