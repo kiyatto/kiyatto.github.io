@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
-import hero from "../assets/work/plate-media/hero.svg";
+// Display-sized hero; regenerate with `npm run optimize-heroes`.
+import hero from "../assets/work/plate-media/hero-1600.jpg";
 import localeats from "../assets/work/plate-media/local-eats.png";
 import papercake from "../assets/work/plate-media/paper-cake.png";
 import design_system from "../assets/work/plate-media/design-system.svg";
@@ -54,6 +55,10 @@ const PlateMagazinePage = () => {
                         <img
                             src={hero}
                             alt="Project hero image displaying plate. magazine branding"
+                            width={1600}
+                            height={496}
+                            fetchPriority="high"
+                            decoding="async"
                             className={`h-auto w-full ${MEDIA_BORDER}`}
                         />
                         <div className="flex w-full flex-col gap-8 md:flex-row md:items-center md:justify-between">
@@ -141,7 +146,7 @@ const PlateMagazinePage = () => {
                                 <BodyText className="text-[13px]">
                                     It seemed at first a little unnatural and backwards to develop a
                                     design system for a magazine that didn’t want to be constrained by
-                                    strict formatting guidelines. But as I recognized, part of what
+                                    strict formatting guidelines. But as I realized, part of what
                                     plate. was developing was a brand, and for a brand to be
                                     recognizable, it must be consistent.
                                 </BodyText>
@@ -153,7 +158,7 @@ const PlateMagazinePage = () => {
                                 </BodyText>
                                 <BodyText className="text-[13px]">
                                     A small system, even limited, would help define what made this
-                                    brand memorable and ensure that it could scale well in the future.
+                                    brand memorable and ensure that it could scale well in the future between media, graphics, and writing teams.
                                 </BodyText>
                             </div>
                             <div className="flex flex-1 items-center justify-center">

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
 
-import hero from "../assets/work/spotify-media/hero.png";
+// Display-sized hero; regenerate with `npm run optimize-heroes`.
+import hero from "../assets/work/spotify-media/hero-1600.jpg";
 
 import tag_animation from '../assets/work/spotify-media/videos/tag_animation.svg';
 import playlist_options from "../assets/work/spotify-media/videos/playlist_options.mov";
@@ -151,7 +152,15 @@ const SpotifyTagsPage = () => {
 
                     {/* Hero + title share the same width */}
                     <div className="flex w-full flex-col gap-[30px]">
-                        <img src={hero} alt="Project hero image displaying Spotify interface with tags" className="w-full h-auto" />
+                        <img
+                            src={hero}
+                            alt="Project hero image displaying Spotify interface with tags"
+                            width={1600}
+                            height={489}
+                            fetchPriority="high"
+                            decoding="async"
+                            className="h-auto w-full"
+                        />
                         <div className="flex w-full flex-col gap-8 md:flex-row md:items-center md:justify-between">
                             <h1 className="m-0 max-w-[460px] font-diphylleia text-[26px] font-normal leading-normal text-[#222222]">
                                 Introducing{" "}
@@ -257,7 +266,7 @@ const SpotifyTagsPage = () => {
                                 />
                                 <ResearchInsight
                                     title="Songs carry meaning to users that isn’t defined by their placement in a playlist or collection"
-                                    body="Users want to record unique connections to individual songs."
+                                    body="Sometimes, users want to record unique connections to individual songs rather to groups of songs."
                                     accent="#004418"
                                 />
                             </div>

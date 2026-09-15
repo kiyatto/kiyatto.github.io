@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize-heroes": "bash scripts/optimize-case-study-heroes.sh"
   },
   "dependencies": {
     "d3": "^7.9.0",

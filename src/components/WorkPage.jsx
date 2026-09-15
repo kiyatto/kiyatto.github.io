@@ -11,6 +11,9 @@ import spotify_hero from "../assets/work/spotify_static.svg";
 import spotify_animation from "../assets/work/spotify_animation.svg?raw";
 import kanji_static from "../assets/work/kanji_static.svg";
 import kanji_animation from "../assets/work/kanji_anim.svg?raw";
+import spotifyHeroPrefetch from "../assets/work/spotify-media/hero-1600.jpg";
+import plateHeroPrefetch from "../assets/work/plate-media/hero-1600.jpg";
+import borb from "../assets/work/borb.svg";
 
 const FILTERS = {
     design: "design",
@@ -42,6 +45,15 @@ const DESIGN_PROJECTS = [
         image: plateMag,
         imagePosition: "center",
         href: "/work/plate-magazine",
+    },
+    {
+        id: "design-3",
+        title: "graph notetaker",
+        description: "Native notetaking for researchers",
+        image: borb,
+        imagePosition: "center",
+        comingSoon: true,
+        // href: "/work/plate-magazine",
     },
 ];
 
@@ -247,6 +259,21 @@ const ProjectCard = ({ project }) => {
 const Work = () => {
     const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState(FILTERS.design);
+
+    // Warm the browser cache with display-sized case-study heroes so opening
+    // those pages does not wait on the original 1.7–4.8MB assets.
+    useEffect(() => {
+        if (activeFilter !== FILTERS.design) return;
+        const links = [spotifyHeroPrefetch, plateHeroPrefetch].map((href) => {
+            const link = document.createElement("link");
+            link.rel = "prefetch";
+            link.as = "image";
+            link.href = href;
+            document.head.appendChild(link);
+            return link;
+        });
+        return () => links.forEach((link) => link.remove());
+    }, [activeFilter]);
     const isSoftware = activeFilter === FILTERS.programming;
     const projects = isSoftware ? PROGRAMMING_PROJECTS : DESIGN_PROJECTS;
 
