@@ -23,7 +23,7 @@ const AboutView = () => {
               </h1>
               <div className="flex w-full flex-col gap-5 font-stellar text-[16px] font-light leading-[22px] text-[#222]">
                 <p className="m-0">
-                  I'm studying computer science and linguistics at the University
+                  I study computer science and linguistics at the University
                   of Washington, where I play around with computer systems and sketch out new ways to
                   interface with AI.
                 </p>

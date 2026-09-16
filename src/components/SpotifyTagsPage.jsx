@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 
-// Display-sized hero; regenerate with `npm run optimize-heroes`.
+// Display-sized stills; regenerate with `npm run optimize-images`.
 import hero from "../assets/work/spotify-media/hero-1600.jpg";
 
 import tag_animation from '../assets/work/spotify-media/videos/tag_animation.svg';
@@ -11,15 +11,8 @@ import filter_playlist from "../assets/work/spotify-media/videos/filter_playlist
 import filterv1 from "../assets/work/spotify-media/videos/filterv1.mov";
 import filterv2 from "../assets/work/spotify-media/videos/filterv2.mov";
 
-import c1s1 from "../assets/work/spotify-media/c1s1.svg";
 import c1s2 from "../assets/work/spotify-media/c1s2.svg";
-import c1s3 from "../assets/work/spotify-media/c1s3.svg";
-import c2s1 from "../assets/work/spotify-media/c2s1.svg";
-import c2s2 from "../assets/work/spotify-media/c2s2.svg";
-import c2s3 from "../assets/work/spotify-media/c2s3.svg";
-import c2s4 from "../assets/work/spotify-media/c2s4.svg";
-import c2s5 from "../assets/work/spotify-media/c2s5.svg";
-import c2s6 from "../assets/work/spotify-media/c2s6.svg";
+import c1s3 from "../assets/work/spotify-media/c1s3-600.jpg";
 
 const SectionLabel = ({ children }) => (
     <h2 className="m-0 w-full font-fragment text-[16px] leading-normal text-[#007228]">
@@ -364,7 +357,7 @@ const SpotifyTagsPage = () => {
                                                     </p>
                                                 </ProcessBody>
                                             </div>
-                                            <img src={c1s2} />
+                                            <img src={c1s2} alt="" decoding="async" />
                                         </div>
 
                                         <div className="flex w-full flex-col-reverse items-center gap-10 md:flex-row justify-between">
@@ -381,7 +374,13 @@ const SpotifyTagsPage = () => {
                                                     through.
                                                 </p>
                                             </ProcessBody>
-                                            <img src={c1s3} />
+                                            <img
+                                                src={c1s3}
+                                                alt="Pill-style tags on a playlist"
+                                                width={600}
+                                                height={764}
+                                                decoding="async"
+                                            />
                                         </div>
                                     </div>
 

@@ -5,7 +5,7 @@ import Graph from "./Graph.jsx";
 import PixelTrail from "./PixelTrail.jsx";
 
 import auto_sd from "../assets/work/auto_sd.svg";
-import plateMag from "../assets/work/plate-static.svg";
+import plateMag from "../assets/work/plate-static-800.jpg";
 import black_placeholder from "../assets/work/black_placeholder.svg";
 import spotify_hero from "../assets/work/spotify_static.svg";
 import spotify_animation from "../assets/work/spotify_animation.svg?raw";
@@ -13,6 +13,10 @@ import kanji_static from "../assets/work/kanji_static.svg";
 import kanji_animation from "../assets/work/kanji_anim.svg?raw";
 import spotifyHeroPrefetch from "../assets/work/spotify-media/hero-1600.jpg";
 import plateHeroPrefetch from "../assets/work/plate-media/hero-1600.jpg";
+import localEatsPrefetch from "../assets/work/plate-media/local-eats-800.jpg";
+import paperCakePrefetch from "../assets/work/plate-media/paper-cake-800.jpg";
+import designSystemPrefetch from "../assets/work/plate-media/design-system-1600.jpg";
+import c1s3Prefetch from "../assets/work/spotify-media/c1s3-600.jpg";
 import borb from "../assets/work/borb.svg";
 
 const FILTERS = {
@@ -260,11 +264,19 @@ const Work = () => {
     const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState(FILTERS.design);
 
-    // Warm the browser cache with display-sized case-study heroes so opening
-    // those pages does not wait on the original 1.7–4.8MB assets.
+    // Warm the HTTP cache with display-sized case-study stills while this
+    // page is open, so navigating into a case study reuses those files.
     useEffect(() => {
         if (activeFilter !== FILTERS.design) return;
-        const links = [spotifyHeroPrefetch, plateHeroPrefetch].map((href) => {
+        const hrefs = [
+            spotifyHeroPrefetch,
+            plateHeroPrefetch,
+            localEatsPrefetch,
+            paperCakePrefetch,
+            designSystemPrefetch,
+            c1s3Prefetch,
+        ];
+        const links = hrefs.map((href) => {
             const link = document.createElement("link");
             link.rel = "prefetch";
             link.as = "image";

@@ -1,10 +1,10 @@
 import { Link } from "react-router";
 
-// Display-sized hero; regenerate with `npm run optimize-heroes`.
+// Display-sized stills; regenerate with `npm run optimize-images`.
 import hero from "../assets/work/plate-media/hero-1600.jpg";
-import localeats from "../assets/work/plate-media/local-eats.png";
-import papercake from "../assets/work/plate-media/paper-cake.png";
-import design_system from "../assets/work/plate-media/design-system.svg";
+import localeats from "../assets/work/plate-media/local-eats-800.jpg";
+import papercake from "../assets/work/plate-media/paper-cake-800.jpg";
+import design_system from "../assets/work/plate-media/design-system-1600.jpg";
 import nav from "../assets/work/plate-media/nav.svg";
 import events from "../assets/work/plate-media/events.svg";
 
@@ -121,6 +121,9 @@ const PlateMagazinePage = () => {
                                 <img
                                     src={localeats}
                                     alt="Local Eats magazine cover"
+                                    width={800}
+                                    height={1127}
+                                    decoding="async"
                                     className={`h-auto w-1/2 ${MEDIA_BORDER}`}
                                 />
                             </div>
@@ -165,6 +168,9 @@ const PlateMagazinePage = () => {
                                 <img
                                     src={papercake}
                                     alt="Paper cake magazine spread"
+                                    width={800}
+                                    height={1134}
+                                    decoding="async"
                                     className={`h-auto w-1/2 ${MEDIA_BORDER}`}
                                 />
                             </div>
@@ -176,11 +182,13 @@ const PlateMagazinePage = () => {
                                 <img
                                     src={design_system}
                                     alt="Typography, color, and layout system"
+                                    width={1600}
+                                    height={986}
+                                    decoding="async"
                                     className={`h-auto w-full ${MEDIA_BORDER}`}
                                 />
-                                <BodyText className="text-[16px] leading-normal">
-                                    I defined typography hierarchies and color systems, documenting
-                                    occasions on which to use specific text styles or colors.
+                                <BodyText className="text-[14px] leading-normal">
+                                    An in-progress look at building plate.'s design system. I created typography hierarchies, color systems, and kerning guidelines for layouts, and documented use cases for each variable style.
                                 </BodyText>
                             </div>
                         </section>
