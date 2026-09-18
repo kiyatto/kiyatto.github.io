@@ -15,7 +15,8 @@ import spotifyHeroPrefetch from "../assets/work/spotify-media/hero-1600.jpg";
 import plateHeroPrefetch from "../assets/work/plate-media/hero-1600.jpg";
 import localEatsPrefetch from "../assets/work/plate-media/local-eats-800.jpg";
 import paperCakePrefetch from "../assets/work/plate-media/paper-cake-800.jpg";
-import designSystemPrefetch from "../assets/work/plate-media/design-system-1600.jpg";
+import typeLayoutPrefetch from "../assets/work/plate-media/type-layout-system-1600.jpg";
+import colorSystemPrefetch from "../assets/work/plate-media/color-system-1600.jpg";
 import c1s3Prefetch from "../assets/work/spotify-media/c1s3-600.jpg";
 import borb from "../assets/work/borb.svg";
 
@@ -273,7 +274,8 @@ const Work = () => {
             plateHeroPrefetch,
             localEatsPrefetch,
             paperCakePrefetch,
-            designSystemPrefetch,
+            typeLayoutPrefetch,
+            colorSystemPrefetch,
             c1s3Prefetch,
         ];
         const links = hrefs.map((href) => {

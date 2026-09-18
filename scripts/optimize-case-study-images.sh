@@ -83,8 +83,10 @@ jpeg_from_raster "$ROOT/src/assets/work/plate-media/local-eats.png" \
   "$ROOT/src/assets/work/plate-media/local-eats-800.jpg" 800
 jpeg_from_raster "$ROOT/src/assets/work/plate-media/paper-cake.png" \
   "$ROOT/src/assets/work/plate-media/paper-cake-800.jpg" 800
-svg_to_jpeg "$ROOT/src/assets/work/plate-media/design-system.svg" \
-  "$ROOT/src/assets/work/plate-media/design-system-1600.jpg" 1600
+svg_to_jpeg "$ROOT/src/assets/work/plate-media/color-system.svg" \
+  "$ROOT/src/assets/work/plate-media/color-system-1600.jpg" 1600
+svg_to_jpeg "$ROOT/src/assets/work/plate-media/type-layout-system.svg" \
+  "$ROOT/src/assets/work/plate-media/type-layout-system-1600.jpg" 1600
 svg_to_jpeg "$ROOT/src/assets/work/plate-static.svg" \
   "$ROOT/src/assets/work/plate-static-800.jpg" 800
 svg_to_jpeg "$ROOT/src/assets/work/spotify-media/c1s3.svg" \
@@ -95,6 +97,7 @@ ls -lh \
   "$ROOT/src/assets/work/plate-media/hero-1600.jpg" \
   "$ROOT/src/assets/work/plate-media/local-eats-800.jpg" \
   "$ROOT/src/assets/work/plate-media/paper-cake-800.jpg" \
-  "$ROOT/src/assets/work/plate-media/design-system-1600.jpg" \
+  "$ROOT/src/assets/work/plate-media/color-system-1600.jpg" \
+  "$ROOT/src/assets/work/plate-media/type-layout-system-1600.jpg" \
   "$ROOT/src/assets/work/plate-static-800.jpg" \
   "$ROOT/src/assets/work/spotify-media/c1s3-600.jpg"

@@ -48,8 +48,8 @@ const AboutView = () => {
             {/* footnotes */}
             <div className="flex flex-col gap-4">
               <p className="m-0 w-full font-stellar text-[12px] font-light leading-[22px] text-[#222]">
-                <span className="text-sm align-super text-blue-600 hover:underline">1 </span>
-                <span>Some notes from a self-proclaimed typography geek. The fonts used on this site are: </span>
+                <span className="text-sm align-super text-blue-600 hover:underline">1</span>
+                <span> Some notes from a self-proclaimed typography geek. The fonts used on this site are: </span>
                 <span className="font-dm-mono font-light">DM Mono by Colophon Foundry</span>
                 <span>, </span>
                 <span className="font-gantari font-light">Gantari by Lafontype</span>
@@ -65,8 +65,8 @@ const AboutView = () => {
                 </span>
               </p>
               <p className="m-0 w-full font-stellar text-[12px] font-light leading-[22px] text-[#222]">
-                <span className="text-sm align-super text-blue-600 hover:underline">2 </span>
-                <span>No, I have not yet met Hanako at Embers.</span>
+                <span className="text-sm align-super text-blue-600 hover:underline">2</span>
+                <span> No, I have not yet met Hanako at Embers.</span>
               </p>
             </div>
           </div>

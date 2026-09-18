@@ -4,8 +4,10 @@ import { Link } from "react-router";
 import hero from "../assets/work/plate-media/hero-1600.jpg";
 import localeats from "../assets/work/plate-media/local-eats-800.jpg";
 import papercake from "../assets/work/plate-media/paper-cake-800.jpg";
-import design_system from "../assets/work/plate-media/design-system-1600.jpg";
+import typeLayoutSystem from "../assets/work/plate-media/type-layout-system-1600.jpg";
+import colorSystem from "../assets/work/plate-media/color-system-1600.jpg";
 import nav from "../assets/work/plate-media/nav.svg";
+import articles from "../assets/work/plate-media/articles.svg";
 import events from "../assets/work/plate-media/events.svg";
 
 import plate from "../assets/work/plate-media/videos/plate.mp4";
@@ -56,7 +58,7 @@ const PlateMagazinePage = () => {
                             src={hero}
                             alt="Project hero image displaying plate. magazine branding"
                             width={1600}
-                            height={496}
+                            height={492}
                             fetchPriority="high"
                             decoding="async"
                             className={`h-auto w-full ${MEDIA_BORDER}`}
@@ -71,13 +73,12 @@ const PlateMagazinePage = () => {
                             </h1>
 
                             <div className="flex shrink-0 flex-wrap gap-[25px] text-[#222222]">
-                                <div className="flex w-[91px] flex-col gap-[5px]">
+                                <div className="flex w-[100px] flex-col gap-[5px]">
                                     <p className="m-0 font-fragment text-[13px] leading-normal">
                                         role
                                     </p>
                                     <div className="font-gantari font-extralight text-[14px] leading-normal">
-                                        <p className="m-0">Designer +</p>
-                                        <p className="m-0">Developer</p>
+                                        <p className="m-0">Visual Designer</p>
                                     </div>
                                 </div>
                                 <div className="flex w-[91px] flex-col gap-[5px]">
@@ -179,14 +180,20 @@ const PlateMagazinePage = () => {
                         <section className="flex w-full flex-col gap-10 py-5">
                             <SectionLabel>defining standards</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
-                                <img
-                                    src={design_system}
-                                    alt="Typography, color, and layout system"
-                                    width={1600}
-                                    height={986}
-                                    decoding="async"
-                                    className={`h-auto w-full ${MEDIA_BORDER}`}
-                                />
+                                <div className="flex w-full min-w-0 flex-col gap-6 md:flex-row md:items-start">
+                                    <img
+                                        src={typeLayoutSystem}
+                                        alt="Typography and layout system"
+                                        decoding="async"
+                                        className={`block h-auto min-w-0 w-full flex-1 ${MEDIA_BORDER}`}
+                                    />
+                                    <img
+                                        src={colorSystem}
+                                        alt="Color system"
+                                        decoding="async"
+                                        className={`block h-auto min-w-0 w-full flex-1 ${MEDIA_BORDER}`}
+                                    />
+                                </div>
                                 <BodyText className="text-[14px] leading-normal">
                                     An in-progress look at building plate.'s design system. I created typography hierarchies, color systems, and kerning guidelines for layouts, and documented use cases for each variable style.
                                 </BodyText>
@@ -194,11 +201,16 @@ const PlateMagazinePage = () => {
                         </section>
 
                         <section className="flex w-full flex-col gap-10 py-5">
-                            <SectionLabel>creating style</SectionLabel>
+                            <SectionLabel>visual & brand design</SectionLabel>
                             <div className="flex w-full flex-col gap-6">
                                 <img
                                     src={nav}
                                     alt="Website navigation screenshot"
+                                    className={`h-auto w-full ${MEDIA_BORDER}`}
+                                />
+                                <img 
+                                    src={articles}
+                                    alt="Articles design screenshot"
                                     className={`h-auto w-full ${MEDIA_BORDER}`}
                                 />
                                 <div className="flex w-full flex-col gap-6 md:flex-row md:items-stretch">
