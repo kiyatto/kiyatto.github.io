@@ -14,18 +14,19 @@ const AboutView = () => {
     <>
       <PixelTrail />
       <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-        <div className="flex w-full flex-col items-center gap-20 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-10 md:py-0 md:pb-12">
+        <div className="flex w-full flex-col items-center gap-20 py-20 md:min-h-0 md:flex-1 md:flex-row md:items-stretch md:gap-[200px] md:py-0 md:pb-12">
           {/* bio + footnotes */}
           <div className="flex w-full min-w-0 flex-col items-start justify-between gap-16 md:min-h-0 md:flex-1 md:gap-0 md:overflow-hidden">
             <div className="flex w-full flex-1 flex-col items-start justify-center gap-10">
               <h1 className="m-0 w-full font-museum text-[clamp(1.5rem,1.1rem+1.2vw,2rem)] font-normal leading-normal text-black">
                 A brief characterization:
               </h1>
-              <div className="flex w-full flex-col gap-5 font-stellar text-[16px] font-light leading-[22px] text-[#222]">
+              <div className="flex w-full flex-col gap-5 font-stellar font-light leading-6 text-[#222]">
                 <p className="m-0">
                   I study computer science and linguistics at the University
                   of Washington, where I play around with computer systems and sketch out new ways to
-                  interface with AI.
+                  interface with AI. My work falls into the gap between an engineer and a designer--on some days I design layouts and
+                  visual flows, on others I write lines of code and break programs, and the rest of the time, I bridge the two together.
                 </p>
                 <p className="m-0">
                   <span>Some things I’ve recently been tinkering with include an interpreter for my very

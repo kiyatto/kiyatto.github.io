@@ -36,26 +36,44 @@ export default function Graph({ onNavigate }) {
         const container = ref.current;
         if (!container) return;
 
-        const observer = new ResizeObserver(entries => {
-            const { width, height } = entries[0].contentRect;
+        const applySize = (width, height) => {
+            if (width < 1 || height < 1) return;
             setSize(prev =>
                 prev.width === width && prev.height === height ? prev : { width, height }
             );
+        };
+
+        const observer = new ResizeObserver(entries => {
+            const { width, height } = entries[0].contentRect;
+            applySize(width, height);
         });
         observer.observe(container);
 
-        return () => observer.disconnect();
+        // observer callbacks can land at 0×0 on the first layout pass;
+        // read the real box after paint instead of inventing a fallback size
+        const frame = requestAnimationFrame(() => {
+            const rect = container.getBoundingClientRect();
+            applySize(rect.width, rect.height);
+        });
+
+        return () => {
+            cancelAnimationFrame(frame);
+            observer.disconnect();
+        };
     }, []);
 
     useEffect(() => {
         const container = ref.current;
-        const width = size.width || container.clientWidth || 575;
-        const height = size.height || container.clientHeight || 560;
-        if (!width || !height) return;
+        const { width, height } = size;
+        if (!container || width < 1 || height < 1) return;
         const scale = Math.min(width, height) / 7;
         const edgeLength = 2.25;
 
-        const nodes = graphObjects.nodes.map(n => ({ ...n }));
+        const nodes = graphObjects.nodes.map(n => ({
+            ...n,
+            x: n.x0 * scale,
+            y: n.y0 * scale,
+        }));
         const edges = graphObjects.edges.map(e => ({ ...e }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -130,16 +148,20 @@ export default function Graph({ onNavigate }) {
             .style("font-family", "Fragment Mono SC")
             .style("pointer-events", "none");
 
-        // measure each label (relative to its node center) so the clamp bounds
-        // account for both the node icon and its text extent
+        // measure each label relative to its node center. getBBox includes the
+        // text x/y attributes, so subtract those — otherwise a fonts.ready
+        // remasure after the first tick treats the node's position as padding
+        // and clamps work/library into the origin.
         const measureLabels = () => {
             label.each(function (d) {
+                const x = Number(this.getAttribute("x")) || 0;
+                const y = Number(this.getAttribute("y")) || 0;
                 const box = this.getBBox();
                 const r = nodeRadius(d);
-                d.padLeft = Math.max(r, -box.x);
-                d.padRight = Math.max(r, box.x + box.width);
-                d.padTop = Math.max(r, -box.y);
-                d.padBottom = Math.max(r, box.y + box.height);
+                d.padLeft = Math.max(r, x - box.x);
+                d.padRight = Math.max(r, box.x + box.width - x);
+                d.padTop = Math.max(r, y - box.y);
+                d.padBottom = Math.max(r, box.y + box.height - y);
             });
         };
         measureLabels();
@@ -208,6 +230,7 @@ export default function Graph({ onNavigate }) {
             label.attr("x", d => d.x).attr("y", d => d.y);
         }
 
+        ticked();
         simulation.on("tick", ticked);
 
         // the custom web font may finish loading after the first measurement,
