@@ -47,10 +47,14 @@ const HomePage = () => {
                                     
                                 </p>
                                 <p className="m-0 w-full font-stellar text-base font-light leading-normal">
-                                Currently taking shelter under a large pile of musty books in the library as I work my way through college. 
                                 Occasional sightings and appearances may feature burnt pancakes, unimagineably cluttered Figma files, and way too many cups of cold brew.
                                 Approach at your own risk.
                                 </p>
+                            </div>
+
+                            <div className="flex gap-4 m-0 w-full font-stellar text-base font-light leading-normal">
+                                <a href="https://www.linkedin.com/in/katreeya-ong/">linkedin</a>
+                                <a href="https://github.com/kiyatto">github</a>
                             </div>
                         </div>
                     </div>

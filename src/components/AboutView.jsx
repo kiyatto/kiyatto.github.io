@@ -41,7 +41,6 @@ const AboutView = () => {
                     reading speculative fiction, and racking up way too many hours on Cyberpunk 2077.
                   </span>
                   <span className="text-sm align-super text-blue-600 hover:underline">2</span>
-                  <span> Or, I may still be toiling away in the library.</span>
                 </p>
               </div>
             </div>
