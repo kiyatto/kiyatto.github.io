@@ -33,10 +33,10 @@ const FILMS = [
 
 const ListSection = ({ title, items }) => (
   <section className="flex shrink-0 flex-col gap-5">
-    <h2 className="m-0 font-fragment text-[18px] font-normal leading-normal text-black">
+    <h2 className="m-0 font-museum font-museum text-2xl leading-normal text-black">
       {title}
     </h2>
-    <ul className="m-0 flex list-none flex-col gap-[13px] p-0 font-gantari text-[14px] font-normal leading-normal text-black">
+    <ul className="m-0 flex list-none flex-col gap-2 p-0 font-stellar text-sm font-normal leading-normal text-black">
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
