@@ -1,7 +1,3 @@
-import Graph from "./Graph.jsx";
-import PixelTrail from "./PixelTrail.jsx";
-import { useNavigate } from "react-router";
-
 const BOOKS = [
   "Martyr! - Kaveh Akbar",
   "Flux - Jinwoo Chang",
@@ -45,40 +41,25 @@ const ListSection = ({ title, items }) => (
 );
 
 /**
- * Library layout mirrors Figma node 1611:2999 —
- * books + films lists on the left, graph on the right.
+ * Library lists — left column only.
+ * Graph, PixelTrail, and the two-column chrome live in GraphLayout.
  */
 const LibraryView = () => {
-  const navigate = useNavigate();
-
   return (
-    <>
-      <PixelTrail />
-      <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-        <div className="flex w-full flex-col items-center gap-10 pt-20 pb-0 md:min-h-0 md:h-full md:flex-1 md:flex-row md:items-center md:gap-[clamp(2.5rem,6vw,5rem)] md:pt-0">
-          {/* lists — page scrolls on mobile; column scrolls on desktop */}
-          <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start md:pt-16">
-            <div className="flex w-full min-w-0 flex-col gap-10 py-10 text-black md:min-h-0 md:h-full md:overflow-hidden">
-              <div className="flex w-full flex-col gap-10 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
-                <ListSection
-                  title="a non-comprehensive list of books i’ve enjoyed"
-                  items={BOOKS}
-                />
-                <ListSection
-                  title="good films from someone who rarely watches movies"
-                  items={FILMS}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* graph — desktop nav; mobile uses Header */}
-          <div className="hidden h-[342px] min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center self-center md:flex">
-            <Graph onNavigate={navigate} />
-          </div>
+    <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start md:pt-16">
+      <div className="flex w-full min-w-0 flex-col gap-10 py-10 text-black md:min-h-0 md:h-full md:overflow-hidden">
+        <div className="flex w-full flex-col gap-10 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto">
+          <ListSection
+            title="a non-comprehensive list of books i’ve enjoyed"
+            items={BOOKS}
+          />
+          <ListSection
+            title="good films from someone who rarely watches movies"
+            items={FILMS}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

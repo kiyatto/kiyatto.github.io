@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 import Header from './components/Header.jsx';
+import GraphLayout from './components/GraphLayout.jsx';
 import HomePage from './components/HomePage.jsx';
 import AboutView from './components/AboutView.jsx';
 import WorkPage from './components/WorkPage.jsx';
@@ -83,12 +84,14 @@ function AppShell() {
         }}
       >
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutView />} />
-          <Route path="/work" element={<WorkPage />} />
+          <Route element={<GraphLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutView />} />
+            <Route path="/work" element={<WorkPage />} />
+            <Route path="/reading-list" element={<LibraryView />} />
+          </Route>
           <Route path="/work/spotify-tags" element={<SpotifyTagsPage />} />
           <Route path="/work/plate-magazine" element={<PlateMagazinePage />} />
-          <Route path="/reading-list" element={<LibraryView />} />
         </Routes>
       </main>
     </div>

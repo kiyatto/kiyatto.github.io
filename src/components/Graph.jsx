@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import * as d3 from "d3";
 
 import coffee from "../assets/graph/coffee.png";
@@ -26,8 +27,11 @@ const routes = {
     library: "/reading-list",
 };
 
-export default function Graph({ onNavigate }) {
+export default function Graph() {
+    const navigate = useNavigate();
     const ref = useRef(null);
+    const posRef = useRef(null);
+    const scaleRef = useRef(null);
     const [size, setSize] = useState({ width: 0, height: 0 });
 
     // keep the drawing in sync with the container size so the graph
@@ -37,9 +41,11 @@ export default function Graph({ onNavigate }) {
         if (!container) return;
 
         const applySize = (width, height) => {
-            if (width < 1 || height < 1) return;
+            const nextW = Math.round(width);
+            const nextH = Math.round(height);
+            if (nextW < 1 || nextH < 1) return;
             setSize(prev =>
-                prev.width === width && prev.height === height ? prev : { width, height }
+                prev.width === nextW && prev.height === nextH ? prev : { width: nextW, height: nextH }
             );
         };
 
@@ -69,11 +75,18 @@ export default function Graph({ onNavigate }) {
         const scale = Math.min(width, height) / 7;
         const edgeLength = 2.25;
 
-        const nodes = graphObjects.nodes.map(n => ({
-            ...n,
-            x: n.x0 * scale,
-            y: n.y0 * scale,
-        }));
+        const prevScale = scaleRef.current;
+        const ratio = prevScale ? scale / prevScale : 1;
+        const prevPos = posRef.current;
+        const nodes = graphObjects.nodes.map(n => {
+            const prev = prevPos?.find(p => p.id === n.id);
+            return {
+                ...n,
+                x: prev ? prev.x * ratio : n.x0 * scale,
+                y: prev ? prev.y * ratio : n.y0 * scale,
+            };
+        });
+        scaleRef.current = scale;
         const edges = graphObjects.edges.map(e => ({ ...e }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
@@ -177,23 +190,38 @@ export default function Graph({ onNavigate }) {
             .force("charge", d3.forceManyBody().strength(-30))
             .velocityDecay(0.3);
 
+        // keep a rebuilt sim at rest if we already had settled positions;
+        // otherwise alpha starts at 1 and the edges shoot out then snap in
+        if (prevPos) simulation.alpha(0);
+
+        // a click still fires drag start/end; only heat the simulation
+        // once the pointer actually moves, so navigating a node does not
+        // fling the edges out and snap them back
+        let didDrag = false;
         function dragstarted(event, d) {
-            simulation.alphaTarget(0.3).restart();
             d.fx = d.x;
             d.fy = d.y;
         }
         function dragged(event, d) {
+            if (!didDrag) {
+                didDrag = true;
+                simulation.alphaTarget(0.3).restart();
+            }
             d.fx = event.x;
             d.fy = event.y;
         }
         function dragended(event, d) {
-            simulation.alphaTarget(0.1).restart();
-            setTimeout(() => simulation.alphaTarget(0), 500);
+            if (didDrag) {
+                simulation.alphaTarget(0.1).restart();
+                setTimeout(() => simulation.alphaTarget(0), 500);
+            }
+            didDrag = false;
             d.fx = null;
             d.fy = null;
         }
 
         const dragBehavior = d3.drag()
+            .clickDistance(4)
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended);
@@ -202,13 +230,13 @@ export default function Graph({ onNavigate }) {
         photoNode.call(dragBehavior);
 
         homeNode.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
+            if (routes[d.id]) navigate(routes[d.id]);
         });
         photoNode.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
+            if (routes[d.id]) navigate(routes[d.id]);
         });
         label.on("click", (event, d) => {
-            if (onNavigate && routes[d.id]) onNavigate(routes[d.id]);
+            if (routes[d.id]) navigate(routes[d.id]);
         });
 
         function ticked() {
@@ -228,6 +256,7 @@ export default function Graph({ onNavigate }) {
             );
 
             label.attr("x", d => d.x).attr("y", d => d.y);
+            posRef.current = nodes.map(n => ({ id: n.id, x: n.x, y: n.y }));
         }
 
         ticked();
@@ -249,7 +278,7 @@ export default function Graph({ onNavigate }) {
             simulation.stop();
             svg.remove();
         };
-    }, [onNavigate, size.width, size.height]);
+    }, [navigate, size.width, size.height]);
 
     return <div ref={ref} className="w-full h-full justify-center items-center" />;
 }

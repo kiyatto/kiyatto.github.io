@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link, useNavigate } from "react-router";
-import Graph from "./Graph.jsx";
-import PixelTrail from "./PixelTrail.jsx";
+import { Link } from "react-router";
 
 import auto_sd from "../assets/work/auto_sd.svg";
 import plateMag from "../assets/work/plate-static-800.jpg";
@@ -258,11 +256,10 @@ const ProjectCard = ({ project }) => {
 };
 
 /**
- * Work layout mirrors Figma node 1598:2294 —
- * sticky design/software toggle, scrollable project list, graph on the right.
+ * Work projects — left column only.
+ * Graph, PixelTrail, and the two-column chrome live in GraphLayout.
  */
 const Work = () => {
-    const navigate = useNavigate();
     const [activeFilter, setActiveFilter] = useState(FILTERS.design);
 
     // Warm the HTTP cache with display-sized case-study stills while this
@@ -292,31 +289,18 @@ const Work = () => {
     const projects = isSoftware ? PROGRAMMING_PROJECTS : DESIGN_PROJECTS;
 
     return (
-        <>
-            <PixelTrail />
-            <div className="relative z-[1] flex min-h-full w-full flex-col items-center justify-center gap-2.5 px-10 md:h-full md:overflow-hidden">
-                <div className="flex w-full flex-col items-center gap-10 pt-20 pb-0 md:min-h-0 md:h-full md:flex-1 md:flex-row md:items-center md:gap-[clamp(2.5rem,6vw,5rem)] md:pt-0">
-                    {/* projects — page scrolls on mobile; column scrolls on desktop */}
-                    <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start md:pt-16">
-                        <div className="flex w-full min-w-0 flex-col py-10 gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
-                            <div className="shrink-0">
-                                <WorkFilter active={activeFilter} onChange={setActiveFilter} />
-                            </div>
-                            <div className="grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto md:grid-cols-2 md:items-start">
-                                {projects.map((project) => (
-                                    <ProjectCard key={project.id} project={project} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* graph — desktop nav; mobile uses Header */}
-                    <div className="hidden h-[342px] min-h-[280px] w-[min(400px,38vw)] max-h-[342px] shrink-0 items-center justify-center self-center md:flex">
-                        <Graph onNavigate={navigate} />
-                    </div>
+        <div className="flex w-full min-w-0 justify-center md:min-h-0 md:flex-1 md:self-stretch md:overflow-hidden md:justify-start md:pt-16">
+            <div className="flex w-full min-w-0 flex-col py-10 gap-2.5 md:min-h-0 md:h-full md:overflow-hidden">
+                <div className="shrink-0">
+                    <WorkFilter active={activeFilter} onChange={setActiveFilter} />
+                </div>
+                <div className="grid w-full grid-cols-1 gap-2.5 md:min-h-0 md:flex-1 md:overflow-x-clip md:overflow-y-auto md:grid-cols-2 md:items-start">
+                    {projects.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
